@@ -1,0 +1,79 @@
+/* BUTTONS */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	border: 1px solid;
+	border-color: $color__border-button;
+	border-radius: 0px;
+	background: $color__background-button;
+	color: rgba(0, 0, 0, 0.8);
+	@include font-size(0.75);
+	line-height: 1;
+	padding: 0.6em 1em 0.4em;
+
+	&:active,
+	&:focus,
+	&:hover {
+		border-color: $color__border-button-focus;
+		outline: none;
+	}
+}
+
+/* FIELDS */
+
+textarea {
+	padding-left: 3px;
+	width: 100%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"] {
+	padding: 3px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+select,
+textarea {
+	color: $color__text-input;
+	border: 1px solid $color__border-input;
+	border-radius: 0px;
+
+	&:focus {
+		color: $color__text-input-focus;
+	}
+}
+
+.woocommerce-ResetPassword {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	.password-input {
+		max-width: 300px;
+		margin: auto;
+	}
+
+	.show-password-input {
+		position: absolute;
+		right: 0.5em;
+		top: 0em;
+		cursor: pointer;
+	}
+}
+
+.lost_password {
+	a {
+		font-weight: 600;
+		color: $color_white_text;
+	}
+}
