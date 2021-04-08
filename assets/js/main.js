@@ -282,25 +282,126 @@ window.addEventListener("DOMContentLoaded", event => {
 	mediaQueryMobile.addListener(handleMobileChange);
 	handleMobileChange(mediaQueryMobile);
 
+	// This is the important part!
+
+	function collapseSection(element) {
+		// get the height of the element's inner content, regardless of its actual size
+		var sectionHeight = element.scrollHeight;
+
+		// temporarily disable all css transitions
+		var elementTransition = element.style.transition;
+		element.style.transition = "";
+
+		// on the next frame (as soon as the previous style change has taken effect),
+		// explicitly set the element's height to its current pixel height, so we
+		// aren't transitioning out of 'auto'
+		requestAnimationFrame(function() {
+			element.style.height = sectionHeight + "px";
+			element.style.transition = elementTransition;
+
+			// on the next frame (as soon as the previous style change has taken effect),
+			// have the element transition to height: 0
+			requestAnimationFrame(function() {
+				element.style.height = 0 + "px";
+			});
+		});
+
+		// mark the section as "currently collapsed"
+		element.setAttribute("data-collapsed", "true");
+	}
+
+	function expandSection(element) {
+		// get the height of the element's inner content, regardless of its actual size
+		var sectionHeight = element.scrollHeight;
+
+		// have the element transition to the height of its inner content
+		element.style.height = sectionHeight + "px";
+
+		// when the next css transition finishes (which should be the one we just triggered)
+		// element.addEventListener("transitionend", function(e) {
+		// 	// remove this event listener so it only gets triggered once
+
+		// 	// remove "height" from the element's inline styles, so it can return to its initial value
+		// 	element.style.height = null;
+
+		// 	element.removeEventListener("transitionend", arguments.callee);
+		// });
+
+		// when the next css transition finishes (which should be the one we just triggered)
+		const removeHeight = function(e) {
+			element.style.height = null;
+		};
+
+		let addSelfDestructingEventListener = (element, eventType, callback) => {
+			let handler = () => {
+				callback();
+				element.removeEventListener(eventType, handler);
+			};
+			element.addEventListener(eventType, handler);
+		};
+
+		addSelfDestructingEventListener(element, "transitionend", removeHeight);
+
+		// mark the section as "currently not collapsed"
+		element.setAttribute("data-collapsed", "false");
+	}
+
 	const desktopMenu = () => {
 		const nav = document.querySelector("#menu-woomenu-1");
 		const allMenuLinks = nav.querySelectorAll("LI");
-		const linksWithChildren = nav.querySelectorAll(".menu-item-has-children a");
+		const linksWithChildren = nav.querySelectorAll(".menu-item-has-children");
 
 		const wooMenu = document.querySelector("#menu-woomenu");
 
+		linksWithChildren.forEach(link => {
+			// const submenu = link.querySelector(".sub-menu");
+			// submenu.setAttribute("data-collapsed", "true");
+			console.log(link);
+			if (link.querySelector(".sub-menu")) {
+				const submenu = link.querySelector(".sub-menu");
+
+				submenu.setAttribute("data-collapsed", "true");
+				console.log(`submenu: ${submenu}`);
+			}
+		});
+
+		// linksWithChildren.forEach(link => {
+		// 	link.nextElementSibling &&
+		// 	link.nextElementSibling.classList.contains("sub-menu")
+		// 		? (link.style.pointerEvents = "none")
+		// 		: "";
+
+		// if (
+		// 	link.nextElementSibling &&
+		// 	link.nextElementSibling.classList.contains("sub-menu")
+		// ) {
+		// 	const submenu = link.querySelector(".sub-menu");
+		// 	submenu.setAttribute("data-collapsed", "true");
+		// }
+		// });
+
 		nav.addEventListener("click", function(e) {
-			console.log(e.target);
+			// console.log(e.target);
 
 			if (e.target.classList.contains("expand-menu-toggle")) {
-				const expandSubMenu = e.target;
-				expandSubMenu.classList.toggle("expand-menu-toggle__toggled");
+				const expandSubMenuTrigger = e.target;
+				expandSubMenuTrigger.classList.toggle("expand-menu-toggle__toggled");
 				// const expandMenuToggled = this.closest("expand-menu-toggle__toggled");
 
-				const submenu = expandSubMenu.nextElementSibling;
-				submenu.classList.toggle("sub-menu--expanded");
+				const submenu = expandSubMenuTrigger.nextElementSibling;
+				// submenu.classList.toggle("sub-menu--expanded");
 				// const submenuExpanded = this.closest(".sub-menu--expanded");
 				// submenuExpanded.classList.remove("sub-menu--expanded");
+
+				var isCollapsed = submenu.getAttribute("data-collapsed") === "true";
+
+				if (isCollapsed) {
+					expandSection(submenu);
+					submenu.setAttribute("data-collapsed", "false");
+					submenu.classList.add("sub-menu--expanded");
+				} else {
+					collapseSection(submenu);
+				}
 			}
 
 			// if (

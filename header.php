@@ -122,9 +122,7 @@ wp_reset_postdata();
 ?>
 		</nav><!-- #site-navigation -->
 
-
 		<div class="header-middle">
-
 
 				<div class="site-branding">
 				<?php
