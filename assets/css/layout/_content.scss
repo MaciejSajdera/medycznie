@@ -8,7 +8,7 @@
 
 	@media screen and (max-width: 992px) {
 		padding: 0em 5% 1em 5%;
-		margin-top: 5em;
+		// margin-top: 5em;
 	}
 
 	@media screen and (min-width: 992px) {
@@ -30,7 +30,7 @@ aside {
 
 	@media screen and (min-width: 992px) {
 		display: block;
-		width: 30%;
+		width: 25%;
 		padding-right: 2em;
 
 		.menu-woomenu-container {
@@ -45,9 +45,11 @@ aside {
 }
 
 .has-aside {
-	@media screen and (min-width: 992px) {
-		&--main {
-			width: 70%;
+	&--main {
+		width: 100%;
+
+		@media screen and (min-width: 992px) {
+			width: 75%;
 		}
 	}
 }
@@ -184,6 +186,7 @@ header.wholesale-header {
 }
 
 .welcome-view {
+	margin-top: 1em;
 	// @media screen and (max-width: 992px) {
 	// 	height: 90vh;
 	// }

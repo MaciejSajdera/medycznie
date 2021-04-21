@@ -36,20 +36,6 @@ global $product;
 	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
 	
-<?php
-    $terms = get_the_terms( $post->ID, 'product_cat' );
-    foreach ( $terms as $term ){
-		$category_name = $term->name;
-		$category_id = $term->parent;
-        $category_thumbnail = get_woocommerce_term_meta($term->term_id, 'thumbnail_id', true);
-		$image = wp_get_attachment_url($category_thumbnail);
-		
-		if ($image && $category_id == 26) :
-		echo '<div class="producent">Producent:<img src="'.$image.'"></div>';
-		endif;
-    }
-?>
-
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 
 </div>

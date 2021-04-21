@@ -4,7 +4,11 @@
 import Navigation from "./navigation.js";
 import skipLinkFocus from "./skip-link-focus-fix.js";
 import smoothscroll from "smoothscroll-polyfill";
-import isElementInViewport from "../js/helperFunctions";
+import {
+	isElementInViewport,
+	addSelfDestructingEventListener,
+	addClassToAllTargetsAbove
+} from "../js/helperFunctions";
 
 window.addEventListener("DOMContentLoaded", event => {
 	const navigation = new Navigation();
@@ -270,12 +274,16 @@ window.addEventListener("DOMContentLoaded", event => {
 	};
 
 	const mediaQueryMobile = window.matchMedia("(max-width: 992px)");
+
+	let mobileMenuWasAlreadyFired = false;
+
 	function handleMobileChange(e) {
 		// Check if the media query is true
-		if (e.matches) {
+		if (e.matches && !mobileMenuWasAlreadyFired) {
 			// Then log the following message to the console
 			console.log("Media Query Mobile Matched!");
 			mobileMenu();
+			mobileMenuWasAlreadyFired = true;
 		}
 	}
 
@@ -318,26 +326,8 @@ window.addEventListener("DOMContentLoaded", event => {
 		element.style.height = sectionHeight + "px";
 
 		// when the next css transition finishes (which should be the one we just triggered)
-		// element.addEventListener("transitionend", function(e) {
-		// 	// remove this event listener so it only gets triggered once
-
-		// 	// remove "height" from the element's inline styles, so it can return to its initial value
-		// 	element.style.height = null;
-
-		// 	element.removeEventListener("transitionend", arguments.callee);
-		// });
-
-		// when the next css transition finishes (which should be the one we just triggered)
 		const removeHeight = function(e) {
 			element.style.height = null;
-		};
-
-		let addSelfDestructingEventListener = (element, eventType, callback) => {
-			let handler = () => {
-				callback();
-				element.removeEventListener(eventType, handler);
-			};
-			element.addEventListener(eventType, handler);
 		};
 
 		addSelfDestructingEventListener(element, "transitionend", removeHeight);
@@ -356,7 +346,7 @@ window.addEventListener("DOMContentLoaded", event => {
 		linksWithChildren.forEach(link => {
 			// const submenu = link.querySelector(".sub-menu");
 			// submenu.setAttribute("data-collapsed", "true");
-			console.log(link);
+			// console.log(link);
 			if (link.querySelector(".sub-menu")) {
 				const submenu = link.querySelector(".sub-menu");
 
@@ -364,6 +354,8 @@ window.addEventListener("DOMContentLoaded", event => {
 				console.log(`submenu: ${submenu}`);
 			}
 		});
+
+		// console.log(currentMenuItem.closest(".sub-menu"));
 
 		// linksWithChildren.forEach(link => {
 		// 	link.nextElementSibling &&
@@ -386,8 +378,6 @@ window.addEventListener("DOMContentLoaded", event => {
 			if (e.target.classList.contains("expand-menu-toggle")) {
 				const expandSubMenuTrigger = e.target;
 				expandSubMenuTrigger.classList.toggle("expand-menu-toggle__toggled");
-				// const expandMenuToggled = this.closest("expand-menu-toggle__toggled");
-
 				const submenu = expandSubMenuTrigger.nextElementSibling;
 				// submenu.classList.toggle("sub-menu--expanded");
 				// const submenuExpanded = this.closest(".sub-menu--expanded");
@@ -403,41 +393,227 @@ window.addEventListener("DOMContentLoaded", event => {
 					collapseSection(submenu);
 				}
 			}
-
-			// if (
-			// 	e.target.classList.contains("mobile-list-title") ||
-			// 	(e.target.parentNode &&
-			// 		e.target.parentNode.classList.contains("mobile-list-title"))
-			// ) {
-			// 	console.log("category");
-			// 	const categoryToggleMobile = document.querySelector(
-			// 		".mobile-list-title"
-			// 	);
-			// 	const categoryList = document.querySelector(".menu-woomenu-container");
-			// 	const pageMenu = document.querySelector("#menu-menu-1");
-			// 	const shopMenu = document.querySelector(".shop-menu");
-			// 	const siteNav = document.querySelector("#site-navigation");
-
-			// 	categoryList.classList.toggle("category-menu-toggled");
-			// 	pageMenu.classList.toggle("mobile-header-middle-hidden");
-			// 	shopMenu.classList.toggle("show-categories-menu");
-
-			// 	categoryToggleMobile.classList.toggle("mobile-list-title-toggled");
-			// } else {
-			// 	console.log("returning");
-			// 	return;
-			// }
 		});
+
+		//AT ARCHIVE TEMPLATE
+
+		const currentMenuItem = nav.querySelector(".current-menu-item");
+		const currentCategoryAncestor = nav.querySelector(".current-menu-ancestor");
+
+		//if current menu item is an ancestor with no submenu
+		if (
+			currentMenuItem &&
+			!currentCategoryAncestor &&
+			!currentMenuItem.querySelector(".sub-menu")
+		) {
+			console.log("no submenu");
+			return;
+		}
+
+		//if is an ancestor with submenu
+		if (currentMenuItem && !currentCategoryAncestor) {
+			const currentSubMenu = currentMenuItem.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+
+			currentSubMenu.setAttribute("data-collapsed", "false");
+
+			const currentExpandMenuToggle = currentMenuItem.querySelector(
+				".expand-menu-toggle"
+			);
+
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			// console.log("test3");
+		}
+
+		//if is nested and has its own submenu
+
+		if (
+			currentMenuItem &&
+			currentMenuItem.classList.contains("menu-item-has-children") &&
+			currentCategoryAncestor
+		) {
+			const directAncestor = currentMenuItem.closest(".current-menu-ancestor");
+			console.log(directAncestor);
+
+			const currentExpandMenuToggle = directAncestor.querySelector(
+				".expand-menu-toggle"
+			);
+			const currentSubMenu = directAncestor.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+			currentSubMenu.setAttribute("data-collapsed", "false");
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			const childrenSubMenu = currentMenuItem.querySelector(".sub-menu");
+			const childrenExpandMenuToggle = currentMenuItem.querySelector(
+				".expand-menu-toggle"
+			);
+
+			childrenSubMenu.classList.add("sub-menu--expanded");
+			childrenSubMenu.setAttribute("data-collapsed", "false");
+			childrenExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+		}
+
+		//if is nested and doesn't have its own submenu
+
+		if (
+			currentMenuItem &&
+			!currentMenuItem.classList.contains("menu-item-has-children") &&
+			currentCategoryAncestor
+		) {
+			const directAncestor = currentMenuItem.closest(".current-menu-ancestor");
+			const currentExpandMenuToggle = directAncestor.querySelector(
+				".expand-menu-toggle"
+			);
+			const currentSubMenu = directAncestor.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+			currentSubMenu.setAttribute("data-collapsed", "false");
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			const grandparentAncestor = directAncestor.parentElement.closest(
+				".menu-parent-link"
+			);
+
+			if (grandparentAncestor) {
+				const grandparentSubMenu = grandparentAncestor.querySelector(
+					".sub-menu"
+				);
+				const grandparentExpandMenuToggle = grandparentAncestor.querySelector(
+					".expand-menu-toggle"
+				);
+
+				grandparentSubMenu.classList.add("sub-menu--expanded");
+				grandparentSubMenu.setAttribute("data-collapsed", "false");
+				grandparentExpandMenuToggle.classList.add(
+					"expand-menu-toggle__toggled"
+				);
+			}
+		}
+
+		//AT SINGLE PRODUCT TEMPLATE
+
+		const currentProductParent = nav.querySelector(".current-product-parent");
+		const currentProductAncestor = nav.querySelector(
+			".current-product-ancestor"
+		);
+
+		//if current menu item is an ancestor with no submenu
+		if (
+			currentProductParent &&
+			!currentProductAncestor &&
+			!currentProductParent.querySelector(".sub-menu")
+		) {
+			console.log("no submenu");
+			return;
+		}
+
+		//if is an ancestor with submenu
+		if (currentProductParent && !currentProductAncestor) {
+			const currentSubMenu = currentProductParent.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+
+			currentSubMenu.setAttribute("data-collapsed", "false");
+
+			const currentExpandMenuToggle = currentProductParent.querySelector(
+				".expand-menu-toggle"
+			);
+
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			// console.log("test3");
+		}
+
+		//if is nested and has its own submenu
+
+		if (
+			currentProductParent &&
+			currentProductParent.classList.contains("menu-item-has-children") &&
+			currentProductAncestor
+		) {
+			const directAncestor = currentProductParent.closest(
+				".current-product-ancestor"
+			);
+			console.log(directAncestor);
+
+			const currentExpandMenuToggle = directAncestor.querySelector(
+				".expand-menu-toggle"
+			);
+			const currentSubMenu = directAncestor.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+			currentSubMenu.setAttribute("data-collapsed", "false");
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			const childrenSubMenu = currentProductParent.querySelector(".sub-menu");
+			const childrenExpandMenuToggle = currentProductParent.querySelector(
+				".expand-menu-toggle"
+			);
+
+			childrenSubMenu.classList.add("sub-menu--expanded");
+			childrenSubMenu.setAttribute("data-collapsed", "false");
+			childrenExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+		}
+
+		//if is nested and doesn't have its own submenu
+
+		if (
+			currentProductParent &&
+			!currentProductParent.classList.contains("menu-item-has-children") &&
+			currentProductAncestor
+		) {
+			const directAncestor = currentProductParent.closest(
+				".menu-item-has-children"
+			);
+
+			const currentExpandMenuToggle = directAncestor.querySelector(
+				".expand-menu-toggle"
+			);
+			const currentSubMenu = directAncestor.querySelector(".sub-menu");
+
+			currentSubMenu.classList.add("sub-menu--expanded");
+			currentSubMenu.setAttribute("data-collapsed", "false");
+			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+
+			const grandparentAncestor = directAncestor.parentElement.closest(
+				".menu-parent-link"
+			);
+
+			if (grandparentAncestor) {
+				const grandparentSubMenu = grandparentAncestor.querySelector(
+					".sub-menu"
+				);
+				const grandparentExpandMenuToggle = grandparentAncestor.querySelector(
+					".expand-menu-toggle"
+				);
+
+				grandparentSubMenu.classList.add("sub-menu--expanded");
+				grandparentSubMenu.setAttribute("data-collapsed", "false");
+				grandparentExpandMenuToggle.classList.add(
+					"expand-menu-toggle__toggled"
+				);
+			}
+		}
 	};
 
 	const mediaQueryDesktop = window.matchMedia("(min-width: 992px)");
+
+	const asideDesktopMenu = document.querySelector("#aside-menu");
+	let desktopMenuWasAlreadyFired = false;
+
 	function handleDesktopChange(e) {
 		// Check if the media query is true
-		if (e.matches) {
+		if (asideDesktopMenu && e.matches && !desktopMenuWasAlreadyFired) {
 			console.log("Media Query Desktop Matched!");
+
 			desktopMenu();
+			desktopMenuWasAlreadyFired = true;
 		}
 	}
+
 	mediaQueryDesktop.addListener(handleDesktopChange);
 	handleDesktopChange(mediaQueryDesktop);
 

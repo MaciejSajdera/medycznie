@@ -11,14 +11,14 @@
         <span id="shortcode_1_title" class="hide-element"><?= get_field('product_showcase_shortcode_1_title', $post->ID) ?></span>
         <?= get_field('product_showcase_shortcode_1', $post->ID) ?>
         </div>
-        <!-- <div class="swiper-slide">
+        <div class="swiper-slide">
         <span id="shortcode_2_title" class="hide-element"><?= get_field('product_showcase_shortcode_2_title', $post->ID) ?></span>
         <?= get_field('product_showcase_shortcode_2', $post->ID) ?>
-        </div> -->
-        <div class="swiper-slide">
+        </div> 
+        <!-- <div class="swiper-slide">
         <span id="shortcode_3_title" class="hide-element"><?= get_field('product_showcase_shortcode_3_title', $post->ID) ?></span>
         <?= get_field('product_showcase_shortcode_3', $post->ID) ?>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- link below visible on mobile only -->

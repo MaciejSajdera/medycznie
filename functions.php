@@ -45,11 +45,9 @@ if ( ! function_exists( 'evenus_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus(
 			array(
-				'menu-1' => esc_html__( 'Primary', 'evenus' ),
-				'wooshop' => esc_html__( 'Shop', 'evenus' ),
-				'wooshop-category-grid' => esc_html__( 'Shop Category Grid', 'evenus' ),
-				'cart' => esc_html__( 'Seperate', 'evenus' ),
-				'footer-menu' => esc_html__( 'Footer', 'evenus' )
+				'menu-1' => esc_html__( 'Primary', 'medycznie' ),
+				'wooshop' => esc_html__( 'Shop', 'medycznie' ),
+				'special-categories-menu' => esc_html__( 'Special Categories Menu', 'medycznie' ),
 			)
 		);
 
@@ -202,8 +200,8 @@ function is_blog () {
 
 
 function wpb_add_google_fonts() {
-	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap', false );
-	wp_enqueue_style( 'wpb-google-fonts2', 'https://fonts.googleapis.com/css2?family=K2D:wght@300;700', false ); 
+	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;0,700;1,400&display=swap', false );
+	// wp_enqueue_style( 'wpb-google-fonts2', 'https://fonts.googleapis.com/css2?family=K2D:wght@300;700', false ); 
 }
 add_action( 'wp_enqueue_scripts', 'wpb_add_google_fonts' );
 
@@ -784,6 +782,8 @@ function add_percentage_to_sale_badge( $html, $post, $product ) {
   return '<span class="onsale sales-badge">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
 }
 
+
+
 // Alter WooCommerce View Cart Text
 add_filter( 'gettext', function( $translated_text ) {
     if ( 'View cart' === $translated_text ) {
@@ -795,11 +795,22 @@ add_filter( 'gettext', function( $translated_text ) {
 //badge 'new' for recent products
 add_action( 'woocommerce_before_shop_loop_item_title', 'bbloomer_new_badge_shop_page', 3 );
           
+// function bbloomer_new_badge_shop_page() {
+//    global $product;
+// //    $newness_days = 2;
+// //    $created = strtotime( $product->get_date_created() );
+//    if ( has_term( 39, 'product_cat' ) ) {
+//       echo '<span class="itsnew">' . esc_html__( 'Nowość!', 'woocommerce' ) . '</span>';
+//    }
+// }
+
+add_action( 'woocommerce_before_shop_loop_item_title', 'bbloomer_new_badge_shop_page', 3 );
+          
 function bbloomer_new_badge_shop_page() {
    global $product;
-//    $newness_days = 2;
-//    $created = strtotime( $product->get_date_created() );
-   if ( has_term( 39, 'product_cat' ) ) {
+   $newness_days = 10;
+   $created = strtotime( $product->get_date_created() );
+   if ( ( time() - ( 60 * 60 * 24 * $newness_days ) ) < $created ) {
       echo '<span class="itsnew">' . esc_html__( 'Nowość!', 'woocommerce' ) . '</span>';
    }
 }
@@ -823,18 +834,60 @@ function bbloomer_best_badge_shop_page() {
 // add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_coupon_form', 5 );
 
 
-//single product layout
+//SINGLE PRODUCT LAYOUT
+
+//Price
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
+
+
+//Related products && Upsell products
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+add_action('woocommerce_after_single_product', 'woocommerce_upsell_display', 15 );
+add_action('woocommerce_after_single_product', 'woocommerce_output_related_products', 20 );
+
+//Producent
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 20 );
+
 
 // remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 // add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 26 );
 
-add_action( 'woocommerce_before_add_to_cart_quantity', 'bbloomer_echo_qty_front_add_cart' );
- 
+
+// define the woocommerce_get_price_html callback 
+function filter_woocommerce_get_price_html( $price, $instance ) { 
+    // make filter magic happen here... 
+	global $product;
+
+	if ( is_singular() && is_product() && is_single( $product->get_id() )) {
+
+		$price .= 'Nasza cena: ';
+	}
+
+    return $price;
+}; 
+         
+// add the filter 
+add_filter( 'woocommerce_get_price_html', 'filter_woocommerce_get_price_html', 10, 2 ); 
+
+
 function bbloomer_echo_qty_front_add_cart() {
- echo '<div class="qty">Ilość: </div>'; 
+ echo '<div class="qty-label">Ilość: </div>'; 
 }
+add_action( 'woocommerce_before_add_to_cart_button', 'bbloomer_echo_qty_front_add_cart' );
+
+function my_display_quantity_minus() {
+   echo '<button type="button" class="minus"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13H5v-2h14v2z"/></svg></button>';
+}
+add_action( 'woocommerce_before_add_to_cart_quantity', 'my_display_quantity_minus' );
+
+function my_display_quantity_plus() {
+   echo '<button type="button" class="plus"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>';
+}
+add_action( 'woocommerce_after_add_to_cart_quantity', 'my_display_quantity_plus' );
 
 // function get_free_shipping_minimum($zone_name = 'Poland') {
 // 	if ( ! isset( $zone_name ) ) return null;
@@ -977,11 +1030,14 @@ if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
 			}
 
         if ( has_post_thumbnail() && $on_cart_page === false ) {
-			$src = get_the_post_thumbnail_url( $post->ID, $size );
 			
-            $output .= '<img class="lazy my-lazy-img" src="'. content_url().'/uploads/placeholder-white.png" data-src="' . $src . '" data-srcset="' . $src . '" alt="'.get_the_title().'">';
+			$src = str_replace( ' ', '%20', get_the_post_thumbnail_url( $post->ID, $size ) );
+			
+            $output .= '<img class="lazy my-lazy-img" src="'. content_url().'/uploads/woocommerce-placeholder-300x300.png" data-src="' . $src . '" data-srcset="' . $src . '" alt="'.get_the_title().'">';
 		} elseif ($on_cart_page === true ) {
-            $src = get_the_post_thumbnail_url( $post->ID, $size );
+			$src = str_replace( ' ', '%20', get_the_post_thumbnail_url( $post->ID, $size ) );
+
+
             $output .= '<img class="cross-sell-img" src="'.  $src . '" alt="'.get_the_title().'">';
 		} else {
              $output .= wc_placeholder_img( $size );
@@ -990,6 +1046,14 @@ if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
         return $output;
     }
 }
+
+// function mynamespace_encode_img_src($sources){
+//         foreach($sources as $source => $values ){
+//                 $sources[$source]['url'] = str_replace( ' ', '%20', $values['url'] );
+//         }
+//         return $sources;
+// }
+// add_filter( 'woocommerce_get_product_thumbnail', 'mynamespace_encode_img_src', 10, 1 );
 
 /**
  * Hide shipping rates when free shipping is available.
@@ -1064,6 +1128,10 @@ add_filter( 'woocommerce_dpd_disable_cache_wsdl', '__return_true' );
 
 // }
 
+//force number of products per row
+
+add_filter('loop_shop_columns',function(){return 3;});
+
 function footer_copyright() {
 	global $wpdb;
 	$copyright_dates = $wpdb->get_results("
@@ -1086,6 +1154,16 @@ function footer_copyright() {
 	return $output;
 }
 
+add_filter( 'woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs' );
+function jk_woocommerce_breadcrumbs() {
+return array(
+        'wrap_before' => '<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">',
+		'delimiter'   => '<span class="woocommerce-breadcrumb__separator">/</span>',
+        'wrap_after'  => '</nav>',
+        'before'      => ' ',
+        'after'       => ' ',
+    );
+}
 
 /**
  * Implement the Custom Header feature.

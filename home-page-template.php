@@ -10,42 +10,53 @@ global $post;
 
 get_header();
 ?>
-	<aside id="aside-menu">
-	<?php
-			get_template_part( 'template-parts/shop-menu', 'page' );
-		?>
-	</aside>
 
-	<main id="primary" class="home-main has-aside--main">
-		<div class="welcome-view">
-		<?php
-			get_template_part( 'template-parts/home-carousel', 'page' );
-		?>
+	<div class="home-main">
 
-		<?php
-			get_template_part( 'template-parts/home-advantages', 'page' );
-		?>
+		<div class="home-main__top-wrapper">
+
+			<?php
+				get_template_part( 'template-parts/shop-menu', 'page' );
+			?>
+
+			<div class="has-aside--main">
+
+				<?php
+					get_template_part( 'template-parts/special-categories-menu', 'page' );
+				?>
+
+				<div class="welcome-view">
+				<?php
+					get_template_part( 'template-parts/home-carousel', 'page' );
+				?>
+
+				<?php
+					get_template_part( 'template-parts/home-advantages', 'page' );
+				?>
+				</div>
+				
+				<?php
+					get_template_part( 'template-parts/home-categories-display', 'page' );
+				?>
+
+				<?php
+					// get_template_part( 'template-parts/home-categories-descriptions-random', 'page' );
+				?>
+
+			</div>
+
 		</div>
-		
+
 		<?php
-			get_template_part( 'template-parts/home-categories-display', 'page' );
+				get_template_part( 'template-parts/home-brands-showcase', 'page' );
 		?>
 
 		<?php
-			// get_template_part( 'template-parts/home-categories-descriptions-random', 'page' );
+				get_template_part( 'template-parts/home-content-blog', 'page' );
 		?>
 
-		<?php
-			get_template_part( 'template-parts/home-brands-showcase', 'page' );
-		?>
 
-		<?php
-			get_template_part( 'template-parts/home-content-blog', 'page' );
-		?>
-
-		</section>
-
-	</main>
+</div>
 
 	
 <?php

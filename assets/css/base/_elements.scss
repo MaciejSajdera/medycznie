@@ -61,8 +61,9 @@ a {
 	&:hover,
 	&:focus,
 	&:active {
-		color: $color__link-hover;
+		color: $color__link-hover !important;
 		outline: 0 !important;
+		transition: all 0.3s ease-in-out;
 	}
 
 	&:focus {
@@ -120,12 +121,13 @@ table {
 	opacity: 1;
 
 	.preloader-content {
-		background: url(../dist/img/venus-logo-black.png) no-repeat;
+		background: url(../dist/img/medycznie-logo-kolor.jpg) no-repeat;
 		display: block;
-		height: 10em;
-		width: 10em;
+		height: 20em;
+		width: 20em;
 		background-size: contain;
 		animation: mymove 1.5s infinite;
+		background-position: center;
 	}
 }
 
@@ -482,7 +484,7 @@ div.woof_info_popup {
 	transition: all 0.5s ease;
 
 	&__svg-wrapper {
-		background-color: $color_baby_blue;
+		background-color: $color__background-main-theme;
 		border: none;
 		border-radius: 50%;
 		color: white;
@@ -533,15 +535,15 @@ div.woof_info_popup {
 	&__icon {
 		display: flex;
 		justify-content: center;
-		background-color: $color_baby_blue;
+		// background-color: $color_baby_blue;
 		border: none;
 		border-radius: 50%;
 		color: white;
 		cursor: pointer;
-		line-height: 48px;
-		width: 48px;
-		height: 48px;
-		margin-bottom: 1em;
+		line-height: 30px;
+		width: 30px;
+		height: 30px;
+		// margin-bottom: 1em;
 		transition: all 0.3s ease-in-out;
 
 		&:hover {
@@ -552,10 +554,10 @@ div.woof_info_popup {
 			margin: 2em;
 		}
 	}
+}
 
-	.fixed-ig-icon {
-		padding: 9px;
-	}
+.fixed-ig-icon {
+	padding: 3px;
 }
 
 .grecaptcha-badge {

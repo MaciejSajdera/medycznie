@@ -1,5 +1,5 @@
 footer#colophon {
-	height: 45em;
+	// height: 45em;
 	width: 100%;
 	// margin: 2em auto;
 	color: white;
@@ -43,21 +43,21 @@ footer#colophon {
 			height: 50%;
 		}
 
-		&:before {
-			content: url(../dist/img/venus-logo-fb-xs.png);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100vw;
-			height: 250px;
-			border-radius: 100%;
-			border-top-left-radius: 0;
-			border-top-right-radius: 0;
-			background-color: #fff;
-			position: absolute;
-			left: 50%;
-			transform: translate(-50%, 0);
-		}
+		// &:before {
+		// 	content: url(../dist/img/venus-logo-fb-xs.png);
+		// 	display: flex;
+		// 	align-items: center;
+		// 	justify-content: center;
+		// 	width: 100vw;
+		// 	height: 250px;
+		// 	border-radius: 100%;
+		// 	border-top-left-radius: 0;
+		// 	border-top-right-radius: 0;
+		// 	background-color: #fff;
+		// 	position: absolute;
+		// 	left: 50%;
+		// 	transform: translate(-50%, 0);
+		// }
 	}
 
 	.site-info {
@@ -84,7 +84,7 @@ footer#colophon {
 			display: flex;
 			justify-content: space-between;
 			width: 80%;
-			margin: auto auto 2em;
+			margin: 2em auto;
 
 			.col {
 				margin-right: 2em;

@@ -16,9 +16,6 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 	<footer id="colophon" class="site-footer">
 
 		<div class="page">
-			<div class="footer-top">
-
-			</div>
 			<div class="site-info">
 
 				<!-- <div class="fixed-icons">
@@ -30,10 +27,10 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 					
 					<div class="col col-1">
 					<h3>Siedziba</h3>
-					<p>Hurtownia fryzjersko kosmetyczna Venus</p>
-					<p>Plac Moniuszki 5, 25-334 Kielce</p>
-					<p>dział obsługi Klienta: 667 727 494</p>
-					<p>sklep@e-venus.pl</p>
+					<p>Adres 1</p>
+					<p>Adres 2</p>
+					<p>dział obsługi Klienta: +48 123 456 789</p>
+					<p>mail@sklep.pl</p>
 
 					</div>
 
@@ -41,8 +38,8 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 					<!-- <div id="instagram-feed-demo" class="instagram_feed"></div> -->
 					<h3>Pomoc</h3>
 					<p><a class="terms-link" href="<?php echo get_permalink(3) ?>">Polityka prywatności</a></p>
-					<p><a class="terms-link" href="<?php echo get_permalink(3129) ?>">Regulamin sklepu internetowego</a></p>
-					<p><a class="terms-link" href="<?php echo get_permalink(3587) ?>">Dostawa</a></p>
+					<p><a class="terms-link" href="<?php echo get_permalink(213) ?>">Regulamin sklepu internetowego</a></p>
+					<p><a class="terms-link" href="<?php echo get_permalink(216) ?>">Dostawa</a></p>
 					<p><a class="terms-link" href="<?php echo get_permalink(3589) ?>">Reklamacje i zwroty</a></p>
 					</div>
 
@@ -69,13 +66,12 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 				</div> -->
 
 				<div class="footer-bottom">
-				<?php echo footer_copyright(); ?> Copyright © Venus
+				<?php echo footer_copyright(); ?> Copyright © 
 				</div>
 				<div class="icons-info">
 					Icons made by:
 					<a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 					<a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-					
 				</div>
 
 			</div><!-- .site-info -->
