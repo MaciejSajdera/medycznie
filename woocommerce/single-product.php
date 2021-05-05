@@ -21,10 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header( 'shop' ); ?>
 
+
+
+
 	<?php
 	$user = wp_get_current_user();
 	$wholesale_role = array('wholesale_customer');
 	
+	if( array_intersect($wholesale_role, $user->roles ) ) {
+		echo '
+		<style>
+			.stock {
+				display: block!important;
+			}
+		</style>
+		';
+	};
 		/**
 		 * woocommerce_before_main_content hook.
 		 *
@@ -33,7 +45,6 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_before_main_content' );
 	?>
-
 
 		<?php while ( have_posts() ) : ?>
 			<?php the_post(); ?>

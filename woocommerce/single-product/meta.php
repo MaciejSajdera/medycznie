@@ -36,6 +36,24 @@ global $product;
 	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
 	
+<?php
+    $terms = get_the_terms( $post->ID, 'producent' );
+
+	if ($terms) {
+		foreach ( $terms as $term ){
+			$producent_name = $term->name;
+			$imageURL = get_field("producent_logo", $term);
+			$producent_link = get_term_link( $term );
+
+			
+			if ($imageURL) :
+			echo '<div class="producent">Producent: <a href="'.$producent_link.'"><img src="'.$imageURL.'" alt="'.$producent_name.'"></a></div>';
+			endif;
+		}
+	}
+
+?>
+
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 
 </div>

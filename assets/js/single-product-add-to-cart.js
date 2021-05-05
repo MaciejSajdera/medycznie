@@ -40,7 +40,10 @@ window.addEventListener("DOMContentLoaded", event => {
 		const min = parseFloat(qty.getAttribute("min"));
 		const step = parseFloat(qty.getAttribute("step"));
 
-		if (e.target.closest("BUTTON").classList.contains("plus")) {
+		if (
+			e.target.closest("BUTTON") &&
+			e.target.closest("BUTTON").classList.contains("plus")
+		) {
 			singleAddToCartWithQty.classList.remove("added");
 
 			if (max && max <= val) {
@@ -50,7 +53,10 @@ window.addEventListener("DOMContentLoaded", event => {
 			}
 		}
 
-		if (e.target.closest("BUTTON").classList.contains("minus")) {
+		if (
+			e.target.closest("BUTTON") &&
+			e.target.closest("BUTTON").classList.contains("minus")
+		) {
 			singleAddToCartWithQty.classList.remove("added");
 
 			if (min && min >= val) {
@@ -58,6 +64,8 @@ window.addEventListener("DOMContentLoaded", event => {
 			} else if (val > 1) {
 				qty.value = val - step;
 			}
+		} else {
+			return;
 		}
 
 		singleAddToCartWithQty.setAttribute("data-quantity", qty.value);

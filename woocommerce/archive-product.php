@@ -166,7 +166,7 @@ do_action( 'woocommerce_before_main_content' );
 
 				<p id="toggle-filters">Filtry <span class="filters-icon"></span></p>
 
-				<?= do_shortcode('[woof columns="3"]') ?>
+				<?= do_shortcode('[woof]') ?>
 
 				
 

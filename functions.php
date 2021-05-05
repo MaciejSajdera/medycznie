@@ -718,9 +718,6 @@ function woocommerce_header_add_to_cart_fragment( $fragments ) {
 	return $fragments;
 }
 
-
-// remove_action('woocommerce_before_cart', 'woocommerce_output_all_notices', 10);
-
 // Remove trash icon and then add a new.
 function kia_cart_item_remove_link( $link, $cart_item_key ) {
     return str_replace( '×', '<span class="cart-remove-icon"></span>', $link );
