@@ -15,7 +15,7 @@ get_header();
 			<header class="entry-header common-template">
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 			</header><!-- .entry-header -->
-			<?php evenus_post_thumbnail();
+			<?php medycznie_post_thumbnail();
 
 		$orderby = 'desc';
 		$hide_empty = false ;

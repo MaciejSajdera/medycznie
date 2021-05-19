@@ -6,7 +6,7 @@
 	}
 
 	@media screen and (min-width: 992px) {
-		height: 35vh;
+		height: 40vh;
 		margin-bottom: 0em;
 	}
 
@@ -142,7 +142,7 @@
 	}
 
 	.swiper-pagination-categories {
-		margin: 1em 0 3em;
+		margin: 1.5em 0 1.5em;
 		position: static;
 		padding-top: 0.25em;
 		display: flex;
@@ -194,6 +194,7 @@
 
 	ul.products {
 		padding: 1em;
+		padding-top: 0;
 		@media screen and (max-width: 992px) {
 			padding: 2em 1em 1em 1em;
 		}

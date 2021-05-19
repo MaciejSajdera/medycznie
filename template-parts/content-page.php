@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package evenus
+ * @package medycznie
  */
 
 ?>
@@ -13,7 +13,7 @@
 	<header class="entry-header common-template">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
-	<?php evenus_post_thumbnail(); ?>
+	<?php medycznie_post_thumbnail(); ?>
 
 	<div class="entry-content">
 		<?php
@@ -21,7 +21,7 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'evenus' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'medycznie' ),
 				'after'  => '</div>',
 			)
 		);
@@ -35,7 +35,7 @@
 				sprintf(
 					wp_kses(
 						/* translators: %s: Name of current post. Only visible to screen readers */
-						__( 'Edit <span class="screen-reader-text">%s</span>', 'evenus' ),
+						__( 'Edit <span class="screen-reader-text">%s</span>', 'medycznie' ),
 						array(
 							'span' => array(
 								'class' => array(),

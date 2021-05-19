@@ -10,9 +10,10 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+	<!-- <header class="entry-header common-template">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+	</header> -->
+	<!-- .entry-header -->
 	<?php medycznie_post_thumbnail(); ?>
 
 	<div class="entry-content">

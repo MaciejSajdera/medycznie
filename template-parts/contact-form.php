@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package evenus
+ * @package medycznie
  */
 ?>
 <section class="contact-form blog-posts-header">

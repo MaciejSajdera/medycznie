@@ -10,6 +10,18 @@ footer#colophon {
 		text-align: left;
 	}
 
+	@media screen and (min-width: 992px) {
+		padding: 0em 5% 0em 5%;
+	}
+
+	@media screen and (min-width: 1200px) {
+		padding: 0em 10% 0em 10%;
+	}
+
+	@media screen and (min-width: 1600px) {
+		padding: 0em 15% 0em 15%;
+	}
+
 	background: $color__background-dark-navy;
 
 	.page {
@@ -83,8 +95,8 @@ footer#colophon {
 		@media screen and (min-width: 992px) {
 			display: flex;
 			justify-content: space-between;
-			width: 80%;
-			margin: 2em auto;
+			// width: 80%;
+			margin: 2em 0;
 
 			.col {
 				margin-right: 2em;
@@ -149,7 +161,7 @@ footer#colophon {
 		&:before {
 			content: "";
 			height: 1px;
-			width: 80%;
+			width: 100%;
 			background-color: white;
 			position: absolute;
 			top: -0.5em;

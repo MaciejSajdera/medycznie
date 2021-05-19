@@ -34,7 +34,6 @@ if ( post_password_required() ) {
 
 <div class="woocommerce-archive__wrapper">
 
-
 		<?php
 			get_template_part( 'template-parts/shop-menu', 'page' );
 		?>
@@ -42,6 +41,14 @@ if ( post_password_required() ) {
 	<div class="woocommerce-archive__right-column">
 
 		<div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
+		
+			<div class="product_title__wrapper">
+
+				<?php
+					do_action( 'my_woocommerce_before_single_product' );
+				?>
+
+			</div>
 
 			<?php
 			/**
@@ -54,7 +61,21 @@ if ( post_password_required() ) {
 			?>
 
 			<div class="summary entry-summary">
+
 				<?php
+
+				/** Product Info Table */
+
+				$availbility_status;
+
+				if($product->is_in_stock()) {
+					$availbility_status = '<span class="product-available">Dostępne</span>';
+				} else {
+					$availbility_status = '<span class="product-notavailable">Niedostępne</span>';
+				}
+
+				echo '<div class="product-info"><div class="product-info__label">Dostępność:</div><div class="product-info__value">'.$availbility_status.'</div></div>';
+
 				/**
 				 * Hook: woocommerce_single_product_summary.
 				 *
@@ -87,4 +108,4 @@ if ( post_password_required() ) {
 	</div>	<!-- woocommerce-archive__right-column -->
 </div> <!-- woocommerce-archive__wrapper -->
 
-<?php do_action( 'woocommerce_after_single_product' ); ?>
+<?php do_action( 'woocommerce_after_single_product' );

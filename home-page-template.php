@@ -31,7 +31,7 @@ get_header();
 				?>
 
 				<?php
-					get_template_part( 'template-parts/home-advantages', 'page' );
+					// get_template_part( 'template-parts/home-advantages', 'page' );
 				?>
 				</div>
 				

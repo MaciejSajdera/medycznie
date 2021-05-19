@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package evenus
+ * @package medycznie
  */
 
 ?>
@@ -22,8 +22,8 @@
 			?>
 			<div class="entry-meta">
 				<?php
-				evenus_posted_on();
-				evenus_posted_by();
+				medycznie_posted_on();
+				medycznie_posted_by();
 				?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
@@ -38,7 +38,7 @@
 			sprintf(
 				wp_kses(
 					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'evenus' ),
+					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'medycznie' ),
 					array(
 						'span' => array(
 							'class' => array(),
@@ -51,13 +51,13 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'evenus' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'medycznie' ),
 				'after'  => '</div>',
 			)
 		);
 		?>
 		</div>
-		<?php evenus_post_thumbnail(); ?>
+		<?php medycznie_post_thumbnail(); ?>
 	</div><!-- .entry-content -->
 
 	<div class="post-navigation">
@@ -74,6 +74,6 @@
 	</div>
 
 	<footer class="entry-footer">
-		<?php evenus_entry_footer(); ?>
+		<?php medycznie_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

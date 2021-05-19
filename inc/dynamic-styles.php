@@ -2,13 +2,13 @@
 /**
  * Styles generated based on customizer options.
  *
- * @package evenus
+ * @package medycznie
  */
 
 /**
  * Make an array that is [selector][property] = value and parse it to CSS syntax
  */
-// function evenus_dynamic_styles() {
+// function medycznie_dynamic_styles() {
 
 // 	$css = [
 // 		'body' => [

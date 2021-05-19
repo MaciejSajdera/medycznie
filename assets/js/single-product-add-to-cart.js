@@ -30,53 +30,67 @@ window.addEventListener("DOMContentLoaded", event => {
 	formCart.addEventListener("click", function(e) {
 		const qty = this.querySelector(".qty");
 
-		console.log(e.target);
-		console.log(qty);
-
-		const val = parseFloat(qty.value);
-		console.log(val);
-
+		const val = parseFloat(qty.getAttribute("value"));
 		const max = parseFloat(qty.getAttribute("max"));
 		const min = parseFloat(qty.getAttribute("min"));
 		const step = parseFloat(qty.getAttribute("step"));
 
+		console.log(`value: ${val}, max: ${max}, min: ${min}, step: ${step}`);
+
 		if (
-			e.target.closest("BUTTON") &&
-			e.target.closest("BUTTON").classList.contains("plus")
+			e.target.classList.contains("plus") ||
+			(e.target.closest("BUTTON") &&
+				e.target.closest("BUTTON").classList.contains("plus"))
 		) {
-			singleAddToCartWithQty.classList.remove("added");
+			singleAddToCartWithQty &&
+			singleAddToCartWithQty.classList.contains("added")
+				? singleAddToCartWithQty.classList.remove("added")
+				: "";
 
 			if (max && max <= val) {
-				qty.value = max;
+				qty.setAttribute("value", max);
 			} else {
-				qty.value = val + step;
+				qty.setAttribute("value", parseFloat(val + step));
 			}
+
+			singleAddToCartWithQty.setAttribute(
+				"data-quantity",
+				parseFloat(val + step)
+			);
 		}
 
 		if (
-			e.target.closest("BUTTON") &&
-			e.target.closest("BUTTON").classList.contains("minus")
+			e.target.classList.contains("minus") ||
+			(e.target.closest("BUTTON") &&
+				e.target.closest("BUTTON").classList.contains("minus"))
 		) {
-			singleAddToCartWithQty.classList.remove("added");
+			singleAddToCartWithQty &&
+			singleAddToCartWithQty.classList.contains("added")
+				? singleAddToCartWithQty.classList.remove("added")
+				: "";
 
 			if (min && min >= val) {
-				qty.value = min;
+				qty.setAttribute("value", min);
 			} else if (val > 1) {
-				qty.value = val - step;
+				qty.setAttribute("value", parseFloat(val - step));
 			}
-		} else {
-			return;
+
+			singleAddToCartWithQty.setAttribute(
+				"data-quantity",
+				parseFloat(val - step)
+			);
 		}
 
-		singleAddToCartWithQty.setAttribute("data-quantity", qty.value);
+		// if (!productTypeVariable) {
+		// singleAddToCartWithQty.setAttribute("data-quantity", qty.value);
+		// }
 	});
 
-	// const qtyInput = document.querySelector(".input-text");
+	const qtyInput = document.querySelector(".input-text");
 
 	// if (!productTypeVariable) {
-	// 	qtyInput.addEventListener("change", e => {
-	// 		console.log("change");
-	// 		singleAddToCartWithQty.setAttribute("data-quantity", e.target.value);
-	// 	});
+	qtyInput.addEventListener("change", e => {
+		singleAddToCartWithQty.setAttribute("data-quantity", e.target.value);
+	});
 	// }
 });

@@ -46,7 +46,19 @@ aside {
 
 .has-aside {
 	&--main {
-		width: 100%;
+		@media screen and (max-width: 992px) {
+			width: 100%;
+			display: flex;
+			flex-flow: column;
+
+			.welcome-view {
+				order: 0;
+			}
+
+			.special-categories-menu {
+				order: 1;
+			}
+		}
 
 		@media screen and (min-width: 992px) {
 			width: 75%;
@@ -402,6 +414,7 @@ header.wholesale-header {
 		flex-flow: column;
 		// justify-content: center;
 		align-items: center;
+		margin-bottom: 2em;
 
 		img {
 			width: 40px;
@@ -470,10 +483,12 @@ header.wholesale-header {
 .advantages-container {
 	padding: 2em 0;
 
-	@media screen and (max-width: 992px) {
-		flex-flow: row;
-		flex-wrap: wrap;
-	}
+	flex-flow: column;
+
+	// @media screen and (max-width: 992px) {
+	// 	flex-flow: row;
+	// 	flex-wrap: wrap;
+	// }
 
 	// height: 25vh;
 	// @media screen and (min-height: 992px) {

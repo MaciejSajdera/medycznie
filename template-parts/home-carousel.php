@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package evenus
+ * @package medycznie
  */
 $carousel_image_1_header = get_field('carousel_image_1_header', $post->ID);
 $carousel_image_1_subheader = get_field('carousel_image_1_subheader', $post->ID);

@@ -6,7 +6,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package evenus
+ * @package medycznie
  */
 
 ?>
@@ -27,7 +27,7 @@
 </div>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'evenus' ); ?></a>
+	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'medycznie' ); ?></a>
 
 	<?php $toppromo = get_field("top_promo", get_option('page_on_front'));
 		$isActive = $toppromo['top_promo_active'];
@@ -79,19 +79,60 @@
 
 				<!-- html below is a placeholder, <a> content renders from functions.php function -->
 				<a class="cart-customlocation">
-						<svg version="1.1" class="shop-icon" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							width="92px" height="92px" viewBox="0 0 92 92" enable-background="new 0 0 92 92" xml:space="preserve">
-							<path fill="#ccc" id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
-								s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
-								C92,24.7,92.2,26.1,91.8,27.3z M36.4,70.3c-1.7,0-3.4,0.7-4.6,1.9c-1.2,1.2-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6
-								c1.2,1.2,2.9,1.9,4.6,1.9s3.4-0.7,4.6-1.9c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6C39.8,71,38.1,70.3,36.4,70.3z M72.3,70.3
-								c-1.7,0-3.4,0.7-4.6,1.9s-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6c1.2,1.2,2.9,1.9,4.6,1.9c1.7,0,3.4-0.7,4.6-1.9
-								c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6S74,70.3,72.3,70.3z"/>
-						</svg>
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						width="446.843px" height="446.843px" viewBox="0 0 446.843 446.843" style="enable-background:new 0 0 446.843 446.843;"
+						xml:space="preserve">
+					<g>
+						<path fill="#ccc" d="M444.09,93.103c-2.698-3.699-7.006-5.888-11.584-5.888H155.321c-7.92,0-14.337,6.417-14.337,14.337
+							s6.417,14.337,14.337,14.337h257.537l-10.338,32.259H186.782c-7.92,0-14.337,6.417-14.337,14.337
+							c0,7.92,6.417,14.337,14.337,14.337h206.543l-11.868,37.038H203.509c-7.92,0-14.337,6.417-14.337,14.34
+							c0,7.92,6.417,14.337,14.337,14.337h168.759l-9.955,31.064H172.692L94.794,49.064c-1.376-3.958-4.406-7.113-8.3-8.646
+							L19.586,14.134c-7.374-2.887-15.695,0.735-18.591,8.1c-2.891,7.369,0.73,15.695,8.1,18.591l60.768,23.872l74.381,214.399
+							c-3.283,1.144-6.065,3.663-7.332,7.187l-21.506,59.739c-1.318,3.663-0.775,7.733,1.468,10.916c2.24,3.183,5.883,5.078,9.773,5.078
+							h11.044c-6.844,7.616-11.044,17.646-11.044,28.675c0,23.718,19.298,43.012,43.012,43.012s43.012-19.294,43.012-43.012
+							c0-11.029-4.2-21.059-11.044-28.675h93.776c-6.847,7.616-11.048,17.646-11.048,28.675c0,23.718,19.294,43.012,43.013,43.012
+							c23.718,0,43.012-19.294,43.012-43.012c0-11.029-4.2-21.059-11.043-28.675h13.433c6.599,0,11.947-5.349,11.947-11.948
+							c0-6.599-5.349-11.947-11.947-11.947H143.647l13.319-36.996c1.72,0.724,3.578,1.152,5.523,1.152h210.278
+							c6.234,0,11.751-4.027,13.65-9.959l59.739-186.387C447.557,101.567,446.788,96.802,444.09,93.103z M169.659,409.807
+							c-10.543,0-19.116-8.573-19.116-19.116s8.573-19.117,19.116-19.117s19.116,8.574,19.116,19.117S180.202,409.807,169.659,409.807z
+							M327.367,409.807c-10.543,0-19.117-8.573-19.117-19.116s8.574-19.117,19.117-19.117c10.542,0,19.116,8.574,19.116,19.117
+							S337.909,409.807,327.367,409.807z"/>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					<g>
+					</g>
+					</svg>
 					<span class="woocommerce-Price-amount amount sub-icon-text"><bdi>0,00<span class="woocommerce-Price-currencySymbol">zł</span></bdi></span>
 				</a>
 
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html( 'Primary Menu', 'evenus' ); ?>
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html( 'Primary Menu', 'medycznie' ); ?>
 					<svg id="svgButton" class="ham hamRotate ham4" viewBox="0 0 100 100">
 					<path
 							class="line top"
@@ -136,10 +177,10 @@ wp_reset_postdata();
 					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
 					<?php
 				endif;
-				$evenus_description = get_bloginfo( 'description', 'display' );
-				if ( $evenus_description || is_customize_preview() ) :
+				$medycznie_description = get_bloginfo( 'description', 'display' );
+				if ( $medycznie_description || is_customize_preview() ) :
 					?>
-					<p class="site-description"><?php echo $evenus_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+					<p class="site-description"><?php echo $medycznie_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 				<?php endif; ?>
 				</div><!-- .site-branding -->
 

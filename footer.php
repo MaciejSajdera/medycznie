@@ -6,7 +6,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package evenus
+ * @package medycznie
  */
 $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 ?>
@@ -66,12 +66,13 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 				</div> -->
 
 				<div class="footer-bottom">
-				<?php echo footer_copyright(); ?> Copyright © 
+				<?php echo footer_copyright(); ?> Copyright © <?php echo get_bloginfo( 'name' ); ?>
 				</div>
 				<div class="icons-info">
 					Icons made by:
 					<a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 					<a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+					
 				</div>
 
 			</div><!-- .site-info -->

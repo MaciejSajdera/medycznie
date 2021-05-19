@@ -140,10 +140,6 @@ ul.chosen-choices {
 		width: 100% !important;
 	}
 
-	select {
-		cursor: pointer;
-	}
-
 	select,
 	input {
 		// @include fluid-type($min_width, $max_width, 14px, 16px);
