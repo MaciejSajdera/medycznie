@@ -6,116 +6,91 @@
   Page template without sidebar
  */
 
+global $post;
+
+$phone_contact_header = get_field("phone_contact_header", get_page_by_title( 'O nas' ));
+$phone_number_1 = get_field("phone_number_1", get_page_by_title( 'O nas' ));
+$phone_number_2 = get_field("phone_number_2", get_page_by_title( 'O nas' ));
+$phone_number_3 = get_field("phone_number_3", get_page_by_title( 'O nas' ));
+$phone_number_4 = get_field("phone_number_4", get_page_by_title( 'O nas' ));
+
+$email_address = get_field("email", get_page_by_title( 'O nas' ));
+$hq_header = get_field("hq_header", get_page_by_title( 'O nas' ));
+$company_full_name = get_field("company_full_name", get_page_by_title( 'O nas' ));
+
+$address_1 = get_field("address_1", get_page_by_title( 'O nas' ));
+$address_2 = get_field("address_2", get_page_by_title( 'O nas' ));
+
+$nip = get_field("nip", get_page_by_title( 'O nas' ));
+$thank_you_text = get_field("thank_you_text", get_page_by_title( 'O nas' ));
+
+
 get_header();
 ?>
-<div id="primary" class="content-area">
 
-	<main id="primary" class="home-about">
+	<div class="home-main">
 
-	<?php
-		while ( have_posts() ) :
-			the_post();
+		<div class="home-main__top-wrapper">
 
+			<?php
+				get_template_part( 'template-parts/shop-menu', 'page' );
 			?>
-			<header class="entry-header common-template">
-			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-			</header><!-- .entry-header -->
-			<?php medycznie_post_thumbnail();
 
-			?>
-			<div class="page-wrapper">
-				<?php
-				$page_header = get_field('page_header');
-				$page_subheader_1 = get_field('page_subheader_1');
-				$page_textarea_1 = get_field('page_textarea_1');
-				$page_subheader_2 = get_field('page_subheader_2');
-				$page_textarea_2 = get_field('page_textarea_2');
-				$page_subheader_3 = get_field('page_subheader_3');
+			<div class="has-aside--main">
+				<div id="primary" class="content-area">
+					<main id="main" class="site-main">
 
-				if ($page_header) :
-				echo '<h1 class="common-page-header">' .$page_header. '</h1>';
-				endif;
-				if ($page_subheader_1) :
-				echo '<p class="common-page-subheader">' .$page_subheader_1. '</p>';
-				endif;
-				if ($page_textarea_1) :
-					echo '<div class="page-textarea"><p>' .$page_textarea_1. '</p></div>';
-				endif;
+					<?php
+					while ( have_posts() ) :
+						the_post();
 
+						get_template_part( 'template-parts/content', 'page' );
 
-				$team = get_field('team');
-				?>
-				<div class="team-container wrapper-flex-column">
-					<div class="team-inner">
-					<img src="<?php echo esc_url( $team['team_photo'] ); ?>" alt="<?php echo esc_attr( $offer['image']['alt'] ); ?>" />
-					
-					<h5>
-						<?php echo $team['team_member_1_text']; ?>
-						<a href="tel:<?php echo $team['team_member_1_contact']; ?>"><?php echo $team['team_member_1_contact']; ?></a>
-					</h5>
-					<h5>
-						<?php echo $team['team_member_2_text']; ?>
-						<a href="tel:<?php echo $team['team_member_2_contact']; ?>"><?php echo $team['team_member_2_contact']; ?></a>
-					</h5>
-					<h5>
-						<?php echo $team['team_member_3_text']; ?>
-						<a href="tel:<?php echo $team['team_member_3_contact']; ?>"><?php echo $team['team_member_3_contact']; ?></a>
-					</h5>
+						// If comments are open or we have at least one comment, load up the comment template.
+						// if ( comments_open() || get_comments_number() ) :
+						// 	comments_template();
+						// endif;
 
+						echo '<div class="contact-data">';
 
+							echo '<h3>'.$phone_contact_header.'</h3>';
 
-					</div>
-					<div class="logo"><?php the_custom_logo()?></div>
+							echo '<div class="phone-numbers-wrapper">';
 
-			</div><?php
+								echo '<a href="tel:'.$phone_number_1.'">'.$phone_number_1.'</a>';
+								echo '<a href="tel:'.$phone_number_2.'">'.$phone_number_2.'</a>';
+								echo '<a href="tel:'.$phone_number_3.'">'.$phone_number_3.'</a>';
+								echo '<a href="tel:'.$phone_number_4.'">'.$phone_number_4.'</a>';
+
+							echo '</div>';
+
+							echo '<p>e-mail: <a href="mailto:'.$email_address.'">'.$email_address.'</a></p>';
+
+							echo '<div class="headquarters-wrapper">';
+
+								echo '<h3>'.$hq_header.'</h3>';
+								echo '<p>'.$company_full_name.'</p>';
+								echo '<p>'.$address_1.'</p>';
+								echo '<p>'.$address_2.'</p>';
+								echo '<p>'.$nip.'</p>';
+
+							echo '</div>';
+
+							echo '<p>'.$thank_you_text.'</p>';
+
+						echo '</div>';
 
 
+					endwhile; // End of the loop.
+					?>
 
-				if ($page_subheader_2) :
-					echo '<p class="common-page-subheader">' .$page_subheader_2. '</p>';
-				endif;
+					</main><!-- #main -->
+				</div><!-- #primary -->
 
-				if ($page_textarea_2) :
-					echo '<div class="page-textarea"><p>' .$page_textarea_2. '</p></div>';
-				endif;
-				if ($page_subheader_3) :
-					echo '<p class="common-page-subheader">' .$page_subheader_3. '</p>';
-				endif;
+			</div>
 
-				$offer = get_field('offer');
-				if( $offer ): ?>
-					<div class="offer-container">
+		</div>
 
-						<div class="offer-box">
-							<img src="<?php echo esc_url( $offer['offer_1_image'] ); ?>" alt="<?php echo esc_attr( $offer['image']['alt'] ); ?>" />
-							<div class="content">
-								<p class="offer-text"><?php echo $offer['offer_1_text']; ?></p>
-							</div>
-						</div>
-
-						<div class="offer-box">
-							<img src="<?php echo esc_url( $offer['offer_2_image'] ); ?>" alt="<?php echo esc_attr( $offer['image']['alt'] ); ?>" />
-							<div class="content">
-								<p class="offer-text"><?php echo $offer['offer_2_text']; ?></p>
-							</div>
-						</div>
-
-						<div class="offer-box">
-							<img src="<?php echo esc_url( $offer['offer_3_image'] ); ?>" alt="<?php echo esc_attr( $offer['image']['alt'] ); ?>" />
-							<div class="content">
-								<p class="offer-text"><?php echo $offer['offer_3_text']; ?></p>
-							</div>
-						</div>
-					</div>
-				<?php endif;
-
-		?></div><?php
-		endwhile; // End of the loop.
-		?>
-
-
-
-</main>
 	</div>
 
 	

@@ -64,18 +64,46 @@ textarea {
 		margin: auto;
 	}
 
-	.show-password-input {
-		position: absolute;
-		right: 0.5em;
-		top: 0em;
-		cursor: pointer;
+	.woocommerce-Input {
+		padding: 0.75em;
+	}
+}
+
+.woocommerce form .show-password-input::after,
+.woocommerce-page form .show-password-input::after {
+	background: url(../dist/svg/hide-interface-symbol.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	position: absolute;
+
+	display: block;
+	width: 20px;
+	height: 20px;
+}
+
+.woocommerce form .show-password-input.display-password::after,
+.woocommerce-page form .show-password-input.display-password::after {
+	background: url(../dist/svg/view-eye-interface-symbol.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.show-password-input {
+	position: absolute;
+	right: 2em !important;
+	top: 0.5em !important;
+	cursor: pointer;
+
+	&:after {
+		color: transparent !important;
 	}
 }
 
 .lost_password {
 	a {
 		font-weight: 600;
-		color: $color_white_text;
 	}
 }
 
@@ -175,6 +203,23 @@ ul.chosen-choices {
 			color: black;
 			width: 100%;
 			padding-left: 1em !important;
+		}
+	}
+}
+
+.woocommerce {
+	main {
+		.my-wooselect {
+			margin: 0.75em 0 1em;
+		}
+	}
+}
+
+#review_form {
+	.comment-form-author,
+	.comment-form-email {
+		label {
+			margin-right: 1em;
 		}
 	}
 }

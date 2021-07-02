@@ -25,7 +25,7 @@
 .woocommerce a.button,
 .woocommerce button.button,
 .woocommerce input.button.my-checkout-button {
-	@include fluid-type($min_width, $max_width, 14px, 20px);
+	@include fluid-type($min_width, $max_width, 20px, 20px);
 }
 
 .woocommerce-message {
@@ -75,7 +75,7 @@
 	display: inline-block !important;
 	font-family: $font_headers;
 	white-space: nowrap;
-	border-radius: 5px !important;
+	border-radius: 3px !important;
 	// @media screen and (max-width: 440px) {
 	// 	font-size: 13px !important;
 	// }
@@ -108,6 +108,44 @@
 	}
 }
 
+.advantages__read-more {
+	background-color: $color_dark_blue;
+	color: $color_white_text;
+	padding: 1rem 2rem;
+	font-weight: 600;
+	// border-radius: 100rem !important;
+	text-align: center;
+	text-decoration: none;
+	transition: all 0.2s ease-in;
+	border: 1px solid $color_dark_blue;
+	cursor: pointer;
+	color: $color_white_text !important;
+	margin-bottom: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@include fluid-type($min_width, $max_width, 16px, 18px);
+	// background-color: transparent;
+	// border: 1px solid $color_dark_blue;
+	// color: $color_dark_blue !important;
+
+	&:hover {
+		// background-color: transparent;
+		// border: 1px solid $color_dark_blue;
+		color: $color_white_text !important;
+	}
+
+	&:before {
+		content: "";
+		display: block;
+		background: url(../dist/svg/delivering.svg) no-repeat center center;
+		background-size: contain;
+		width: 32px;
+		height: 32px;
+		margin-right: 16px;
+	}
+}
+
 .mobile-to-shop-button {
 	width: 100%;
 	text-align: center;
@@ -127,14 +165,14 @@
 	border-radius: 100rem !important;
 	text-decoration: none !important;
 	transition: all 0.2s ease-in !important;
-	border: 1px solid $color_dark_blue !important;
+	border: 2px solid $color_dark_blue !important;
 	cursor: pointer;
 	margin: 0 auto;
 	@include fluid-type($min_width, $max_width, 12px, 16px);
 
 	&:hover {
 		background-color: $color_dark_blue !important;
-		border: 1px solid $color_dark_blue !important;
+		border: 2px solid $color_dark_blue !important;
 		color: $color_white_text !important;
 	}
 }
@@ -172,13 +210,13 @@
 
 .my-submit-button,
 .wpcf7-submit {
-	background-color: $color_baby_blue !important;
+	background-color: $color__background-main-theme !important;
 	border: 0 !important;
 	border-radius: 0 !important;
 	color: $color_white_text !important;
-	width: 70% !important;
+	// width: 70% !important;
 	display: block;
-	margin: 1em !important;
+	// margin: 1em !important;
 	font-family: $font_headers;
 	padding: 0.75em 1.5em !important;
 	transition: all 0.2s ease-in;
@@ -187,8 +225,9 @@
 	cursor: pointer;
 
 	&:hover {
-		color: $color_baby_blue !important;
-		background-color: transparent !important;
+		// color: $color_baby_blue !important;
+		// background-color: transparent !important;
+		background-color: darken($color__background-main-theme, 5%) !important;
 	}
 }
 
@@ -230,7 +269,7 @@
 }
 
 .my-nav-button {
-	background-color: $color-my-dark-navy !important;
+	background-color: $color__background-dark-navy !important;
 	border: 0 !important;
 	border-radius: 0 !important;
 	color: $color_white_text !important;
@@ -243,7 +282,7 @@
 	outline: none !important;
 
 	&:hover {
-		color: $color-my-dark-navy !important;
+		color: $color__background-dark-navy !important;
 		background-color: $color_white_text !important;
 	}
 }

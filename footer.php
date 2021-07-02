@@ -9,6 +9,20 @@
  * @package medycznie
  */
 $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
+
+$phone_contact_header = get_field("phone_contact_header", get_page_by_title( 'O nas' ));
+$phone_number_1 = get_field("phone_number_1", get_page_by_title( 'O nas' ));
+$phone_number_2 = get_field("phone_number_2", get_page_by_title( 'O nas' ));
+$phone_number_3 = get_field("phone_number_3", get_page_by_title( 'O nas' ));
+$phone_number_4 = get_field("phone_number_4", get_page_by_title( 'O nas' ));
+
+$email_address = get_field("email", get_page_by_title( 'O nas' ));
+$company_full_name = get_field("company_full_name", get_page_by_title( 'O nas' ));
+
+$address_1 = get_field("address_1", get_page_by_title( 'O nas' ));
+$address_2 = get_field("address_2", get_page_by_title( 'O nas' ));
+
+
 ?>
 
 	</div><!-- #content -->
@@ -20,36 +34,41 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 
 				<!-- <div class="fixed-icons">
 
-
 				</div> -->
 			
 				<div class="site-footer__main">
-					
+
 					<div class="col col-1">
-					<h3>Siedziba</h3>
-					<p>Adres 1</p>
-					<p>Adres 2</p>
-					<p>dział obsługi Klienta: +48 123 456 789</p>
-					<p>mail@sklep.pl</p>
+
+						<h3>Siedziba</h3>
+						<p><?php echo $company_full_name ?></p>
+						<p><?php echo $address_1 ?></p>
+						<p><?php echo $address_2 ?></p>
+						<p>dział obsługi Klienta: <a href="tel:<?php echo $phone_number_2;?>"><?php echo $phone_number_2;?></a></p>
+						<p><a href="mailto: <?php echo $email_address;?>"><?php echo $email_address;?></a></p>
 
 					</div>
 
 					<div class="col col-2">
-					<!-- <div id="instagram-feed-demo" class="instagram_feed"></div> -->
-					<h3>Pomoc</h3>
-					<p><a class="terms-link" href="<?php echo get_permalink(3) ?>">Polityka prywatności</a></p>
-					<p><a class="terms-link" href="<?php echo get_permalink(213) ?>">Regulamin sklepu internetowego</a></p>
-					<p><a class="terms-link" href="<?php echo get_permalink(216) ?>">Dostawa</a></p>
-					<p><a class="terms-link" href="<?php echo get_permalink(3589) ?>">Reklamacje i zwroty</a></p>
+						<h3>Pomoc</h3>
+
+						<?php
+							$privacy_policy_page_id = get_option( 'wp_page_for_privacy_policy' );
+							$wc_terms_and_conditions_page_id = wc_terms_and_conditions_page_id();
+						?>
+
+						<p><a class="terms-link" href="<?php echo get_permalink($privacy_policy_page_id) ?>"><?php echo get_the_title( $privacy_policy_page_id ) ?></a></p>
+						<p><a class="terms-link" href="<?php echo get_permalink($wc_terms_and_conditions_page_id) ?>"><?php echo get_the_title( $wc_terms_and_conditions_page_id) ?></a></p>
+						<p><a class="terms-link" href="<?php echo get_permalink(216) ?>">Dostawa</a></p>
+
 					</div>
 
-					<div class="col col-3">
-					<!-- <div id="instagram-feed-demo" class="instagram_feed"></div> -->
-					<h3>Metody płatności</h3>
-					<p class="payment-method method-paypal"></p>
-					<p class="payment-method method-przelewy24"></p>
-					<p class="payment-method method-zapobraniem"></p>
-					</div>
+						<div class="col col-3">
+						<h3>Metody płatności</h3>
+						<!-- <p class="payment-method method-paypal"></p> -->
+						<p class="payment-method method-przelewy24"></p>
+						<p class="payment-method method-zapobraniem"></p>
+						</div>
 
 				</div>
 
@@ -69,13 +88,17 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 				<?php echo footer_copyright(); ?> Copyright © <?php echo get_bloginfo( 'name' ); ?>
 				</div>
 				<div class="icons-info">
-					Icons made by:
+					Icons and Photos made by:
 					<a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 					<a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+					<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+					<a href='https://pl.freepik.com/zdjecia/reka'>Ręka zdjęcie utworzone przez rawpixel.com - pl.freepik.com</a>
+					<a href="https://pl.freepik.com/zdjecia/medyczny">Medyczny zdjęcie utworzone przez freepik - pl.freepik.com</a>
 					
 				</div>
 
 			</div><!-- .site-info -->
+
 		</div>
 
 		<!-- <div id="cookie-text">
@@ -89,14 +112,31 @@ $cookie_info = get_field('cookie_info', get_option( 'page_on_front' ));
 			</div>
 		</div>
 
-
-
 		<div class="cookie-law-notification">
 			<button id="cookie-law-button">Akceptuję</button>
 			<p><?php echo $cookie_info ?></p>
+
+			<!-- <div class="temp-message">
+				<h1>Sklep jest w trakcie budowy</h1>
+
+				<p>Zapraszamy do kontaktu</p>
+
+				<div>
+					<div>
+						<p>paulina@medycznie.com.pl</p>
+						<p>tel: 537869373</p>
+						<p>robert@medycznie.com.pl</p>
+						<p>tel: 570733066</p>
+					</div>
+
+				</div>
+
+			</div> -->
+
 		</div>
 		
 	</footer><!-- #colophon -->
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

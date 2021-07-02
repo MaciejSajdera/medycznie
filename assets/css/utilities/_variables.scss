@@ -37,6 +37,7 @@ $color__border-abbr: #666;
 /* TYPOGRAPHY */
 $font__main: "Cabin", sans-serif;
 $font_headers: "Cabin", sans-serif;
+$font_numbers: "Kodchasan", sans-serif;
 
 $font_anchors: "Cabin", sans-serif;
 $font__code: monaco, consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
@@ -54,3 +55,7 @@ $break__large: 64.063em;
 
 /* TRANSITIONS */
 $regular_transition: all 0.3s ease-in-out;
+
+/* BOX-SHADOWS */
+$box-shadow_standard: 0 0px 15px 5px rgb(0 0 0 / 10%),
+	0 0px 6px 0px rgb(0 0 0 / 5%);

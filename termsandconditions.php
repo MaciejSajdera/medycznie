@@ -29,6 +29,38 @@ get_header();
 		endwhile; // End of the loop.
 		?>
 
+		<?php
+
+			if (is_page( 213 )) :
+
+				$return_product_form = get_field("return_product_form");
+
+				echo '<div
+				style="
+				display: flex;
+				flex-flow: column;
+				justify-content: center;
+				align-items: center;
+				">';
+
+					echo '<p>FORMULARZ ODSTĄPIENIA OD UMOWY</p>';
+
+					echo '<a href="'.$return_product_form.'" class="button product_type_simple add_to_cart_button"
+					style="
+					padding: 1em 2em;
+					margin: auto;
+					max-width: 300px;
+					display: block;
+					text-decoration: none;
+					">
+					Pobierz 
+					</a>';
+
+				echo '</div>';
+
+			endif;
+		?>
+
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

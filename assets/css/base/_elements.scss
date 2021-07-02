@@ -58,16 +58,14 @@ a {
 		color: $color__link-visited;
 	}
 
-	&:hover,
-	&:focus,
-	&:active {
+	&:hover {
 		color: $color__link-hover !important;
 		outline: 0 !important;
 		transition: all 0.3s ease-in-out;
 	}
 
 	&:focus {
-		outline: thin dotted;
+		outline: none;
 	}
 }
 
@@ -121,13 +119,16 @@ table {
 	opacity: 1;
 
 	.preloader-content {
-		background: url(../dist/img/medycznie-logo-kolor.jpg) no-repeat;
-		display: block;
-		height: 20em;
-		width: 20em;
-		background-size: contain;
+		align-items: center;
+		display: flex;
+		height: 10em;
+		width: 10em;
 		animation: mymove 1.5s infinite;
-		background-position: center;
+
+		@media screen and (min-width: 992px) {
+			height: 15em;
+			width: 15em;
+		}
 	}
 }
 
@@ -206,9 +207,9 @@ input[type="checkbox"] {
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
-	margin: 3em auto 6em auto;
+	margin: 0 auto 6em auto;
 	@media screen and (max-width: 992px) {
-		margin: 3em auto 2em auto;
+		margin: 0 auto 2em auto;
 	}
 
 	a {
@@ -218,13 +219,20 @@ input[type="checkbox"] {
 		font-family: $font_headers;
 		@include fluid-type($min_width, $max_width, 12px, 14px);
 
-		&:before {
-			@media screen and (max-width: 992px) {
-				top: -4.5em;
-			}
+		display: flex;
+		flex-flow: row;
+		align-items: center;
+		width: 50%;
+		justify-content: center;
 
-			top: -3.5em;
-			position: absolute;
+		@media screen and (max-width: 992px) {
+			display: flex;
+			flex-flow: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&:before {
 			display: block;
 			content: "1";
 			line-height: 36px;
@@ -232,11 +240,25 @@ input[type="checkbox"] {
 			height: 40px;
 			border: 2px solid $color_baby_blue;
 			border-radius: 100%;
-			left: 50%;
-			transform: translate(-50%, 0);
+			// left: 50%;
+			// transform: translate(-50%, 0);
 			text-align: center;
 
 			font-family: $font_headers;
+
+			@media screen and (max-width: 992px) {
+				margin-bottom: 1em;
+			}
+
+			@media screen and (min-width: 992px) {
+				margin-right: 1.5em;
+			}
+		}
+
+		&:hover {
+			&:before {
+				border: 2px solid $color__background-main-theme;
+			}
 		}
 	}
 
@@ -468,6 +490,11 @@ div.woof_info_popup {
 	}
 }
 
+.total-with-tax {
+	display: flex;
+	flex-flow: column;
+}
+
 .scrollToTopBtn {
 	/* place it at the bottom right corner */
 	position: fixed;
@@ -562,4 +589,68 @@ div.woof_info_popup {
 
 .grecaptcha-badge {
 	display: none;
+}
+
+.temp-message {
+	width: 100%;
+	text-align: center;
+	color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	@media screen and (max-width: 992px) {
+		flex-flow: column;
+	}
+
+	div {
+		display: flex;
+
+		div {
+			flex-flow: column;
+		}
+	}
+
+	p {
+		@include fluid-type($min_width, $max_width, 16px, 18px);
+
+		margin: 0 2em !important;
+	}
+}
+
+.pop-up {
+	position: absolute;
+	z-index: 9999;
+	// width: 100%;
+	height: auto;
+
+	padding: 0 1em;
+	left: 50%;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	transform: translate(-50%, 100%);
+	bottom: -1em;
+	background: white;
+	box-shadow: 0 50px 100px rgb(50 50 93 / 10%), 0 15px 35px rgb(50 50 93 / 15%),
+		0 5px 15px rgb(0 0 0 / 10%);
+
+	@media screen and (min-width: 992px) {
+		min-width: 250px;
+		min-height: 50px;
+	}
+
+	&__arrow {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		display: block;
+		background: white;
+		left: 50%;
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	p {
+		margin: 1em 0;
+		text-align: center;
+	}
 }

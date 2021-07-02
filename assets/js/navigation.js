@@ -14,25 +14,31 @@ export default class Navigation {
 	}
 
 	setupNavigation() {
-		// if (!this.container || "undefined" === typeof this.button) {
-		// 	return;
-		// }
+		const siteNavigation = document.querySelector("#site-navigation");
+		const searchPanel = document.querySelector(".search-panel");
+		const searchToggleSVG = document.querySelector("#search-icon svg");
 
-		// Hide menu toggle button if menu is empty and return early.
-		// if ("undefined" === typeof this.menu) {
-		// 	this.button.style.display = "none";
-
-		// 	return;
-		// }
-
-		// Have menu closed by default
-		// this.menu.setAttribute("aria-expanded", "false");
-		// if (-1 === this.menu.className.indexOf("nav-menu")) {
-		// 	this.menu.className += " nav-menu";
-		// }
+		let isMobileNavOpen = false;
 
 		// Toggle mobile navigation
 		this.button.onclick = () => {
+			isMobileNavOpen = !isMobileNavOpen;
+
+			siteNavigation.classList.toggle("main-navigation--open");
+
+			siteNavigation.classList.contains("main-navigation--box-shadow")
+				? siteNavigation.classList.remove("main-navigation--box-shadow")
+				: "";
+
+			searchPanel.classList.contains("search-panel--box-shadow")
+				? searchPanel.classList.remove("search-panel--box-shadow")
+				: "";
+
+			if (!isMobileNavOpen) {
+				searchPanel.classList.remove("search-panel--toggled");
+				searchToggleSVG.classList.remove("search-icon-clicked");
+			}
+
 			if (-1 !== this.container.className.indexOf("toggled")) {
 				this.svgButton.classList.toggle("active");
 				this.container.className = this.container.className.replace(
@@ -46,76 +52,47 @@ export default class Navigation {
 				this.container.className += " toggled";
 
 				this.button.setAttribute("aria-expanded", "true");
-				// this.menu.setAttribute("aria-expanded", "true");
 			}
 		};
 
-		// this.navAccessibilitySupport();
+		document.addEventListener("click", e => {
+			siteNavigation.classList.contains("main-navigation--box-shadow")
+				? siteNavigation.classList.remove("main-navigation--box-shadow")
+				: "";
+
+			const searchToggleSVGPath = document.querySelectorAll(
+				"#search-icon svg path"
+			);
+			const searchToggleIcon = document.querySelector("#search-icon");
+			const searchToggleWrapper = document.querySelector(
+				".search-icon-wrapper"
+			);
+			const searchToggleSubText = document.querySelector(
+				".search-sub-icon-text"
+			);
+
+			const searchInput = document.querySelector(".dgwt-wcas-search-input");
+
+			if (
+				e.target === searchToggleSVG ||
+				e.target === searchToggleSVGPath[0] ||
+				e.target === searchToggleSVGPath[1] ||
+				e.target === searchToggleIcon ||
+				e.target === searchToggleSubText ||
+				e.target === searchToggleWrapper
+			) {
+				searchPanel.classList.toggle("search-panel--toggled");
+
+				if (!isMobileNavOpen) {
+					searchPanel.classList.toggle("search-panel--box-shadow");
+				}
+
+				searchToggleSVG.classList.toggle("search-icon-clicked");
+
+				if (window.innerWidth >= 992) {
+					searchInput.focus();
+				}
+			}
+		});
 	}
-
-	/**
-	 * Allow keyboard users to use multi-level navigation
-	 */
-	// navAccessibilitySupport() {
-	// 	// Get all the link elements within the menu.
-	// 	const links = this.menu.getElementsByTagName("a");
-
-	// 	// Each time a menu link is focused or blurred, toggle focus.
-	// 	for (let i = 0; i < links.length; i++) {
-	// 		links[i].addEventListener("focus", links[i].toggleFocus, true);
-	// 		links[i].addEventListener("blur", links[i].toggleFocus, true);
-	// 	}
-	// }
-
-	/**
-	 * Toggles `focus` class to allow submenu access on tablets.
-	 */
-	// enableTouchFocus() {
-	// 	const parentLink = this.container.querySelectorAll(
-	// 		".menu-item-has-children > a, .page_item_has_children > a"
-	// 	);
-
-	// 	if ("ontouchstart" in window) {
-	// 		const touchStartFn = e => {
-	// 			const menuItem = this.parentNode;
-
-	// 			if (!menuItem.classList.contains("focus")) {
-	// 				e.preventDefault();
-	// 				for (let i = 0; i < menuItem.parentNode.children.length; ++i) {
-	// 					if (menuItem !== menuItem.parentNode.children[i]) {
-	// 						menuItem.parentNode.children[i].classList.remove("focus");
-	// 					}
-	// 				}
-	// 				menuItem.classList.add("focus");
-	// 			} else {
-	// 				menuItem.classList.remove("focus");
-	// 			}
-	// 		};
-
-	// 		for (let i = 0; i < parentLink.length; ++i) {
-	// 			parentLink[i].addEventListener("touchstart", touchStartFn, false);
-	// 		}
-	// 	}
-	// }
-
-	/**
-	 * Sets or removes .focus class on an element.
-	 */
-	// toggleFocus() {
-	// 	let self = this;
-
-	// 	// Move up through the ancestors of the current link until we hit .nav-menu.
-	// 	while (-1 === self.className.indexOf("nav-menu")) {
-	// 		// On li elements toggle the class .focus.
-	// 		if ("li" === self.tagName.toLowerCase()) {
-	// 			if (-1 !== self.className.indexOf("focus")) {
-	// 				self.className = self.className.replace(" focus", "");
-	// 			} else {
-	// 				self.className += " focus";
-	// 			}
-	// 		}
-
-	// 		self = self.parentElement;
-	// 	}
-	// }
 }

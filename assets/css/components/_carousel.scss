@@ -1,12 +1,12 @@
 .main-carousel {
-	height: 70vh;
+	height: 20em;
 
-	@media screen and (min-height: 736px) and (max-width: 992px) {
-		height: 70vh;
-	}
+	// @media screen and (min-height: 736px) and (max-width: 992px) {
+	// 	height: 70vh;
+	// }
 
 	@media screen and (min-width: 992px) {
-		height: 40vh;
+		// height: 25em;
 		margin-bottom: 0em;
 	}
 
@@ -17,10 +17,41 @@
 		@media screen and (max-width: 992px) {
 			background-position: center;
 		}
+
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(1, 34, 65, 0.35);
+			transition: all 0.4s ease-in-out;
+			z-index: -1;
+		}
+
+		&__link {
+			transform: scale(1);
+			transition: all 0.3s ease-in-out;
+
+			&:hover {
+				color: inherit !important;
+
+				transform: scale(1.025);
+			}
+		}
+
+		&:hover {
+			&:after {
+				background-color: rgba(1, 34, 65, 0.25);
+			}
+		}
 	}
 
 	.swiper-container {
 		height: 100%;
+		border-radius: 5px;
 	}
 
 	.swiper-scrollbar {
@@ -57,6 +88,8 @@
 		align-items: center;
 		height: 100%;
 		color: white;
+		max-width: 65%;
+		margin: auto;
 
 		h2 {
 			text-align: center;
@@ -153,7 +186,7 @@
 		}
 
 		@media screen and (max-width: 992px) {
-			justify-content: space-around;
+			justify-content: space-between;
 			padding: 1em 0;
 		}
 	}
@@ -163,25 +196,25 @@
 		background: transparent;
 		margin: 0.5em 2em !important;
 		opacity: 1;
-		@include fluid-type($min_width, $max_width, 12px, 16px);
+		@include fluid-type($min_width, $max_width, 14px, 16px);
 		height: 32px;
 		border-radius: 15px;
 		padding: 0.25em 2em;
 		color: $color_dark_blue;
 		position: relative;
 		// width: 200px;
-		width: 100%;
+		width: 45%;
 		text-align: center;
 		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 		transition: all 0.2s ease-in-out;
-		font-weight: 600;
+		font-weight: 700;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		@media screen and (max-width: 992px) {
 			margin: 0 0.5em !important;
 			padding: 0.25em 1em;
-			// width: 100px;
-			width: 140px;
-			line-height: 2;
 		}
 	}
 
@@ -193,10 +226,8 @@
 	}
 
 	ul.products {
-		padding: 1em;
-		padding-top: 0;
 		@media screen and (max-width: 992px) {
-			padding: 2em 1em 1em 1em;
+			padding: 2em 0em 1em 0em;
 		}
 	}
 }

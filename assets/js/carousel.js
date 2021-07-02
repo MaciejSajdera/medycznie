@@ -13,7 +13,7 @@ import "swiper/swiper-bundle.css";
 document.addEventListener("DOMContentLoaded", () => {
 	Swiper.use([Navigation, Autoplay, Pagination, Parallax, EffectFade, Lazy]);
 
-	var mySwiper = new Swiper(".swiper-container", {
+	var mySwiper = new Swiper(".swiper-container-main-carousel", {
 		direction: "horizontal",
 		loop: true,
 		parallax: true,
@@ -23,8 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		},
 		speed: 700,
 		autoplay: {
-			delay: 5000
+			delay: 3000
 		},
+
 		grabCursor: true,
 
 		pagination: {
@@ -64,10 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		.innerHTML;
 	const shortcode_2_title = document.querySelector("#shortcode_2_title")
 		.innerHTML;
-	// const shortcode_3_title = document.querySelector("#shortcode_3_title")
-	// 	.innerHTML;
+	const shortcode_3_title = document.querySelector("#shortcode_3_title")
+		.innerHTML;
 
-	let menu = [shortcode_1_title, shortcode_2_title];
+	let menu = [shortcode_1_title, shortcode_2_title, shortcode_3_title];
 	var myCategoriesSwiper = new Swiper(".swiper-container-categories", {
 		direction: "horizontal",
 		speed: 350,

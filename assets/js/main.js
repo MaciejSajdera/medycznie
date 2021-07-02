@@ -47,12 +47,16 @@ window.addEventListener("DOMContentLoaded", event => {
 			return;
 		} else {
 			cookiesInfo.classList.add("cookies-notification-on");
-			cookiesAcceptButton.addEventListener("click", () => {
-				localStorage.setItem("cookiesAreAccepted", "1");
-				cookiesInfo.classList.add("cookies-notification-off");
-			});
+			cookiesAcceptButton &&
+				cookiesAcceptButton.addEventListener("click", () => {
+					localStorage.setItem("cookiesAreAccepted", "1");
+					cookiesInfo.classList.add("cookies-notification-off");
+				});
 			return;
 		}
+
+		//temp
+		// cookiesInfo.classList.add("cookies-notification-on");
 	};
 
 	//Lazy Loading
@@ -170,22 +174,6 @@ window.addEventListener("DOMContentLoaded", event => {
 
 		handleSelectProductsPerPage();
 	}
-
-	// function makeNavSticky() {
-	// 	const siteNavigation = document.querySelector("#site-navigation");
-
-	// 	if (window.pageYOffset > siteNavigation.offsetTop) {
-	// 		siteNavigation.classList.add("fixed-nav");
-	// 		siteNavigation.classList.add("box-shadow-nav");
-	// 	} else {
-	// 		siteNavigation.classList.remove("fixed-nav");
-	// 		siteNavigation.classList.remove("box-shadow-nav");
-	// 	}
-	// }
-
-	// window.onscroll = function() {
-	// 	makeNavSticky();
-	// };
 
 	const mobileMenu = () => {
 		const nav = document.querySelector(".mobile-menu");
@@ -328,7 +316,7 @@ window.addEventListener("DOMContentLoaded", event => {
 		const allMenuLinks = nav.querySelectorAll("LI");
 		const linksWithChildren = nav.querySelectorAll(".menu-item-has-children");
 
-		const wooMenu = document.querySelector("#menu-woomenu");
+		// const wooMenu = document.querySelector("#menu-woomenu");
 
 		linksWithChildren.forEach(link => {
 			// const submenu = link.querySelector(".sub-menu");
@@ -490,7 +478,7 @@ window.addEventListener("DOMContentLoaded", event => {
 		//if current menu item is an ancestor with no submenu
 		if (
 			currentProductParent &&
-			!currentProductAncestor &&
+			currentProductAncestor &&
 			!currentProductParent.querySelector(".sub-menu")
 		) {
 			console.log("no submenu");
@@ -603,34 +591,6 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	mediaQueryDesktop.addListener(handleDesktopChange);
 	handleDesktopChange(mediaQueryDesktop);
-
-	document.addEventListener("click", e => {
-		const searchToggleSVG = document.querySelector("#search-icon svg");
-		const searchToggleSVGPath = document.querySelectorAll(
-			"#search-icon svg path"
-		);
-		const searchToggleIcon = document.querySelector("#search-icon");
-		const searchToggleWrapper = document.querySelector(".search-icon-wrapper");
-		const searchToggleSubText = document.querySelector(".search-sub-icon-text");
-		const searchPanel = document.querySelector(".search-panel");
-		const searchInput = document.querySelector(".dgwt-wcas-search-input");
-
-		if (
-			e.target === searchToggleSVG ||
-			e.target === searchToggleSVGPath[0] ||
-			e.target === searchToggleSVGPath[1] ||
-			e.target === searchToggleIcon ||
-			e.target === searchToggleSubText ||
-			e.target === searchToggleWrapper
-		) {
-			searchPanel.classList.toggle("search-panel--toggled");
-			searchToggleSVG.classList.toggle("search-icon-clicked");
-
-			if (window.innerWidth >= 992) {
-				searchInput.focus();
-			}
-		}
-	});
 
 	const switchSignIn = document.querySelector("#switch-sign-in");
 	const switchSignUp = document.querySelector("#switch-sign-up");
@@ -814,6 +774,26 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	document.addEventListener("scroll", () => {
 		const scrollToTopBtn = document.querySelector(".scrollToTopBtn");
+		const siteNavigation = document.querySelector("#site-navigation");
+
+		const searchHasBoxShadow = document.querySelector(
+			".search-panel--box-shadow"
+		);
+
+		const isMobileNavOpen = document.querySelector(".main-navigation--open");
+
+		if (pageYOffset > 0 && !searchHasBoxShadow && !isMobileNavOpen) {
+			!siteNavigation.classList.contains("main-navigation--box-shadow")
+				? siteNavigation.classList.add("main-navigation--box-shadow")
+				: "";
+		}
+
+		if (pageYOffset === 0) {
+			siteNavigation.classList.contains("main-navigation--box-shadow")
+				? siteNavigation.classList.remove("main-navigation--box-shadow")
+				: "";
+		}
+
 		if (scrollToTopBtn) {
 			if (pageYOffset > window.innerHeight) {
 				scrollToTopBtn.classList.add("showBtn");

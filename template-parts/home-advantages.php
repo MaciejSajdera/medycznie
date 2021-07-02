@@ -6,13 +6,37 @@
  *
  * @package medycznie
  */
+// Get all your existing shipping zones IDS
+$zone_ids = array_keys( array('') + WC_Shipping_Zones::get_zones() );
+
+$free_shipping_min_amount;
+
+// Loop through shipping Zones IDs
+foreach ( $zone_ids as $zone_id ) 
+{
+    // Get the shipping Zone object
+    $shipping_zone = new WC_Shipping_Zone($zone_id);
+
+    // Get all shipping method values for the shipping zone
+    $shipping_methods = $shipping_zone->get_shipping_methods( true, 'values' );
+
+    // Loop through each shipping methods set for the current shipping zone
+    // FIRST METHOD SKIPPED (FREE SHIPPING)
+
+    foreach ( array_slice($shipping_methods, 0, 1) as $instance_id => $shipping_method )  {
+        
+        $free_shipping_min_amount = $shipping_method->instance_settings['min_amount'];
+
+            // var_dump($shipping_method);
+
+    }
+}
 
 ?>
 
 <div class="advantages-container">
 
-<!-- link below visible on mobile only -->
-<a href="<?php echo get_permalink( get_option( 'woocommerce_shop_page_id' ) ); ?>" class="mobile-only mobile-to-shop-button read-more">Sklep</a>
+<a href="<?php echo get_permalink( get_option( 'woocommerce_shop_page_id' ) ); ?>" class="advantages__read-more">Bezpieczne zakupy</a>
 
 <?php
 $box_1 = get_field('adventages_info_1', get_option( 'page_on_front' ));
@@ -21,7 +45,7 @@ if( $box_1 ): ?>
         <img src="<?php echo esc_url( $box_1['box_image'] ); ?>" alt="<?php echo esc_attr( $box_1['image']['alt'] ); ?>" />
         <div class="content">
 			<p><?php echo $box_1['box_header']; ?></p>
-			<span><?php echo $box_1['box_description']; ?></span>
+			<span><?php echo $box_1['box_description']; echo $free_shipping_min_amount; ?> zł</span>
         </div>
     </div>
 <?php endif; ?>

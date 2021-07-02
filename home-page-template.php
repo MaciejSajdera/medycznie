@@ -26,21 +26,13 @@ get_header();
 				?>
 
 				<div class="welcome-view">
-				<?php
-					get_template_part( 'template-parts/home-carousel', 'page' );
-				?>
-
-				<?php
-					// get_template_part( 'template-parts/home-advantages', 'page' );
-				?>
+					<?php
+						get_template_part( 'template-parts/home-carousel', 'page' );
+					?>
 				</div>
 				
 				<?php
 					get_template_part( 'template-parts/home-categories-display', 'page' );
-				?>
-
-				<?php
-					// get_template_part( 'template-parts/home-categories-descriptions-random', 'page' );
 				?>
 
 			</div>
@@ -48,11 +40,11 @@ get_header();
 		</div>
 
 		<?php
-				get_template_part( 'template-parts/home-brands-showcase', 'page' );
+				// get_template_part( 'template-parts/home-brands-showcase', 'page' );
 		?>
 
 		<?php
-				get_template_part( 'template-parts/home-content-blog', 'page' );
+				// get_template_part( 'template-parts/home-content-blog', 'page' );
 		?>
 
 
