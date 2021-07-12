@@ -115,24 +115,6 @@ $address_2 = get_field("address_2", get_page_by_title( 'O nas' ));
 		<div class="cookie-law-notification">
 			<button id="cookie-law-button">Akceptuję</button>
 			<p><?php echo $cookie_info ?></p>
-
-			<!-- <div class="temp-message">
-				<h1>Sklep jest w trakcie budowy</h1>
-
-				<p>Zapraszamy do kontaktu</p>
-
-				<div>
-					<div>
-						<p>paulina@medycznie.com.pl</p>
-						<p>tel: 537869373</p>
-						<p>robert@medycznie.com.pl</p>
-						<p>tel: 570733066</p>
-					</div>
-
-				</div>
-
-			</div> -->
-
 		</div>
 		
 	</footer><!-- #colophon -->

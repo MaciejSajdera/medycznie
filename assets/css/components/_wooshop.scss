@@ -539,18 +539,19 @@ body.single-product {
 				justify-content: space-between;
 				margin: 1em 0;
 				@media screen and (max-width: 992px) {
-					margin-bottom: 2em;
+					margin-bottom: 2rem;
 				}
 
 				&--producent {
 					align-items: center;
+					margin-top: 2rem;
 				}
 
 				&--price {
-					margin-bottom: 0em;
+					margin-bottom: 0rem;
 
 					@media screen and (max-width: 992px) {
-						margin-bottom: 0.5em;
+						margin-bottom: 0.5rem;
 					}
 				}
 
@@ -565,8 +566,8 @@ body.single-product {
 
 				img {
 					height: auto;
-					width: 150px;
-					max-height: 100px;
+					max-width: 100px;
+					max-height: 30px;
 					object-fit: contain;
 					order: 1;
 					margin-top: 1em;
@@ -575,6 +576,10 @@ body.single-product {
 						margin-top: 0;
 						margin-left: 1em;
 					}
+				}
+
+				&:last-of-type {
+					margin-bottom: 0;
 				}
 			}
 
@@ -727,7 +732,6 @@ body.single-product {
 		display: flex;
 		flex-flow: column;
 		justify-content: center;
-		align-items: center;
 
 		@media screen and (min-width: 992px) {
 			justify-content: flex-start;
@@ -744,6 +748,10 @@ body.single-product {
 				display: inline-block;
 				&:first-letter {
 					text-transform: uppercase;
+				}
+
+				&:first-of-type {
+					margin-left: 1em;
 				}
 			}
 
@@ -798,6 +806,7 @@ body.single-product {
 		align-items: center;
 		flex-flow: column;
 		margin-top: 1em;
+		margin-bottom: 0 !important;
 
 		@media screen and (min-width: 992px) {
 			justify-content: flex-start;
@@ -1259,6 +1268,10 @@ body.single-product {
 }
 
 //woof filter
+
+.woof_show_auto_form {
+	display: none;
+}
 
 .woof_remove_ppi {
 	background-image: url(../dist/svg/clear-24px.svg) !important;
@@ -2015,6 +2028,8 @@ form.woocommerce-form {
 
 .woocommerce-account {
 	.entry-content {
+		padding-bottom: 4rem;
+
 		.woocommerce {
 			width: 100%;
 
@@ -2026,6 +2041,10 @@ form.woocommerce-form {
 
 	.woocommerce-MyAccount-navigation {
 		width: 100%;
+
+		@media screen and (max-width: 992px) {
+			margin-bottom: 4rem;
+		}
 
 		@media screen and (min-width: 992px) {
 			width: 20%;
@@ -2081,6 +2100,15 @@ form.woocommerce-form {
 		// @media screen and (min-width: 992px) {
 		// 	width: 40% !important;
 		// }
+
+		.woocommerce-Address {
+			text-align: center;
+		}
+
+		.my-submit-button {
+			margin: auto!important;
+			display: block;
+		}
 
 		@media screen and (min-width: 992px) {
 			padding-left: 10%;
@@ -2409,18 +2437,6 @@ form.woocommerce-form {
 	@media screen and (min-width: 992px) {
 		display: none;
 	}
-
-	display: flex;
-	justify-content: space-between;
-
-	.filters-icon {
-		display: block;
-		background: url(../dist/svg/filter.svg) no-repeat;
-		background-size: contain;
-
-		width: 20px;
-		height: 20px;
-	}
 }
 
 .woof {
@@ -2472,7 +2488,7 @@ form.woocommerce-form {
 }
 
 .woof_products_top_panel {
-	width: 80%;
+	// width: 80%;
 	z-index: 3;
 	.woof_remove_ppi {
 		font-family: $font_headers;
@@ -2505,7 +2521,7 @@ span.woof_is_opened {
 
 .woof_container {
 	@media screen and (max-width: 992px) {
-		margin-bottom: 3rem;
+		margin-bottom: 1rem;
 	}
 }
 

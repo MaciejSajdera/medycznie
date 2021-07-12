@@ -110,38 +110,41 @@ window.addEventListener("DOMContentLoaded", event => {
 			".woof_container_mselect"
 		);
 
-		if (allCategoriesDropdowns.length <= 1) {
+		if (allCategoriesDropdowns.length < 1) {
 			return;
 		}
 
-		allCategoriesDropdowns.forEach(dropdown => {
-			const dropdownList = dropdown.querySelector(".woof_mselect");
-			const optionsAvailable = dropdownList.options;
-			const inputText = dropdown.querySelector("input[type=text]");
+		allCategoriesDropdowns &&
+			allCategoriesDropdowns.forEach(dropdown => {
+				const dropdownList = dropdown.querySelector(".woof_mselect");
+				const optionsAvailable = dropdownList.options;
+				const inputText = dropdown.querySelector("input[type=text]");
 
-			console.log(dropdown);
+				// console.log(dropdown);
 
-			inputText.readOnly = true;
+				inputText.readOnly = true;
 
-			let isEmpty;
+				let isEmpty;
 
-			let isOptionDisabled = [];
+				let isOptionDisabled = [];
 
-			Object.entries(optionsAvailable)
-				.slice(1)
-				.map(option => {
-					isOptionDisabled.push(option[1].disabled);
+				Object.entries(optionsAvailable)
+					.slice(1)
+					.map(option => {
+						isOptionDisabled.push(option[1].disabled);
+					});
+
+				isEmpty = isOptionDisabled.every(boolean => {
+					return boolean === true;
 				});
 
-			isEmpty = isOptionDisabled.every(boolean => {
-				return boolean === true;
+				isEmpty ? (dropdown.style.display = "none") : "";
 			});
-
-			isEmpty ? (dropdown.style.display = "none") : "";
-		});
 	};
 
-	hideEmptyFilters();
+	//"Woof filter" plugin renders HTML elements on the client side so setTimeout is set to get them.
+
+	setTimeout(() => hideEmptyFilters(), 10);
 
 	const handleSelectProductsPerPage = () => {
 		const selectProductsPerPage = document.querySelector("#products-per-page");
@@ -693,6 +696,8 @@ window.addEventListener("DOMContentLoaded", event => {
 				? blogPostsSection.classList.add("move-up")
 				: "";
 		}
+
+		console.log("showSection");
 
 		// if (
 		// 	categoriesShowcaseSection.classList.contains("move-up") &&

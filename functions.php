@@ -144,12 +144,12 @@ add_action( 'widgets_init', 'medycznie_widgets_init' );
  */
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '8.9');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.19');
 
-	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '8.9', true );
+	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.19', true );
 
 	if (is_front_page()) {
-		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '8.9', true );
+		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.19', true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -157,7 +157,7 @@ function medycznie_scripts() {
 	}
 
 	if ( is_singular() && is_product()) {
-		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '8.9', true );
+		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.19', true );
 	}
 
 	if ( is_cart() ) {
@@ -692,26 +692,31 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 
 //Meta information
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 60 );
+// add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 60 );
 
-// add_action( 'woocommerce_single_product_summary', 'show_producent_info', 55 );
-// function show_producent_info() {
-// 	$terms = get_the_terms( $post->ID, 'producent' );
-							
-// 	if ($terms) {
-// 		foreach ( $terms as $term ){
-// 			$producent_name = $term->name;
-// 			$imageURL = get_field("producent_logo", $term);
-// 			$producent_link = get_term_link( $term );
+add_action( 'woocommerce_single_product_summary', 'show_producent_info', 65 );
+function show_producent_info() {
+	$terms = get_the_terms( $post->ID, 'manufacturer' );
 
-// 			if ($imageURL) :
-// 			echo '<div class="product-info product-info--producent"><div class="product-info__label">Producent:</div><a class="product-info__value" href="'.$producent_link.'"><img src="'.$imageURL.'" alt="'.$producent_name.'"></a></div>';
-// 			else :
-// 			echo '<div class="product-info product-info--producent"><div class="product-info__label">Producent:</div><a class="product-info__value" href="'.$producent_link.'">' .$producent_name.'</a></div>';
-// 			endif;
-// 		}
-// 	}
-// }
+	if(is_wp_error( $terms )){
+		return;
+	}
+
+	elseif($terms) {
+
+		foreach ( $terms as $term ){
+			$producent_name = $term->name;
+			$imageURL = get_field("producent_logo", $term);
+			$producent_link = get_term_link( $term );
+
+			if ($imageURL) :
+			echo '<div class="product-info product-info--producent"><div class="product-info__label">Producent:</div><a class="product-info__value" href="'.$producent_link.'"><img src="'.$imageURL.'" alt="'.$producent_name.'"></a></div>';
+			else :
+			echo '<div class="product-info product-info--producent"><div class="product-info__label">Producent:</div><a class="product-info__value" href="'.$producent_link.'">' .$producent_name.'</a></div>';
+			endif;
+		}
+	}
+}
 
 
 
@@ -850,8 +855,6 @@ function remove_short_description() {
 }
 add_action('add_meta_boxes', 'remove_short_description', 999);
 
-add_filter( 'woocommerce_cart_shipping_method_full_label', 'filter_woocommerce_cart_shipping_method_full_label', 10, 2 ); 
-
 
 add_action('woocommerce_init', 'shipping_instance_form_fields_filters');
 
@@ -888,6 +891,10 @@ function filter_woocommerce_cart_shipping_method_full_label( $label, $method ) {
        $label .= '<img id="free-shipping-check" src="'.$delivery_option_free.'" />';
    	}
 
+	if( $method->id === "free_shipping:12" ) {
+		$label .= '<img id="free-shipping-check" src="'.$delivery_option_free.'" />';
+	}
+	
    	if( $method->id === "flat_rate:7" ) {
 		$label .= '<img src="'.$delivery_option_2.'" />';
 	}
@@ -911,33 +918,52 @@ function filter_woocommerce_cart_shipping_method_full_label( $label, $method ) {
    return $label; 
 }
 
+add_filter( 'woocommerce_cart_shipping_method_full_label', 'filter_woocommerce_cart_shipping_method_full_label', 10, 2 ); 
+
  /**
  * Filter payment gateways
  */
 function my_custom_available_payment_gateways( $gateways ) {
-	$chosen_shipping_rates = ( isset( WC()->session ) ) ? WC()->session->get( 'chosen_shipping_methods' ) : array();
 
-		if ( in_array( 'flat_rate:7', $chosen_shipping_rates ) ) :
-		unset( $gateways['cod'] );
-		
-		elseif ( in_array( 'flat_rate:8', $chosen_shipping_rates ) ) :
-		unset( $gateways['bacs'] );
-		unset( $gateways['przelewy24'] );
-		
-		elseif ( in_array( 'flat_rate:9', $chosen_shipping_rates ) ) :
-		unset( $gateways['cod'] );
-		
-		elseif ( in_array( 'flat_rate:10', $chosen_shipping_rates ) ) :
-		unset( $gateways['cod'] );
 
-		elseif ( in_array( 'flat_rate:11', $chosen_shipping_rates ) ) :
+	if (is_checkout()) {
+
+		$chosen_shipping_rates = ( isset( WC()->session ) ) ? WC()->session->get( 'chosen_shipping_methods' ) : array();
+
+			if ( in_array( 'flat_rate:7', $chosen_shipping_rates ) ) :
+			unset( $gateways['cod'] );
+			
+			elseif ( in_array( 'flat_rate:8', $chosen_shipping_rates ) ) :
 			unset( $gateways['bacs'] );
 			unset( $gateways['przelewy24'] );
+			
+			elseif ( in_array( 'flat_rate:9', $chosen_shipping_rates ) ) :
+			unset( $gateways['cod'] );
+			
+			elseif ( in_array( 'flat_rate:10', $chosen_shipping_rates ) ) :
+			unset( $gateways['cod'] );
 
-	endif;
-	return $gateways;
+			elseif ( in_array( 'flat_rate:11', $chosen_shipping_rates ) ) :
+				unset( $gateways['bacs'] );
+				unset( $gateways['przelewy24'] );
+
+			elseif ( in_array( 'free_shipping:3', $chosen_shipping_rates ) ) :
+				unset( $gateways['cod'] );
+
+			elseif ( in_array( 'free_shipping:12', $chosen_shipping_rates ) ) :
+				unset( $gateways['bacs'] );
+				unset( $gateways['przelewy24'] );
+
+		endif;
+		return $gateways;
+
+	} else {
+		return;
+	}
 }
-add_filter( 'woocommerce_available_payment_gateways', 'my_custom_available_payment_gateways' );
+
+	add_filter( 'woocommerce_available_payment_gateways', 'my_custom_available_payment_gateways' );
+
 
 function get_free_shipping_minimum($zone_name = 'Poland') {
 	if ( ! isset( $zone_name ) ) return null;
@@ -994,7 +1020,6 @@ function my_hide_shipping_when_free_is_available( $rates ) {
 	foreach ( $rates as $rate_id => $rate ) {
 		if ( 'free_shipping' === $rate->method_id ) {
 			$free[ $rate_id ] = $rate;
-			break;
 		}
 	}
 	return ! empty( $free ) ? $free : $rates;

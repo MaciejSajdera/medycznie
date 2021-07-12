@@ -182,14 +182,28 @@
 	width: fit-content;
 	color: $color_dark_blue;
 	font-weight: 600;
-	border-radius: 100rem;
+	border-radius: 10px;
 	text-decoration: none;
 	transition: all 0.2s ease-in;
 	border: 2px solid $color_dark_blue;
 	cursor: pointer;
-	width: 100%;
-	padding: 0.5em 1em 0.5em 2em;
-	@include fluid-type($min_width, $max_width, 13px, 15px);
+
+	padding: 0.5em 1em;
+	min-width: 100px;
+	margin: 0 0 auto 0;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.filters-icon {
+		display: block;
+		background: url(../dist/svg/filter.svg) no-repeat;
+		background-size: contain;
+
+		width: 20px;
+		height: 20px;
+	}
 }
 
 .outline-button {

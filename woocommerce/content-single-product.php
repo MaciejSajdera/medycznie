@@ -66,7 +66,6 @@ if ( post_password_required() ) {
 
 				/** Product Info Table */
 
-				
 				// add_filter( 'woocommerce_quantity_input_args', 'custom_quantity_input_args', 20, 2 );
 				// function custom_quantity_input_args( $args, $product ) {
 				// 	if( $product->get_stock_quantity() == 1 && is_product() ){
@@ -76,11 +75,11 @@ if ( post_password_required() ) {
 				// 	return $args;
 				// }
 
-				// $availbility_status;
+				$availbility_status;
 
-				// if( $product->is_in_stock() && !$product->get_stock_quantity() ) {
-				// 	$availbility_status = '<span class="product-available">Dostępne</span>';		
-				// }
+				if( $product->is_in_stock() ) {
+					$availbility_status = '<span class="product-available">Na stanie</span>';		
+				}
 
 				// elseif( $product->is_in_stock() && $product->get_stock_quantity() < 10 ) {
 				// 	$availbility_status = '<span class="product-low-stock">'. $product->get_stock_quantity() .'szt.</span>';		
@@ -90,11 +89,11 @@ if ( post_password_required() ) {
 				// 	$availbility_status = '<span class="product-available">'. $product->get_stock_quantity() .'szt.</span>';	
 				// }
 				
-				// else {
-				// 	$availbility_status = '<span class="product-notavailable">Niedostępne</span>';
-				// }
+				if( !$product->is_in_stock() ) {
+					$availbility_status = '<span class="product-notavailable">Brak</span>';
+				}
 
-				// echo '<div class="product-info"><div class="product-info__label">Stan magazynowy:</div><div class="product-info__value">'.$availbility_status.'</div></div>';
+				echo '<div class="product-info"><div class="product-info__label">Dostępność:</div><div class="product-info__value">'.$availbility_status.'</div></div>';
 
 				/**
 				 * Hook: woocommerce_single_product_summary.

@@ -74,11 +74,10 @@ get_header();
 											$shipping_methods = $shipping_zone->get_shipping_methods( true, 'values' );
 
 											// Loop through each shipping methods set for the current shipping zone
-											// FIRST METHOD SKIPPED (FREE SHIPPING)
-											foreach ( array_slice($shipping_methods, 1) as $instance_id => $shipping_method ) 
+											// FIRST 2 METHODS SKIPPED (FREE SHIPPING)
+											foreach ( array_slice($shipping_methods, 2) as $instance_id => $shipping_method ) 
 											{
 												
-
 												// var_dump($shipping_method);
 
 												echo '<div class="delivery-data__option delivery-data__option--'.$i.'">';

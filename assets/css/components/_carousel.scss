@@ -138,7 +138,7 @@
 }
 
 .brands-carousel {
-	padding: 4em 0;
+	padding: 4em 0 0;
 
 	@media screen and (max-width: 992px) {
 		padding: 0;
@@ -147,16 +147,22 @@
 	h2 {
 		text-align: center;
 	}
+
 	.swiper-container-brands {
 		overflow: hidden;
+		padding-top: 3rem;
 
 		img {
-			height: 8rem;
 			object-fit: contain;
+			height: auto;
+			max-height: 50px;
+			width: 150px;
 		}
 	}
+
 	.swiper-wrapper {
-		transition-timing-function: linear;
+		transition-timing-function: linear !important;
+		align-items: center;
 	}
 
 	.swiper-slide {

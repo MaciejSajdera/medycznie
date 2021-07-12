@@ -45,7 +45,16 @@ if( $box_1 ): ?>
         <img src="<?php echo esc_url( $box_1['box_image'] ); ?>" alt="<?php echo esc_attr( $box_1['image']['alt'] ); ?>" />
         <div class="content">
 			<p><?php echo $box_1['box_header']; ?></p>
-			<span><?php echo $box_1['box_description']; echo $free_shipping_min_amount; ?> zł</span>
+
+            <?php 
+
+            $free_shipping_min_amount_tax_value = ($free_shipping_min_amount * 0.23) / 1.23;
+
+            $free_shipping_min_amount_without_tax = $free_shipping_min_amount - $free_shipping_min_amount_tax_value;
+
+            ?>
+
+			<span><?php echo $box_1['box_description']; echo round($free_shipping_min_amount_without_tax, 2); ?> zł netto</span>
         </div>
     </div>
 <?php endif; ?>

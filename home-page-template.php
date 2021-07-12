@@ -40,7 +40,7 @@ get_header();
 		</div>
 
 		<?php
-				// get_template_part( 'template-parts/home-brands-showcase', 'page' );
+				get_template_part( 'template-parts/home-brands-showcase', 'page' );
 		?>
 
 		<?php

@@ -21,6 +21,24 @@ body {
 // .site {
 // 	height: 100%;
 // }
+.error-404 {
+	display: flex;
+	min-height: 50vh;
+	padding: 4rem 2rem;
+
+	.page-header {
+		margin: auto;
+		text-align: center;
+
+		h1 {
+			margin-bottom: 2em;
+		}
+	}
+
+	a {
+		font-size: 20px;
+	}
+}
 
 blockquote,
 q {

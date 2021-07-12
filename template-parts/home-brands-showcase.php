@@ -20,7 +20,7 @@
 			// Get the taxonomy's terms
 			$terms = get_terms(
 				array(
-					'taxonomy'   => 'producent',
+					'taxonomy'   => 'manufacturer',
 					'hide_empty' => false,
 				)
 			);
@@ -36,7 +36,7 @@
 					echo '<div class="swiper-slide">';
 
 					echo '<a href="'.esc_url( get_term_link( $term ) ).'" >';
-					echo '<img src="'.$imageURL.'" alt="'.$term->name.'">';
+					echo '<img width="150" height="auto" src="'.$imageURL.'" alt="'.$term->name.'" loading="lazy">';
 					echo '</a>';
 					echo '</div>';
 					};

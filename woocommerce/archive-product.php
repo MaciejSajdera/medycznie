@@ -58,15 +58,15 @@ do_action( 'woocommerce_before_main_content' );
 
 			<div class="wrapper-flex-column shop-wrapper">
 
-				<!-- <div class="woof-filter sidebar-filters">
+				<div class="woof-filter sidebar-filters">
 
 					<p id="toggle-filters">Filtry <span class="filters-icon"></span></p>
 
 					<?php
-					//  do_shortcode('[woof]')
+					 	echo do_shortcode('[woof]')
 					  ?>
 
-				</div> -->
+				</div>
 
 
 				<div class="main-shop-products">
