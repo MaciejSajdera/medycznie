@@ -31,10 +31,20 @@ get_header( 'shop' ); ?>
 		do_action( 'woocommerce_before_main_content' );
 	?>
 
-		<?php while ( have_posts() ) : ?>
+		<!--
+		WARNING!!!
+		Loop is commented out due to a bug which caused doubling the product in the single product page
+	 	-->
+
+		<?php
+		//  while ( have_posts() ) :
+		?>
 			<?php the_post(); ?>
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
-		<?php endwhile; // end of the loop. ?>
+
+		<?php
+	 	// endwhile;
+		  // end of the loop. ?>
 
 	<?php
 		/**

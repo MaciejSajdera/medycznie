@@ -828,6 +828,43 @@ window.addEventListener("DOMContentLoaded", event => {
 	// 		});
 	// 	});
 	// }
+
+
+	const showActiveShippingMethod = () => {
+
+		const allShippingMethods = document.querySelectorAll(".shipping_method");
+
+		allShippingMethods && allShippingMethods.forEach(method => {
+			method && method.checked && method.closest("LI") ? method.closest("LI").classList.add("shipping-method--active") : '';
+		});
+	}
+
+	showActiveShippingMethod();
+	jQuery(document).on("updated_shipping_method", showActiveShippingMethod);
+	jQuery(document).on("updated_checkout", showActiveShippingMethod);
+
+
+	const addMapIconToTheGeoTag = () => {
+		const geoTag = document.querySelector("#open-geowidget");
+
+		console.log(geoTag);
+
+		if (!geoTag) {
+			return
+		} else {
+
+			console.log(geoTag);
+
+			const mapIcon = document.createElement("SPAN");
+			mapIcon.classList.add("map-icon");
+
+			geoTag.appendChild(mapIcon);
+		}
+
+	}
+
+	setTimeout(() => addMapIconToTheGeoTag(), 100)
+
 });
 
 // const closePromo = document.querySelector("#close-promo");

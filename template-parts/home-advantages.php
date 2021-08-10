@@ -6,6 +6,8 @@
  *
  * @package medycznie
  */
+
+ 
 // Get all your existing shipping zones IDS
 $zone_ids = array_keys( array('') + WC_Shipping_Zones::get_zones() );
 
@@ -40,6 +42,7 @@ foreach ( $zone_ids as $zone_id )
 
 <?php
 $box_1 = get_field('adventages_info_1', get_option( 'page_on_front' ));
+
 if( $box_1 ): ?>
     <div class="advantage-box">
         <img src="<?php echo esc_url( $box_1['box_image'] ); ?>" alt="<?php echo esc_attr( $box_1['image']['alt'] ); ?>" />

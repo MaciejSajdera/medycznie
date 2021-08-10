@@ -1,5 +1,5 @@
 .main-carousel {
-	height: 20em;
+	// height: 20em;
 
 	// @media screen and (min-height: 736px) and (max-width: 992px) {
 	// 	height: 70vh;
@@ -34,6 +34,12 @@
 		&__link {
 			transform: scale(1);
 			transition: all 0.3s ease-in-out;
+			// height: 100%;
+			// width: 100%;
+
+			img {
+				display: block;
+			}
 
 			&:hover {
 				color: inherit !important;
@@ -62,6 +68,8 @@
 	.swiper-button-next {
 		color: rgba(255, 255, 255, 0.699) !important;
 		padding: 2em;
+		margin: 0;
+		transform: translateY(-50%);
 
 		&:after {
 			font-size: 1.75rem;

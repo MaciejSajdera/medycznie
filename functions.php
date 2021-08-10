@@ -144,12 +144,12 @@ add_action( 'widgets_init', 'medycznie_widgets_init' );
  */
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.19');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.39');
 
-	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.19', true );
+	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.39', true );
 
 	if (is_front_page()) {
-		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.19', true );
+		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.39', true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -157,7 +157,7 @@ function medycznie_scripts() {
 	}
 
 	if ( is_singular() && is_product()) {
-		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.19', true );
+		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.39', true );
 	}
 
 	if ( is_cart() ) {
@@ -327,6 +327,16 @@ function disable_woo_commerce_sidebar() {
 }
 add_action('init', 'disable_woo_commerce_sidebar');
 
+//hide shipping from cart template
+
+add_filter( 'woocommerce_cart_needs_shipping', 'filter_cart_needs_shipping' );
+function filter_cart_needs_shipping( $needs_shipping ) {
+    if ( is_cart() ) {
+        $needs_shipping = false;
+    }
+    return $needs_shipping;
+}
+
 
 add_filter( 'woocommerce_min_password_strength', 'reduce_min_strength_password_requirement' );
 function reduce_min_strength_password_requirement( $strength ) {
@@ -487,6 +497,7 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
 	
 	$user_count = count_users();
 
+	$wp_new_user_notification_email['headers'] = "From: Sklep <zamowienia@medycznie.com.pl> \n\r cc: Marek Bieroński <robert@medycznie.com.pl>";
     $wp_new_user_notification_email['subject'] = sprintf( '[%s] Nowy użytkownik %s .', $blogname, $user_role, $user->user_login );
     $wp_new_user_notification_email['message'] = sprintf( "%s ( %s ) zarejestrował się w Twoim sklepie %s.", $user->user_login, $user->user_email, $blogname ) .
 	"\n" . sprintf("Gratulacje, to twój %d zarejestrowany użytkownik!", $user_count['total_users']);
@@ -653,7 +664,7 @@ add_filter( 'gettext', function( $translated_text ) {
 
 function bbloomer_new_badge_shop_page() {
    global $product;
-   $newness_days = 10;
+   $newness_days = 14;
    $created = strtotime( $product->get_date_created() );
    if ( ( time() - ( 60 * 60 * 24 * $newness_days ) ) < $created ) {
       echo '<span class="itsnew">' . esc_html__( 'Nowość!', 'woocommerce' ) . '</span>';
@@ -878,6 +889,29 @@ function shipping_instance_form_add_extra_fields($settings)
     return $settings;
 } 
 
+
+//Remove unwanted colon from labels
+add_filter( 'woocommerce_cart_shipping_method_full_label', 'change_cart_shipping_method_full_label', 10, 2 );
+function change_cart_shipping_method_full_label( $label, $method ) {
+    $label = $method->get_label(); 
+ 
+    if ( $method->cost > 0 ) { 
+        if ( WC()->cart->tax_display_cart == 'excl' ) { 
+            $label .= ' ' . wc_price( $method->cost ); 
+            if ( $method->get_shipping_tax() > 0 && WC()->cart->prices_include_tax ) { 
+                $label .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>'; 
+            } 
+        } else { 
+            $label .= ' ' . wc_price( $method->cost + $method->get_shipping_tax() ); 
+            if ( $method->get_shipping_tax() > 0 && ! WC()->cart->prices_include_tax ) { 
+                $label .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>'; 
+            } 
+        } 
+    } 
+ 
+    return $label; 
+}
+
 function filter_woocommerce_cart_shipping_method_full_label( $label, $method ) {      
    // Targeting shipping method "Flat rate instance Id 2"
    $delivery_option_free = get_field('delivery_option_1', get_option( 'woocommerce_cart_page_id' ) );
@@ -903,10 +937,6 @@ function filter_woocommerce_cart_shipping_method_full_label( $label, $method ) {
 		$label .= '<img src="'.$delivery_option_3.'" />';
 	}
 
-	if( $method->id === "flat_rate:9" ) {
-		$label .= '<img src="'.$delivery_option_4.'" />';
-	}
-
 	if( $method->id === "flat_rate:10" ) {
 		$label .= '<img src="'.$delivery_option_5.'" />';
 	}
@@ -915,10 +945,16 @@ function filter_woocommerce_cart_shipping_method_full_label( $label, $method ) {
 		$label .= '<img src="'.$delivery_option_6.'" />';
 	}
 
+	if( $method->id === "flexible_shipping_single:12" ) {
+		$label .= '<img src="'.$delivery_option_4.'" />';
+	}
+
    return $label; 
 }
 
 add_filter( 'woocommerce_cart_shipping_method_full_label', 'filter_woocommerce_cart_shipping_method_full_label', 10, 2 ); 
+
+
 
  /**
  * Filter payment gateways
@@ -962,7 +998,7 @@ function my_custom_available_payment_gateways( $gateways ) {
 	}
 }
 
-	add_filter( 'woocommerce_available_payment_gateways', 'my_custom_available_payment_gateways' );
+add_filter( 'woocommerce_available_payment_gateways', 'my_custom_available_payment_gateways' );
 
 
 function get_free_shipping_minimum($zone_name = 'Poland') {
@@ -1015,16 +1051,42 @@ add_action( 'woocommerce_cart_totals_before_shipping', 'bbloomer_free_shipping_c
 
 
 
-function my_hide_shipping_when_free_is_available( $rates ) {
-	$free = array();
-	foreach ( $rates as $rate_id => $rate ) {
-		if ( 'free_shipping' === $rate->method_id ) {
-			$free[ $rate_id ] = $rate;
-		}
-	}
-	return ! empty( $free ) ? $free : $rates;
+// function my_hide_shipping_when_free_is_available( $rates ) {
+// 	$free = array();
+// 	foreach ( $rates as $rate_id => $rate ) {
+// 		if ( 'free_shipping' === $rate->method_id ) {
+// 			$free[ $rate_id ] = $rate;
+// 		}
+// 	}
+// 	return ! empty( $free ) ? $free : $rates;
+// }
+// add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100 );
+
+
+//Change all shipping costs to 0 when minimum amount is reached
+
+add_filter( 'woocommerce_package_rates', 'wc_apply_free_shipping_to_all_methods', 10, 2 );
+function wc_apply_free_shipping_to_all_methods( $rates, $package ) {
+  if( isset( $rates['free_shipping:3'] ) ) { 
+    unset( $rates['free_shipping:3'] );
+    foreach( $rates as $rate_key => $rate ) { 
+                // Append rate label titles (free)
+                $rates[$rate_key]->label .= ' ' . __('(Darmowa wysyłka)', 'woocommerce');
+
+                // Set rate cost
+                $rates[$rate_key]->cost = 0;
+
+                // Set taxes rate cost (if enabled)
+                $taxes = array();
+                foreach ($rates[$rate_key]->taxes as $key => $tax){
+                    if( $rates[$rate_key]->taxes[$key] > 0 )
+                        $taxes[$key] = 0;
+                }
+                $rates[$rate_key]->taxes = $taxes;
+    }   
+  }
+  return $rates;
 }
-add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100 );
 
 
 add_action('init', function(){
@@ -1173,6 +1235,168 @@ return array(
         'after'       => ' ',
     );
 }
+
+/*
+Based on:
+Plugin Name: VG Woo Sort
+Description: Aditional sort, products per page dropdown for WooCommerce Shop
+Version: 2.0
+Author: Vijayan G
+Author URI: www.vijayan.in
+*/
+
+/**
+ * Adds Custom Sorting
+ * 
+ * This plugin is used to add and modify sorting options in product archive page
+ */
+class My_VG_Sort
+{
+
+    /**
+     * Callback method to implement A-Z & Z-A sort functionality
+     * 
+     * @since 1.0
+     */
+	
+    public static function custom_woocommerce_get_catalog_ordering_args($args)
+    {
+        $orderby_value = isset($_GET['orderby']) ?
+            wc_clean($_GET['orderby']) :
+            apply_filters(
+                'woocommerce_default_catalog_orderby',
+                get_option('woocommerce_default_catalog_orderby')
+            );
+
+        if ('reverse_list' == $orderby_value) {
+            $args['orderby'] = 'title';
+            $args['order'] = 'desc';
+        } else if ('alpha_list' == $orderby_value) {
+            $args['orderby'] = 'title';
+            $args['order'] = 'asc';
+        }
+
+        return $args;
+    }
+
+    /**
+     * Callback method to alter number of products per page
+     * 
+     * @since 2.0
+     */
+    public static function custom_products_per_page($per_page)
+    {
+
+        $count = (int) get_query_var('show', 16);
+
+        switch ($count) {
+            case 48:
+            case 72:
+            case -1:
+                $per_page = $count;
+                break;
+            default:
+                $per_page = 24;
+                break;
+        }
+
+        return $per_page;
+    }
+
+    /**
+     * Template method responsible for total products per page
+     * 
+     * @since 2.0
+     */
+    public static function template_products_per_page()
+    {
+        wc_get_template('products-per-page.php', array(), '', plugin_dir_path(__FILE__) . 'template-parts/');
+    }
+
+    /**
+     * Add the query variables used by products per page logic
+     * 
+     * @since 2.0
+     */
+    public static function add_query_vars_products_per_page($vars)
+    {
+        $vars[] = 'show';
+
+        return $vars;
+    }
+}
+
+add_filter('loop_shop_per_page', array('My_VG_Sort', 'custom_products_per_page'));
+add_action('woocommerce_before_shop_loop', array('My_VG_Sort', 'template_products_per_page'), 30);
+add_filter('query_vars', array('My_VG_Sort', 'add_query_vars_products_per_page'));
+
+/* Hide specific options for specific admin user */
+
+// function hide_menu() {
+  
+// 		// Uncomment the part below if you need it to specific user. Change username "demouser"
+// 		$user_id = get_current_user_id();
+	
+// 		// Use this for specific user role. Change site_admin part accordingly
+// 		if (is_admin() && $user_id == '13') { 
+		
+// 			/* DASHBOARD */
+// 				// remove_menu_page( 'index.php' ); // Dashboard + submenus
+// 				// remove_menu_page( 'about.php' ); // WordPress menu
+// 				remove_submenu_page( 'index.php', 'update-core.php');  // Update
+				
+// 				/* WP DEFAULT MENUS */
+// 				// remove_menu_page( 'edit-comments.php' ); //Comments
+// 				remove_menu_page( 'plugins.php' ); //Plugins
+// 				remove_menu_page( 'tools.php' ); //Tools
+// 				remove_menu_page( 'users.php' ); //Users
+// 				// remove_menu_page( 'edit.php' ); //Posts
+// 				// remove_menu_page( 'upload.php' ); //Media
+// 				// remove_menu_page( 'edit.php?post_type=page' ); //Pages
+// 				// remove_menu_page( 'themes.php' ); //Appearance
+// 				remove_menu_page( 'options-general.php' ); //Settings
+
+// 				remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2F&autofocus%5Bcontrol%5D=header_image' );
+// 				remove_submenu_page( 'themes.php', 'customize.php?return=%2Fwp-admin%2F&autofocus%5Bcontrol%5D=background_image' );
+		
+// 				/* SETTINGS PAGE SUBMENUS */
+// 				//remove_submenu_page( 'options-general.php', 'options-permalink.php');  // Permalinks
+// 				remove_submenu_page( 'options-general.php', 'options-writing.php');  // Writing
+// 				remove_submenu_page( 'options-general.php', 'options-reading.php');  // Reading
+// 				remove_submenu_page( 'options-general.php', 'options-discussion.php');  // Discussion
+// 				remove_submenu_page( 'options-general.php', 'options-media.php');  // Media
+// 				//remove_submenu_page( 'options-general.php', 'options-general.php');  // General
+// 				remove_submenu_page( 'options-general.php', 'options-privacy.php');  // Privacy
+		
+// 				/* APPEARANCE SUBMENUS */
+// 				remove_submenu_page( 'themes.php', 'widgets.php' ); // hide Widgets
+// 				// remove_submenu_page( 'themes.php', 'nav-menus.php' ); // hide Menus
+// 				remove_submenu_page( 'themes.php', 'themes.php' ); // hide the theme selection submenu
+// 				remove_submenu_page('themes.php', 'theme-editor.php'); // hide Theme editor
+		
+// 				/* HIDE CUSTOMIZER MENU */
+// 				$customizer_url = add_query_arg( 'return', urlencode( remove_query_arg( wp_removable_query_args(), wp_unslash( $_SERVER['REQUEST_URI'] ) ) ), 'customize.php' );
+// 				remove_submenu_page( 'themes.php', $customizer_url );
+				
+// 				/* Plugin related submenus under Settings page */
+// 				remove_submenu_page( 'options-general.php', 'webpc_admin_page' ); // WebP converter
+// 				remove_submenu_page( 'options-general.php', 'kadence_blocks' ); // Kadence Blocks
+			
+// 				/* 3rd party plugin menus */
+// 				remove_menu_page( 'edit.php?post_type=acf-field-group' );
+// 				remove_menu_page( 'postman' );
+// 				remove_menu_page( 'cptui_main_menu' );
+// 				remove_menu_page('wpseo_dashboard');
+// 				// remove_menu_page( 'snippets' ); // Code snippets
+// 				// remove_menu_page( 'elementor' ); // Elementor
+// 				// remove_menu_page( 'rank-math' ); // Rank Math
+// 				// remove_menu_page( 'Wordfence' ); // Wordfence
+// 				// remove_menu_page( 'WPML' ); // WPML
+// 				// remove_menu_page( 'fluent_forms' ); // Fluent Forms
+// 				// remove_menu_page( 'ct-dashboard' ); // Blocksy
+// 			}
+// }
+// add_action('admin_head', 'hide_menu');
 
 /**
  * Implement the Custom Header feature.

@@ -75,7 +75,7 @@ get_header();
 
 											// Loop through each shipping methods set for the current shipping zone
 											// FIRST 2 METHODS SKIPPED (FREE SHIPPING)
-											foreach ( array_slice($shipping_methods, 2) as $instance_id => $shipping_method ) 
+											foreach ( array_slice($shipping_methods, 1) as $instance_id => $shipping_method ) 
 											{
 												
 												// var_dump($shipping_method);
@@ -83,13 +83,22 @@ get_header();
 												echo '<div class="delivery-data__option delivery-data__option--'.$i.'">';
 
 													echo '<img src="'.$shipping_method->instance_settings['shipping_method_image'].'" />';
-													echo '<p>'.$shipping_method->instance_settings['title'].'</p>';
+													echo '<p>'.$shipping_method->title.'</p>';
 
-													$shipping_cost_integer = str_replace(',', '.', $shipping_method->instance_settings['cost']);
 
-													$shipping_with_tax = $shipping_cost_integer + ($shipping_cost_integer*0.23);
+													if($shipping_method->id == "flat_rate") {
 
-													$shipping_with_tax_formatted = number_format((float)$shipping_with_tax, 2, '.', '');  // Outputs -> 105.00
+														$shipping_cost_integer = str_replace(',', '.', $shipping_method->instance_settings['cost']);
+
+														$shipping_with_tax = $shipping_cost_integer + ($shipping_cost_integer*0.23);
+	
+														$shipping_with_tax_formatted = number_format((float)$shipping_with_tax, 2, '.', '');
+
+													}
+
+													if($shipping_method->instance_settings['id_for_shipping'] == "flexible_shipping_single:12") {
+														$shipping_with_tax_formatted = get_field("cena_paczkomaty");
+													}
 
 													echo '<span>'.$shipping_with_tax_formatted.' PLN</span>';
 
