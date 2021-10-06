@@ -48,11 +48,6 @@ get_header();
 
 						get_template_part( 'template-parts/content', 'page' );
 
-						// If comments are open or we have at least one comment, load up the comment template.
-						// if ( comments_open() || get_comments_number() ) :
-						// 	comments_template();
-						// endif;
-
 						echo '<div class="delivery-data">';
 
 							echo '<h2>Cennik</h2>';
@@ -74,17 +69,17 @@ get_header();
 											$shipping_methods = $shipping_zone->get_shipping_methods( true, 'values' );
 
 											// Loop through each shipping methods set for the current shipping zone
-											// FIRST 2 METHODS SKIPPED (FREE SHIPPING)
-											foreach ( array_slice($shipping_methods, 1) as $instance_id => $shipping_method ) 
+											foreach ( $shipping_methods as $instance_id => $shipping_method ) 
 											{
 												
 												// var_dump($shipping_method);
 
-												echo '<div class="delivery-data__option delivery-data__option--'.$i.'">';
+												if ($shipping_method->id !== "free_shipping") {
 
-													echo '<img src="'.$shipping_method->instance_settings['shipping_method_image'].'" />';
+													echo '<div class="delivery-data__option delivery-data__option--'.$i.'">';
+
+													echo '<img src="'.$shipping_method->instance_settings['shipping_method_image'].'" alt="Opcja dostawy" />';
 													echo '<p>'.$shipping_method->title.'</p>';
-
 
 													if($shipping_method->id == "flat_rate") {
 
@@ -105,6 +100,10 @@ get_header();
 												echo '</div>';
 
 												$i++;
+
+												}
+
+
 											}
 										}
 									

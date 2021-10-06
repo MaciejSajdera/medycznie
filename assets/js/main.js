@@ -2,12 +2,10 @@
  * Main JavaScript file.
  */
 import Navigation from "./navigation.js";
-import skipLinkFocus from "./skip-link-focus-fix.js";
 import smoothscroll from "smoothscroll-polyfill";
 import {
 	isElementInViewport,
-	addSelfDestructingEventListener,
-	addClassToAllTargetsAbove
+	addSelfDestructingEventListener
 } from "../js/helperFunctions";
 
 window.addEventListener("DOMContentLoaded", event => {
@@ -110,7 +108,7 @@ window.addEventListener("DOMContentLoaded", event => {
 			".woof_container_mselect"
 		);
 
-		if (allCategoriesDropdowns.length < 1) {
+		if (allCategoriesDropdowns && allCategoriesDropdowns.length < 1) {
 			return;
 		}
 
@@ -268,8 +266,6 @@ window.addEventListener("DOMContentLoaded", event => {
 	mediaQueryMobile.addListener(handleMobileChange);
 	handleMobileChange(mediaQueryMobile);
 
-	// This is the important part!
-
 	function collapseSection(element) {
 		// get the height of the element's inner content, regardless of its actual size
 		var sectionHeight = element.scrollHeight;
@@ -329,7 +325,6 @@ window.addEventListener("DOMContentLoaded", event => {
 				const submenu = link.querySelector(".sub-menu");
 
 				submenu.setAttribute("data-collapsed", "true");
-				console.log(`submenu: ${submenu}`);
 			}
 		});
 
@@ -515,7 +510,6 @@ window.addEventListener("DOMContentLoaded", event => {
 			const directAncestor = currentProductParent.closest(
 				".current-product-ancestor"
 			);
-			console.log(directAncestor);
 
 			const currentExpandMenuToggle = directAncestor.querySelector(
 				".expand-menu-toggle"
@@ -618,95 +612,14 @@ window.addEventListener("DOMContentLoaded", event => {
 		});
 	}
 
-	const registerAsRetail = document.querySelector("#registerAsRetail");
-	const registerAsWholesale = document.querySelector("#registerAsWholesale");
-
-	if (registerAsRetail && registerAsWholesale) {
-		//showing form after choosing customer type
-		const signUpForm = document.querySelector(".sign-up-wrapper form");
-
-		//switching input fields betweem wholesale and retail customer
-
-		const customRegisterFormFields = document.querySelectorAll(
-			".my-custom-form-field"
-		);
-
-		const customRegisterFormFieldsInputs = document.querySelectorAll(
-			".my-custom-form-field input"
-		);
-		const wholesaleInfo = document.querySelector(".wholesale-info");
-
-		registerAsRetail.addEventListener("click", function retailFunction() {
-			registerAsWholesale.classList.contains("customer-type-chosen")
-				? registerAsWholesale.classList.remove("customer-type-chosen")
-				: "";
-
-			this.classList.add("customer-type-chosen");
-
-			wholesaleInfo.classList.contains("show-info")
-				? wholesaleInfo.classList.remove("show-info")
-				: "";
-
-			customRegisterFormFields.forEach(field => {
-				field.style.display = "none";
-			});
-
-			customRegisterFormFieldsInputs.forEach(field => {
-				field.required = false;
-			});
-
-			signUpForm.classList.add("form-type-chosen");
-		});
-
-		registerAsWholesale.addEventListener("click", function wholesaleFunction() {
-			registerAsRetail.classList.contains("customer-type-chosen")
-				? registerAsRetail.classList.remove("customer-type-chosen")
-				: "";
-
-			this.classList.add("customer-type-chosen");
-
-			wholesaleInfo.classList.add("show-info");
-
-			customRegisterFormFields.forEach(field => {
-				field.style.display = "block";
-			});
-
-			customRegisterFormFieldsInputs.forEach(field => {
-				field.required = true;
-			});
-
-			signUpForm.classList.add("form-type-chosen");
-		});
-	}
-
 	const showSection = () => {
-		// const categoriesShowcaseSection = document.querySelector(
-		// 	".categories-showcase"
-		// );
 		const blogPostsSection = document.querySelector(".blog-posts");
-
-		// if (categoriesShowcaseSection) {
-		// 	isElementInViewport(categoriesShowcaseSection)
-		// 		? categoriesShowcaseSection.classList.add("move-up")
-		// 		: "";
-		// }
 
 		if (blogPostsSection) {
 			isElementInViewport(blogPostsSection)
 				? blogPostsSection.classList.add("move-up")
 				: "";
 		}
-
-		console.log("showSection");
-
-		// if (
-		// 	categoriesShowcaseSection.classList.contains("move-up") &&
-		// 	blogPostsSection.classList.contains("move-up")
-		// ) {
-		// 	document.removeEventListener("scroll", showSection);
-		// 	window.removeEventListener("resize", showSection);
-		// 	window.removeEventListener("orientationchange", showSection);
-		// }
 	};
 
 	const homePage = document.querySelector(".home");
@@ -724,57 +637,6 @@ window.addEventListener("DOMContentLoaded", event => {
 		toggleFilters.addEventListener("click", e => {
 			woofFilters.classList.toggle("woof__show");
 		});
-	}
-
-	//li hover effect - Noel Delgado | @pixelia_me
-
-	const directions = { 0: "top", 1: "right", 2: "bottom", 3: "left" };
-	const classNames = ["in", "out"]
-		.map(p => Object.values(directions).map(d => `${p}-${d}`))
-		.reduce((a, b) => a.concat(b));
-
-	const getDirectionKey = (ev, node) => {
-		const { width, height, top, left } = node.getBoundingClientRect();
-		const l = ev.pageX - (left + window.pageXOffset);
-		const t = ev.pageY - (top + window.pageYOffset);
-		const x = l - (width / 2) * (width > height ? height / width : 1);
-		const y = t - (height / 2) * (height > width ? width / height : 1);
-		const directionKey =
-			Math.round((Math.atan2(y, x) * (180 / Math.PI) + 180) / 90 + 3) % 4;
-		return directionKey;
-	};
-
-	class Item {
-		constructor(element) {
-			this.element = element;
-			element.addEventListener("mouseover", ev => this.update(ev, "in"));
-			element.addEventListener("mouseout", ev => this.update(ev, "out"));
-		}
-
-		update(ev, prefix) {
-			this.element.classList.remove(...classNames);
-			this.element.classList.add(
-				`${prefix}-${directions[getDirectionKey(ev, this.element)]}`
-			);
-		}
-	}
-
-	const allWooCategoryMenuLinks = document.querySelectorAll(
-		"#menu-woomenu > li > a"
-	);
-
-	if (allWooCategoryMenuLinks) {
-		const linksToDirectionHover = [].slice.call(allWooCategoryMenuLinks, 0);
-		linksToDirectionHover.forEach(node => new Item(node));
-	}
-
-	const allShowcaseCategories = document.querySelectorAll(
-		".categories-showcase__wrapper > a"
-	);
-
-	if (allShowcaseCategories) {
-		const categoriesToDirectionHover = [].slice.call(allShowcaseCategories, 0);
-		categoriesToDirectionHover.forEach(node => new Item(node));
 	}
 
 	document.addEventListener("scroll", () => {
@@ -814,57 +676,20 @@ window.addEventListener("DOMContentLoaded", event => {
 		}
 	});
 
-	// const wooGalleryThumbnails = document.querySelectorAll(
-	// 	".woocommerce-product-gallery--with-images .flex-control-thumbs li"
-	// );
-
-	// if (wooGalleryThumbnails) {
-	// 	console.log(wooGalleryThumbnails);
-
-	// 	wooGalleryThumbnails.forEach(thumbnail => {
-	// 		thumbnail.addEventListener("click", e => {
-	// 			e.preventDefault();
-	// 			console.log(`thumbevent: ${e.target}`);
-	// 		});
-	// 	});
-	// }
-
-
 	const showActiveShippingMethod = () => {
-
 		const allShippingMethods = document.querySelectorAll(".shipping_method");
 
-		allShippingMethods && allShippingMethods.forEach(method => {
-			method && method.checked && method.closest("LI") ? method.closest("LI").classList.add("shipping-method--active") : '';
-		});
-	}
+		allShippingMethods &&
+			allShippingMethods.forEach(method => {
+				method && method.checked && method.closest("LI")
+					? method.closest("LI").classList.add("shipping-method--active")
+					: "";
+			});
+	};
 
 	showActiveShippingMethod();
 	jQuery(document).on("updated_shipping_method", showActiveShippingMethod);
 	jQuery(document).on("updated_checkout", showActiveShippingMethod);
-
-
-	const addMapIconToTheGeoTag = () => {
-		const geoTag = document.querySelector("#open-geowidget");
-
-		console.log(geoTag);
-
-		if (!geoTag) {
-			return
-		} else {
-
-			console.log(geoTag);
-
-			const mapIcon = document.createElement("SPAN");
-			mapIcon.classList.add("map-icon");
-
-			geoTag.appendChild(mapIcon);
-		}
-
-	}
-
-	setTimeout(() => addMapIconToTheGeoTag(), 100)
-
 });
 
 // const closePromo = document.querySelector("#close-promo");

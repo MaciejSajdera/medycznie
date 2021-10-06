@@ -1064,8 +1064,7 @@ body.woocommerce-account {
 	}
 }
 
-.cart-customlocation,
-.cart-customlocation-1 {
+.cart-customlocation {
 	@media screen and (max-width: 992px) {
 		align-items: flex-start;
 	}
@@ -1108,17 +1107,6 @@ body.woocommerce-account {
 		text-align: center;
 		line-height: 20px;
 		font-size: 10px;
-
-		// @media screen and (max-width: 992px) {
-		// 	top: -8px;
-		// 	right: -12px;
-		// 	width: 20px;
-		// 	height: 20px;
-		// 	font-size: 10px;
-		// 	line-height: 20px;
-
-		// 	// letter-spacing: -1px;
-		// }
 	}
 }
 

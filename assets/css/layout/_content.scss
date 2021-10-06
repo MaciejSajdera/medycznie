@@ -50,14 +50,6 @@ aside {
 			width: 100%;
 			display: flex;
 			flex-flow: column;
-
-			// .welcome-view {
-			// 	order: 0;
-			// }
-
-			// .special-categories-menu {
-			// 	order: 1;
-			// }
 		}
 
 		@media screen and (min-width: 992px) {
@@ -73,11 +65,6 @@ aside {
 .sticky {
 	display: block;
 }
-
-// .post,
-// .page {
-// 	margin: 0 0 1.5em;
-// }
 
 .byline,
 .updated:not(.published) {
@@ -202,9 +189,6 @@ header.wholesale-header {
 
 .welcome-view {
 	margin-top: 1em;
-	// @media screen and (max-width: 992px) {
-	// 	height: 90vh;
-	// }
 }
 
 .page-template-contact-page {
@@ -224,9 +208,7 @@ header.wholesale-header {
 .contact-data {
 	text-align: center;
 
-	// padding: 1em;
 	h2 {
-		// @include fluid-type($min_width, $max_width, 28px, 32px);
 		margin-bottom: 0.25em;
 	}
 
@@ -272,7 +254,7 @@ header.wholesale-header {
 
 	.entry-content {
 		width: 100%;
-		padding: 0 2em;
+		// padding: 0 2em;
 		text-align: left;
 
 		p {
@@ -291,8 +273,11 @@ header.wholesale-header {
 }
 
 .delivery-data {
-	h3 {
+	margin-top: 4rem;
+
+	h2 {
 		margin-top: 0;
+		margin-bottom: 2rem;
 		text-align: center;
 		@include fluid-type($min_width, $max_width, 22px, 24px);
 	}
@@ -558,32 +543,6 @@ header.wholesale-header {
 	}
 }
 
-.advantages-wrapper {
-	width: 100%;
-	display: flex;
-	justify-content: space-around;
-
-	@media screen and (max-width: 992px) {
-		flex-wrap: wrap;
-	}
-}
-
-#map_wrapper {
-	height: 600px;
-}
-
-.info_content {
-	text-align: center;
-	img {
-		width: 50%;
-	}
-}
-
-#map_canvas {
-	width: 100%;
-	height: 100%;
-}
-
 .advantages-container {
 	// padding: 2em 0;
 
@@ -592,42 +551,6 @@ header.wholesale-header {
 	.read-more {
 		border-radius: 0;
 	}
-
-	// @media screen and (max-width: 992px) {
-	// 	flex-flow: row;
-	// 	flex-wrap: wrap;
-	// }
-
-	// height: 25vh;
-	// @media screen and (min-height: 992px) {
-
-	//  }
-
-	// @media screen and (min-width: 992px) {
-	// 	padding: 2em 0;
-	// }
-
-	// @media screen and (min-height: 736px) and (max-width: 992px) {
-	// 	height: 12.5vh;
-	// }
-
-	// @media screen and (max-width: 992px) {
-	// 	padding: 2em 0 0;
-	// display: none;
-	// .advantage-box {
-	// 	width: 25%;
-	// 	padding: 0.25em;
-	// 	img {
-	// 		width: 30px;
-	// 	}
-
-	// 	.content {
-	// 		p {
-	// 			margin-bottom: 0.25em;
-	// 		}
-	// 	}
-	// }
-	// }
 
 	@media screen and (min-width: 992px) {
 		height: auto;
@@ -727,149 +650,6 @@ p.common-page-subheader {
 	@include fluid-type($min_width, $max_width, 16px, 18px);
 }
 
-.team-container {
-	// height: 35em;
-	display: flex;
-	flex-flow: column;
-	justify-content: space-between;
-	align-items: center;
-
-	@media screen and (max-width: 992px) {
-		// height: 30em;
-		margin: 2.5em auto;
-	}
-
-	.logo {
-		padding-top: 2em;
-	}
-}
-
-.team-inner {
-	position: relative;
-	margin-top: 1em;
-
-	// img {
-	// 	z-index: -1;
-	// }
-
-	h5 {
-		// display: none;
-		// position: absolute;
-		text-align: center;
-		display: flex;
-		flex-flow: column;
-		color: $color_dark_blue;
-		@include fluid-type($min_width, $max_width, 22px, 24px);
-		z-index: 1;
-		font-weight: 600;
-
-		a {
-			// text-align: left;
-			text-align: center;
-			color: black;
-			font-weight: 400;
-			@include fluid-type($min_width, $max_width, 12px, 14px);
-		}
-
-		&:nth-of-type(1) {
-			// bottom: 20%;
-			// left: -10%;
-			// text-align: right;
-
-			// @media screen and (max-width: 500px) {
-			// 	left: 0%;
-			// 	bottom: -15%;
-			// 	margin-bottom: 0;
-			// 	text-align: left;
-			// }
-
-			// &:before {
-			// 	content: "";
-			// 	width: 96px;
-			// 	height: 96px;
-			// 	border-radius: 50%;
-			// 	background: #d0d0d08f;
-			// 	position: absolute;
-			// 	right: -40%;
-			// 	top: -45%;
-			// 	z-index: -1;
-
-			// 	@media screen and (max-width: 500px) {
-			// 		top: -20%;
-			// 		right: 70%;
-			// 		width: 48px;
-			// 		height: 48px;
-			// 	}
-			// }
-		}
-
-		&:nth-of-type(2) {
-			// bottom: -20%;
-			// left: 30%;
-			// text-align: right;
-
-			// @media screen and (max-width: 500px) {
-			// 	left: auto;
-			// 	right: 0;
-			// 	margin-bottom: 0;
-			// 	bottom: -15%;
-			// }
-
-			// &:before {
-			// 	content: "";
-			// 	width: 96px;
-			// 	height: 96px;
-			// 	border-radius: 50%;
-			// 	background: #d0d0d08f;
-			// 	position: absolute;
-			// 	right: -40%;
-			// 	top: -45%;
-			// 	z-index: -1;
-
-			// 	@media screen and (max-width: 500px) {
-			// 		right: -15%;
-			// 		top: -20%;
-			// 		width: 48px;
-			// 		height: 48px;
-			// 	}
-			// }
-		}
-
-		&:nth-of-type(3) {
-			// bottom: -5%;
-			// right: -20%;
-			// min-width: 6em;
-
-			// @media screen and (max-width: 500px) {
-			// 	min-width: 2em;
-			// 	right: 30%;
-			// 	margin-bottom: 0;
-			// 	bottom: -37%;
-			// }
-
-			// &:before {
-			// 	content: "";
-			// 	width: 96px;
-			// 	height: 96px;
-			// 	border-radius: 50%;
-			// 	background: #d0d0d08f;
-			// 	position: absolute;
-			// 	right: 60%;
-			// 	top: -45%;
-			// 	z-index: -1;
-
-			// 	@media screen and (max-width: 500px) {
-			// 		width: 48px;
-			// 		height: 48px;
-			// 		right: auto;
-			// 		right: 30%;
-			// 		top: -30%;
-			// 	}
-			// }
-		}
-	}
-}
-
 .brands-grid,
 .categories-grid,
 #menu-shop-category-grid,
@@ -951,28 +731,28 @@ p.common-page-subheader {
 	}
 }
 
-.filler-main {
-	height: 100vh;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
+// .filler-main {
+// 	height: 100vh;
+// 	display: flex;
+// 	flex-flow: column;
+// 	justify-content: center;
+// 	align-items: center;
 
-	.filler-logo {
-		background-image: url(../dist/img/venus-logo.PNG) !important;
-		width: 20em;
-		height: 5em;
-		background-size: contain;
-		background-position: center;
-		background-repeat: no-repeat;
-		margin-bottom: 4em;
-	}
+// 	.filler-logo {
+// 		background-image: url() !important;
+// 		width: 20em;
+// 		height: 5em;
+// 		background-size: contain;
+// 		background-position: center;
+// 		background-repeat: no-repeat;
+// 		margin-bottom: 4em;
+// 	}
 
-	.filler-text {
-		text-align: center;
-		@include fluid-type($min_width, $max_width, 24px, 28px);
-	}
-}
+// 	.filler-text {
+// 		text-align: center;
+// 		@include fluid-type($min_width, $max_width, 24px, 28px);
+// 	}
+// }
 
 .page-template-termsandconditions {
 	#content {

@@ -13,14 +13,19 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
+	<?php wp_head(); ?>
+
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVQS2GD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <div class="my-preloader">
 	<div class="preloader-content">
@@ -30,7 +35,6 @@
 
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'pakistore' ); ?></a>
 
 	<?php $toppromo = get_field("top_promo", get_option('page_on_front'));
 		$isActive = $toppromo['top_promo_active'];

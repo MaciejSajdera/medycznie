@@ -47,29 +47,12 @@ footer#colophon {
 		position: relative;
 		text-align: center;
 
-		// margin: -50px 0 50px;
 		height: 40%;
 
 		@media screen and (min-width: 992px) {
 			text-align: left;
 			height: 50%;
 		}
-
-		// &:before {
-		// 	content: url(../dist/img/venus-logo-fb-xs.png);
-		// 	display: flex;
-		// 	align-items: center;
-		// 	justify-content: center;
-		// 	width: 100vw;
-		// 	height: 250px;
-		// 	border-radius: 100%;
-		// 	border-top-left-radius: 0;
-		// 	border-top-right-radius: 0;
-		// 	background-color: #fff;
-		// 	position: absolute;
-		// 	left: 50%;
-		// 	transform: translate(-50%, 0);
-		// }
 	}
 
 	.site-info {
@@ -78,11 +61,6 @@ footer#colophon {
 		flex-flow: column;
 		justify-content: space-between;
 		background: $color__background-dark-navy;
-
-		// @media screen and (min-width: 992px) {
-		// 	height: 50%;
-		// 	width: 80%;
-		// }
 	}
 
 	.site-footer__main {

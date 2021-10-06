@@ -58,7 +58,7 @@ if ( $product->is_in_stock() ) : ?>
 
 			<!-- ajax button -->
 			<div class="button-wrapper">
-			<a id="my_simple_add_to_cart_ajax" href="<?php echo $product->add_to_cart_url() ?>" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($sku) ?>" aria-label="<?php echo esc_html( $product->single_add_to_cart_text() ); ?>" rel="nofollow"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></a>
+			<a id="my_simple_add_to_cart_ajax" href="<?php echo $product->add_to_cart_url() ?>" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo get_the_ID(); ?>" data-product_sku="<?php echo esc_attr($sku) ?>" aria-label="<?php echo esc_html( $product->single_add_to_cart_text() ); ?>"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></a>
 			<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 			</div>
 

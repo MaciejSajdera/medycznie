@@ -142,14 +142,43 @@ add_action( 'widgets_init', 'medycznie_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
+
+function my_custom_js() {
+    echo "
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-PVQS2GD');</script>
+	<!-- End Google Tag Manager -->
+
+	<!-- Google Analytics -->
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-202645165-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+	";
+}
+// Add hook for admin <head></head>
+add_action( 'admin_head', 'my_custom_js', -1000 );
+// Add hook for front-end <head></head>
+add_action( 'wp_head', 'my_custom_js', -1000 );
+
+
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.39');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.46');
 
-	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.39', true );
+	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.45', true );
 
 	if (is_front_page()) {
-		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.39', true );
+		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.45', true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -157,26 +186,17 @@ function medycznie_scripts() {
 	}
 
 	if ( is_singular() && is_product()) {
-		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.39', true );
+		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.45', true );
 	}
 
 	if ( is_cart() ) {
 		wp_enqueue_script( 'cart-update-auto', get_template_directory_uri() . '/dist/js/cart-update-auto.js', array(), '', true );
 	}
 
-	if (is_product_category() || is_shop()) {
-		wp_enqueue_script( 'product-filters', get_template_directory_uri() . '/dist/js/product-filters.js', array(), '', true );
-	}
-
 	if (
 		is_blog() ) {
 		wp_enqueue_script( 'blogAnimations', get_template_directory_uri() . '/dist/js/blogAnimations.js', array(), '', true );
 	};
-	
-	if (is_page(34)) {
-		wp_enqueue_script( 'maps', get_template_directory_uri() . '/dist/js/maps.js', array(), '', true );
-		wp_enqueue_script( 'google_js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAPJ8o7xD9vqydfgZ6XrJKvLdnhmL_YTxA', '', '' );
-	}
 
 }
 add_action( 'wp_enqueue_scripts', 'medycznie_scripts' );
@@ -319,7 +339,7 @@ add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
 
 add_action( 'init', function(){
 	add_post_type_support( 'product', 'page-attributes' );
-	});
+});
 
 
 function disable_woo_commerce_sidebar() {
@@ -497,7 +517,7 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
 	
 	$user_count = count_users();
 
-	$wp_new_user_notification_email['headers'] = "From: Sklep <zamowienia@medycznie.com.pl> \n\r cc: Marek Bieroński <robert@medycznie.com.pl>";
+	$wp_new_user_notification_email['headers'] = "From: Sklep <zamowienia@medycznie.com.pl> \n\r cc: Robert Bielamowicz <robert@medycznie.com.pl>";
     $wp_new_user_notification_email['subject'] = sprintf( '[%s] Nowy użytkownik %s .', $blogname, $user_role, $user->user_login );
     $wp_new_user_notification_email['message'] = sprintf( "%s ( %s ) zarejestrował się w Twoim sklepie %s.", $user->user_login, $user->user_email, $blogname ) .
 	"\n" . sprintf("Gratulacje, to twój %d zarejestrowany użytkownik!", $user_count['total_users']);
@@ -1037,17 +1057,21 @@ function bbloomer_free_shipping_cart_notice() {
 
 	$free_shipping_min = get_free_shipping_minimum( 'Polska' );
 
-   $current = WC()->cart->subtotal;
+   $current = WC()->cart->get_cart_contents_total();
+
+   $missing_amount = $free_shipping_min - $current;
+
+   $missing_amount_formatted = number_format((float)$missing_amount, 2, '.', '');
   
    if ( $free_shipping_min && $current < $free_shipping_min ) {
-      $added_text = 'Do darmowej dostawy brakuje Ci ' . wc_price( $free_shipping_min - $current ) . '';
+      $added_text = 'Do darmowej dostawy brakuje Ci ' . '<strong>' . $missing_amount_formatted . ' zł netto </strong>';
       $return_to = wc_get_page_permalink( 'shop' );
       $notice = sprintf( '<a href="%s" class="button wc-forward add_to_cart_button">%s</a> %s', esc_url( $return_to ), 'Kontynuuj zakupy', $added_text );
       wc_print_notice( $notice, 'notice' );
    }
 }
 
-add_action( 'woocommerce_cart_totals_before_shipping', 'bbloomer_free_shipping_cart_notice' );
+add_action( 'woocommerce_before_cart_contents', 'bbloomer_free_shipping_cart_notice' );
 
 
 
@@ -1067,8 +1091,14 @@ add_action( 'woocommerce_cart_totals_before_shipping', 'bbloomer_free_shipping_c
 
 add_filter( 'woocommerce_package_rates', 'wc_apply_free_shipping_to_all_methods', 10, 2 );
 function wc_apply_free_shipping_to_all_methods( $rates, $package ) {
-  if( isset( $rates['free_shipping:3'] ) ) { 
+
+
+	$min_value_for_free_shipping = get_free_shipping_minimum( 'Polska' );
+	$cart_contents_pretax_value = WC()->cart->get_cart_contents_total();
+
+  if( isset( $rates['free_shipping:3'] ) && ($cart_contents_pretax_value >= $min_value_for_free_shipping) ) { 
     unset( $rates['free_shipping:3'] );
+
     foreach( $rates as $rate_key => $rate ) { 
                 // Append rate label titles (free)
                 $rates[$rate_key]->label .= ' ' . __('(Darmowa wysyłka)', 'woocommerce');
@@ -1079,6 +1109,7 @@ function wc_apply_free_shipping_to_all_methods( $rates, $package ) {
                 // Set taxes rate cost (if enabled)
                 $taxes = array();
                 foreach ($rates[$rate_key]->taxes as $key => $tax){
+					
                     if( $rates[$rate_key]->taxes[$key] > 0 )
                         $taxes[$key] = 0;
                 }
@@ -1330,6 +1361,31 @@ add_filter('loop_shop_per_page', array('My_VG_Sort', 'custom_products_per_page')
 add_action('woocommerce_before_shop_loop', array('My_VG_Sort', 'template_products_per_page'), 30);
 add_filter('query_vars', array('My_VG_Sort', 'add_query_vars_products_per_page'));
 
+
+/* SEO */
+
+/* Remove all rel="nofollow" from all add to cart buttons */
+
+add_filter( 'woocommerce_loop_add_to_cart_args', 'remove_rel', 10, 2 );
+
+function remove_rel( $args, $product ) {
+    unset( $args['attributes']['rel'] );
+
+    return $args;
+}
+
+function pagely_security_headers( $headers ) {
+    $headers['X-XSS-Protection'] = '1; mode=block';
+    $headers['X-Content-Type-Options'] = 'nosniff';
+    $headers['X-Content-Security-Policy'] = 'default-src \'self\'; script-src \'self\';';
+
+    return $headers;
+}
+
+add_filter( 'wp_headers', 'pagely_security_headers' );
+
+add_action( 'send_headers', 'send_frame_options_header', 10, 0 );
+
 /* Hide specific options for specific admin user */
 
 // function hide_menu() {
@@ -1397,6 +1453,50 @@ add_filter('query_vars', array('My_VG_Sort', 'add_query_vars_products_per_page')
 // 			}
 // }
 // add_action('admin_head', 'hide_menu');
+
+
+// Render fields at the bottom of variations - does not account for field group order or placement.
+add_action( 'woocommerce_product_after_variable_attributes', function( $loop, $variation_data, $variation ) {
+    global $abcdefgh_i; // Custom global variable to monitor index
+    $abcdefgh_i = $loop;
+    // Add filter to update field name
+    add_filter( 'acf/prepare_field', 'acf_prepare_field_update_field_name' );
+    
+    // Loop through all field groups
+    $acf_field_groups = acf_get_field_groups();
+    foreach( $acf_field_groups as $acf_field_group ) {
+        foreach( $acf_field_group['location'] as $group_locations ) {
+            foreach( $group_locations as $rule ) {
+                // See if field Group has at least one post_type = Variations rule - does not validate other rules
+                if( $rule['param'] == 'post_type' && $rule['operator'] == '==' && $rule['value'] == 'product_variation' ) {
+                    // Render field Group
+                    acf_render_fields( $variation->ID, acf_get_fields( $acf_field_group ) );
+                    break 2;
+                }
+            }
+        }
+    }
+    
+    // Remove filter
+    remove_filter( 'acf/prepare_field', 'acf_prepare_field_update_field_name' );
+}, 10, 3 );
+
+// Filter function to update field names
+function  acf_prepare_field_update_field_name( $field ) {
+    global $abcdefgh_i;
+    $field['name'] = preg_replace( '/^acf\[/', "acf[$abcdefgh_i][", $field['name'] );
+    return $field;
+}
+    
+// Save variation data
+add_action( 'woocommerce_save_product_variation', function( $variation_id, $i = -1 ) {
+    // Update all fields for the current variation
+    if ( ! empty( $_POST['acf'] ) && is_array( $_POST['acf'] ) && array_key_exists( $i, $_POST['acf'] ) && is_array( ( $fields = $_POST['acf'][ $i ] ) ) ) {
+        foreach ( $fields as $key => $val ) {
+            update_field( $key, $val, $variation_id );
+        }
+    }
+}, 10, 2 );
 
 /**
  * Implement the Custom Header feature.
