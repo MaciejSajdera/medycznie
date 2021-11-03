@@ -22,6 +22,42 @@ svg {
 	pointer-events: none;
 }
 
+.site-content,
+.main-navigation,
+.mobile-menu__top,
+.desktop-menu {
+	// height: 100%;
+	// margin-bottom: 20em;
+	// margin-top: 14em;
+	z-index: 1;
+
+	@media screen and (max-width: 991px) {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+
+	@media screen and (min-width: 1200px) {
+		padding-left: 7.5%;
+		padding-right: 7.5%;
+	}
+
+	@media screen and (min-width: 1600px) {
+		padding-left: 12.5%;
+		padding-right: 12.5%;
+	}
+}
+
+.site-content {
+	@media screen and (max-width: 991px) {
+		padding-top: 5rem;
+	}
+
+	@media screen and (min-width: 992px) {
+		padding-top: 11.35rem;
+		display: flex;
+	}
+}
+
 // .site {
 // 	height: 100%;
 // }

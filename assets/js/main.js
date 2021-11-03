@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	smoothscroll.polyfill();
 
+	const siteHeader = document.querySelector(".site-header");
 	const myPreloader = document.querySelector(".my-preloader");
 	const page = document.querySelector("#page");
 	const topPromoItems = document.querySelectorAll(".top-promo-item");
@@ -196,6 +197,8 @@ window.addEventListener("DOMContentLoaded", event => {
 			// console.log(e);
 
 			if (e.target.classList.contains("menu-item-has-children")) {
+				//hide main menu
+
 				const expandSubMenu = e.target.querySelector(".show-submenu");
 
 				expandSubMenu.querySelector("#back-button")
@@ -231,6 +234,9 @@ window.addEventListener("DOMContentLoaded", event => {
 				// expandSubMenu.closest("UL").classList.add("move-back");
 
 				submenu.classList.add("sub-menu--expanded");
+
+				console.log(wooMenu.getBoundingClientRect().height);
+				submenu.style.minHeight = `${wooMenu.getBoundingClientRect().height}`;
 
 				//delay
 				if (wooMenu) {
@@ -584,6 +590,20 @@ window.addEventListener("DOMContentLoaded", event => {
 				grandparentExpandMenuToggle.classList.add("show-submenu__toggled");
 			}
 		}
+
+		const searchPanel = document.querySelector(".search-panel");
+		const searchIconDesktop = document.querySelector(
+			".header-top-wrapper-desktop #search-icon"
+		);
+
+		document.addEventListener("click", e => {
+			if (e.target.matches("#search-icon")) {
+				searchPanel.classList.toggle("search-panel--toggled");
+				searchIconDesktop.classList.toggle("search-icon--clicked");
+			} else {
+				return;
+			}
+		});
 	};
 
 	const mediaQueryDesktop = window.matchMedia("(min-width: 992px)");
@@ -599,6 +619,23 @@ window.addEventListener("DOMContentLoaded", event => {
 			desktopMenu();
 			desktopMenuWasAlreadyFired = true;
 		}
+
+		const desktopMenuNavigation = document.querySelector(".desktop-menu");
+		let lastScrollTop = 0;
+
+		window.addEventListener(
+			"scroll",
+			() => {
+				let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+				if (st > lastScrollTop) {
+					desktopMenuNavigation.classList.add("hide");
+				} else {
+					desktopMenuNavigation.classList.remove("hide");
+				}
+				lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+			},
+			false
+		);
 	}
 
 	mediaQueryDesktop.addListener(handleDesktopChange);
@@ -656,7 +693,6 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	document.addEventListener("scroll", () => {
 		const scrollToTopBtn = document.querySelector(".scrollToTopBtn");
-		const siteNavigation = document.querySelector("#site-navigation");
 
 		const searchHasBoxShadow = document.querySelector(
 			".search-panel--box-shadow"
@@ -665,14 +701,14 @@ window.addEventListener("DOMContentLoaded", event => {
 		const isMobileNavOpen = document.querySelector(".main-navigation--open");
 
 		if (pageYOffset > 0 && !searchHasBoxShadow && !isMobileNavOpen) {
-			!siteNavigation.classList.contains("main-navigation--box-shadow")
-				? siteNavigation.classList.add("main-navigation--box-shadow")
+			!siteHeader.classList.contains("site-header--toggled")
+				? siteHeader.classList.add("site-header--toggled")
 				: "";
 		}
 
 		if (pageYOffset === 0) {
-			siteNavigation.classList.contains("main-navigation--box-shadow")
-				? siteNavigation.classList.remove("main-navigation--box-shadow")
+			siteHeader.classList.contains("site-header--toggled")
+				? siteHeader.classList.remove("site-header--toggled")
 				: "";
 		}
 

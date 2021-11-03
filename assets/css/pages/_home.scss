@@ -5,7 +5,17 @@
 		padding-top: 1rem;
 	}
 
+	&__h1 {
+		@include fluid-type($min_width, $max_width, 18px, 22px);
+		text-align: center;
+		margin: 1.5rem 0;
+	}
+
 	&__top-wrapper {
 		display: flex;
+	}
+
+	.special-categories-menu {
+		margin-bottom: 1rem;
 	}
 }

@@ -1,3 +1,38 @@
+<?php 
+$term = get_field('product_showcase_category_1');
+
+var_dump($term);
+
+if( $term ): ?>
+
+            <h2><?php echo esc_html( $term->name ); ?></h2>
+            <p><?php echo esc_html( $term->description ); ?></p>
+
+            <?php
+
+                $products = wc_get_products(array(
+                    'category' => array($term->slug),
+                    'limit' => 3,
+                    'order' => 'DESC',
+                ));
+
+                foreach( $products as $product ) {
+                    var_dump($product->name);
+                    var_dump($product->image_id);
+                }
+
+                /* Restore original Post Data 
+                * NB: Because we are using new WP_Query we aren't stomping on the 
+                * original $wp_query and it does not need to be reset.
+                */
+                wp_reset_postdata();
+
+            ?>
+            
+<?php endif; ?>
+
+
+
 
 <section class="categories-carousel">
 <div class="swiper-container-categories">

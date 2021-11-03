@@ -13,6 +13,10 @@
         ?>
     </div><!-- .site-branding -->
 
+    <div class="search-panel">
+        <?php echo do_shortcode('[fibosearch]'); ?>
+    </div>
+
     <div class="icons-wrapper">
 
         <div id="search-icon">

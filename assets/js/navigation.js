@@ -15,8 +15,8 @@ export default class Navigation {
 
 	setupNavigation() {
 		const siteNavigation = document.querySelector("#site-navigation");
-		const searchPanel = document.querySelector(".search-panel");
-		const searchToggleSVG = document.querySelector("#search-icon svg");
+		// const searchPanel = document.querySelector(".search-panel");
+		// const searchToggleSVG = document.querySelector("#search-icon svg");
 
 		let isMobileNavOpen = false;
 
@@ -26,18 +26,18 @@ export default class Navigation {
 
 			siteNavigation.classList.toggle("main-navigation--open");
 
-			siteNavigation.classList.contains("main-navigation--box-shadow")
-				? siteNavigation.classList.remove("main-navigation--box-shadow")
+			siteNavigation.classList.contains("site-header--toggled")
+				? siteNavigation.classList.remove("site-header--toggled")
 				: "";
 
-			searchPanel.classList.contains("search-panel--box-shadow")
-				? searchPanel.classList.remove("search-panel--box-shadow")
-				: "";
+			// searchPanel.classList.contains("search-panel--box-shadow")
+			// 	? searchPanel.classList.remove("search-panel--box-shadow")
+			// 	: "";
 
-			if (!isMobileNavOpen) {
-				searchPanel.classList.remove("search-panel--toggled");
-				searchToggleSVG.classList.remove("search-icon-clicked");
-			}
+			// if (!isMobileNavOpen) {
+			// 	searchPanel.classList.remove("search-panel--toggled");
+			// 	searchToggleSVG.classList.remove("search-icon-clicked");
+			// }
 
 			if (-1 !== this.container.className.indexOf("toggled")) {
 				this.svgButton.classList.toggle("active");
@@ -56,8 +56,8 @@ export default class Navigation {
 		};
 
 		// document.addEventListener("click", e => {
-		// 	siteNavigation.classList.contains("main-navigation--box-shadow")
-		// 		? siteNavigation.classList.remove("main-navigation--box-shadow")
+		// 	siteNavigation.classList.contains("site-header--toggled")
+		// 		? siteNavigation.classList.remove("site-header--toggled")
 		// 		: "";
 
 		// 	const searchToggleSVGPath = document.querySelectorAll(

@@ -13,7 +13,7 @@
 
 <div class="advantages-container">
 
-<a href="<?php echo get_permalink( get_option( 'woocommerce_shop_page_id' ) ); ?>" class="advantages__read-more">Bezpieczne zakupy</a>
+<!-- <a href="<?php echo get_permalink( get_option( 'woocommerce_shop_page_id' ) ); ?>" class="advantages__read-more">Bezpieczne zakupy</a> -->
 
 <?php
 $box_1 = get_field('adventages_info_1', get_option( 'page_on_front' ));

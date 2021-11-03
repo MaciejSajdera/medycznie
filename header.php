@@ -61,30 +61,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				get_template_part( 'template-parts/header-top-desktop');
 			?>
 
-			<div class="search-panel">
-				<?php echo do_shortcode('[fibosearch]'); ?>
-			</div>
+
+
 
 		</nav><!-- #site-navigation -->
 
-		<div class="header-middle">
+		<div class="mobile-menu">
 
-			<div class="site-branding">
-				<?php
-				the_custom_logo();
-				?>
-			</div><!-- .site-branding -->
+			<div class="mobile-menu__top">
 
-			<div class="quick-contact__wrapper">
+				<div class="site-branding">
+					<?php
+					the_custom_logo();
+					?>
+				</div>
 
-				<?php
-					$phone_number_2 = get_field("phone_number_2", get_page_by_title( 'O nas' ));
-				?>
-					<a href="tel:<?php echo $phone_number_2;?>"><span class="quick-contact__phone-number"><?php echo $phone_number_2;?></span></a>
+				<div class="quick-contact__wrapper">
 
-				<span class="quick-contact__openings">pn-pt: 8:00 - 16:00</span>
+					<?php
+						$phone_number_2 = get_field("phone_number_2", get_page_by_title( 'O nas' ));
+					?>
+						<a href="tel:<?php echo $phone_number_2;?>"><span class="quick-contact__phone-number"><?php echo $phone_number_2;?></span></a>
+
+					<span class="quick-contact__openings">pn-pt: 8:00 - 16:00</span>
+				</div>
+
 			</div>
 
+			<div class="mobile-menu__woomenu">
+				<div class="shop-menu">
+					<div class="menu-woomenu-container">
+						<ul id="menu-woomenu" class="menu">
+
+							<?php
+								// wp_nav_menu(
+								// 	array(
+								// 		'theme_location' => 'wooshop',
+								// 	)
+								// );
+							?>
+
+							<?php wp_nav_menu( array('menu' => 'woomenu', 'items_wrap' => '%3$s', 'container' => false ) ); ?>
+							<?php wp_nav_menu( array('menu' => 'menu-1', 'items_wrap' => '%3$s', 'container' => false ) ); ?>
+
+						</ul>
+				</div>
+			</div>
+
+				<!-- <div class="mobile-menu__site-menu">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'menu-1',
+							'walker'          => new Has_Child_Walker_Nav_Menu()
+						)
+					);
+					?>
+				</div> -->
+
+			</div>
+			
 		</div>
 
 		<div class="desktop-menu">
@@ -125,42 +161,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</div>
 
 			</div>
-
-		</div>
-
-		<div class="mobile-menu">
-		
-			<div class="mobile-menu__woomenu">
-				<div class="shop-menu">
-					<div class="menu-woomenu-container">
-						<ul id="menu-woomenu" class="menu">
-
-							<?php
-								// wp_nav_menu(
-								// 	array(
-								// 		'theme_location' => 'wooshop',
-								// 	)
-								// );
-							?>
-
-							<?php wp_nav_menu( array('menu' => 'woomenu', 'items_wrap' => '%3$s', 'container' => false ) ); ?>
-							<?php wp_nav_menu( array('menu' => 'menu-1', 'items_wrap' => '%3$s', 'container' => false ) ); ?>
-
-						</ul>
-				</div>
-			</div>
-
-				<!-- <div class="mobile-menu__site-menu">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'menu-1',
-							'walker'          => new Has_Child_Walker_Nav_Menu()
-						)
-					);
-					?>
-				</div> -->
-
 
 		</div>
 
