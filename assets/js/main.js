@@ -178,36 +178,46 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	const mobileMenu = () => {
 		const nav = document.querySelector(".mobile-menu");
-		const allMenuLinks = nav.querySelectorAll("LI");
-		const linksWithChildren = nav.querySelectorAll(".menu-item-has-children a");
-		const backButton = document.querySelector("#back-button");
+		const allMenuItemsWithChildren = nav.querySelectorAll(
+			".menu-item-has-children"
+		);
 
 		const wooMenu = document.querySelector("#menu-woomenu");
 
-		linksWithChildren.forEach(link => {
-			link.nextElementSibling &&
-			link.nextElementSibling.classList.contains("sub-menu")
-				? (link.style.pointerEvents = "none")
-				: "";
+		allMenuItemsWithChildren.forEach(item => {
+			const link = item.querySelector("A");
+			link.style.pointerEvents = "none";
 		});
 
-		nav.addEventListener("click", function(e) {
-			let backButtonAppended = false;
-			console.log(e.target);
+		// Flags
+		let backButtonAppended = false;
 
-			if (e.target.classList.contains("expand-menu-toggle")) {
-				// e.preventDefault();
+		document.addEventListener("click", function(e) {
+			// console.log(e);
 
-				e.target.querySelector("#back-button")
-					? e.target.querySelector("#back-button").remove()
+			if (e.target.classList.contains("menu-item-has-children")) {
+				const expandSubMenu = e.target.querySelector(".show-submenu");
+
+				expandSubMenu.querySelector("#back-button")
+					? expandSubMenu.querySelector("#back-button").remove()
 					: "";
 
 				const myBackButton = document.createElement("LI");
 				myBackButton.id = "back-button";
-				myBackButton.classList.add("back-button");
-				myBackButton.innerText = e.target.previousElementSibling.innerText;
+				myBackButton.classList.add("back-button", "menu-item");
 
-				const submenu = e.target.nextElementSibling;
+				const myBackButtonAnchor = document.createElement("A");
+				myBackButtonAnchor.setAttribute("href", "#");
+				myBackButtonAnchor.innerText =
+					expandSubMenu.previousElementSibling.innerText;
+
+				const myBackButtonSpan = document.createElement("SPAN");
+				myBackButtonSpan.classList.add("hide-submenu");
+
+				myBackButton.appendChild(myBackButtonAnchor);
+				myBackButton.appendChild(myBackButtonSpan);
+
+				const submenu = expandSubMenu.nextElementSibling;
 
 				const appendButton = () => {
 					if (!backButtonAppended) {
@@ -218,9 +228,9 @@ window.addEventListener("DOMContentLoaded", event => {
 
 				appendButton();
 
-				// e.target.closest("UL").classList.add("move-back");
+				// expandSubMenu.closest("UL").classList.add("move-back");
 
-				submenu.classList.add("sub-menu--expanded", "sub-menu--visible");
+				submenu.classList.add("sub-menu--expanded");
 
 				//delay
 				if (wooMenu) {
@@ -228,21 +238,30 @@ window.addEventListener("DOMContentLoaded", event => {
 						wooMenu.scrollTop = 0;
 					}, 0);
 				}
+			}
 
-				myBackButton.addEventListener("click", function(e) {
-					const submenuExpanded = this.closest(".sub-menu--expanded");
-					submenuExpanded.classList.remove("sub-menu--expanded");
+			if (e.target.classList.contains("back-button")) {
+				const submenuExpanded = e.target.closest(".sub-menu--expanded");
+				submenuExpanded.classList.remove("sub-menu--expanded");
 
-					// const menuMovedBack = document.querySelector(".move-back");
-					// menuMovedBack.classList.remove("move-back");
+				// const menuMovedBack = document.querySelector(".move-back");
+				// menuMovedBack.classList.remove("move-back");
 
-					setTimeout(() => {
-						this.remove();
-						submenu.classList.remove("sub-menu--visible");
-					}, 500);
+				setTimeout(() => {
+					e.target.remove();
+				}, 500);
 
-					backButtonAppended = false;
-				});
+				backButtonAppended = false;
+			}
+
+			const searchMobileHolder = document.querySelector(".search-panel");
+			const searchFormMobileTrigger = searchMobileHolder.querySelector(
+				".dgwt-wcas-enable-mobile-form"
+			);
+
+			if (e.target.matches("#search-icon")) {
+				// searchModal.classList.add("open");
+				searchFormMobileTrigger.click();
 			} else {
 				return;
 			}
@@ -348,9 +367,9 @@ window.addEventListener("DOMContentLoaded", event => {
 		nav.addEventListener("click", function(e) {
 			// console.log(e.target);
 
-			if (e.target.classList.contains("expand-menu-toggle")) {
+			if (e.target.classList.contains("show-submenu")) {
 				const expandSubMenuTrigger = e.target;
-				expandSubMenuTrigger.classList.toggle("expand-menu-toggle__toggled");
+				expandSubMenuTrigger.classList.toggle("show-submenu__toggled");
 				const submenu = expandSubMenuTrigger.nextElementSibling;
 				// submenu.classList.toggle("sub-menu--expanded");
 				// const submenuExpanded = this.closest(".sub-menu--expanded");
@@ -392,10 +411,10 @@ window.addEventListener("DOMContentLoaded", event => {
 			currentSubMenu.setAttribute("data-collapsed", "false");
 
 			const currentExpandMenuToggle = currentMenuItem.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			// console.log("test3");
 		}
@@ -411,22 +430,22 @@ window.addEventListener("DOMContentLoaded", event => {
 			console.log(directAncestor);
 
 			const currentExpandMenuToggle = directAncestor.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 			const currentSubMenu = directAncestor.querySelector(".sub-menu");
 
 			currentSubMenu.classList.add("sub-menu--expanded");
 			currentSubMenu.setAttribute("data-collapsed", "false");
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			const childrenSubMenu = currentMenuItem.querySelector(".sub-menu");
 			const childrenExpandMenuToggle = currentMenuItem.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 
 			childrenSubMenu.classList.add("sub-menu--expanded");
 			childrenSubMenu.setAttribute("data-collapsed", "false");
-			childrenExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			childrenExpandMenuToggle.classList.add("show-submenu__toggled");
 		}
 
 		//if is nested and doesn't have its own submenu
@@ -438,13 +457,13 @@ window.addEventListener("DOMContentLoaded", event => {
 		) {
 			const directAncestor = currentMenuItem.closest(".current-menu-ancestor");
 			const currentExpandMenuToggle = directAncestor.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 			const currentSubMenu = directAncestor.querySelector(".sub-menu");
 
 			currentSubMenu.classList.add("sub-menu--expanded");
 			currentSubMenu.setAttribute("data-collapsed", "false");
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			const grandparentAncestor = directAncestor.parentElement.closest(
 				".menu-parent-link"
@@ -455,14 +474,12 @@ window.addEventListener("DOMContentLoaded", event => {
 					".sub-menu"
 				);
 				const grandparentExpandMenuToggle = grandparentAncestor.querySelector(
-					".expand-menu-toggle"
+					".show-submenu"
 				);
 
 				grandparentSubMenu.classList.add("sub-menu--expanded");
 				grandparentSubMenu.setAttribute("data-collapsed", "false");
-				grandparentExpandMenuToggle.classList.add(
-					"expand-menu-toggle__toggled"
-				);
+				grandparentExpandMenuToggle.classList.add("show-submenu__toggled");
 			}
 		}
 
@@ -492,10 +509,10 @@ window.addEventListener("DOMContentLoaded", event => {
 			currentSubMenu.setAttribute("data-collapsed", "false");
 
 			const currentExpandMenuToggle = currentProductParent.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			// console.log("test3");
 		}
@@ -512,22 +529,22 @@ window.addEventListener("DOMContentLoaded", event => {
 			);
 
 			const currentExpandMenuToggle = directAncestor.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 			const currentSubMenu = directAncestor.querySelector(".sub-menu");
 
 			currentSubMenu.classList.add("sub-menu--expanded");
 			currentSubMenu.setAttribute("data-collapsed", "false");
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			const childrenSubMenu = currentProductParent.querySelector(".sub-menu");
 			const childrenExpandMenuToggle = currentProductParent.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 
 			childrenSubMenu.classList.add("sub-menu--expanded");
 			childrenSubMenu.setAttribute("data-collapsed", "false");
-			childrenExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			childrenExpandMenuToggle.classList.add("show-submenu__toggled");
 		}
 
 		//if is nested and doesn't have its own submenu
@@ -542,13 +559,13 @@ window.addEventListener("DOMContentLoaded", event => {
 			);
 
 			const currentExpandMenuToggle = directAncestor.querySelector(
-				".expand-menu-toggle"
+				".show-submenu"
 			);
 			const currentSubMenu = directAncestor.querySelector(".sub-menu");
 
 			currentSubMenu.classList.add("sub-menu--expanded");
 			currentSubMenu.setAttribute("data-collapsed", "false");
-			currentExpandMenuToggle.classList.add("expand-menu-toggle__toggled");
+			currentExpandMenuToggle.classList.add("show-submenu__toggled");
 
 			const grandparentAncestor = directAncestor.parentElement.closest(
 				".menu-parent-link"
@@ -559,14 +576,12 @@ window.addEventListener("DOMContentLoaded", event => {
 					".sub-menu"
 				);
 				const grandparentExpandMenuToggle = grandparentAncestor.querySelector(
-					".expand-menu-toggle"
+					".show-submenu"
 				);
 
 				grandparentSubMenu.classList.add("sub-menu--expanded");
 				grandparentSubMenu.setAttribute("data-collapsed", "false");
-				grandparentExpandMenuToggle.classList.add(
-					"expand-menu-toggle__toggled"
-				);
+				grandparentExpandMenuToggle.classList.add("show-submenu__toggled");
 			}
 		}
 	};

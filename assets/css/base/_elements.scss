@@ -18,6 +18,10 @@ body {
 	overflow-x: hidden;
 }
 
+svg {
+	pointer-events: none;
+}
+
 // .site {
 // 	height: 100%;
 // }
@@ -679,5 +683,5 @@ div.woof_info_popup {
 }
 
 .paczkomaty-shipping label {
-    margin-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }

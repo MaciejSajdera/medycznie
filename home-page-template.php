@@ -9,6 +9,7 @@
 global $post;
 
 get_header();
+
 ?>
 
 	<div class="home-main">

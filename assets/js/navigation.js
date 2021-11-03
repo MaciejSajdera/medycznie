@@ -55,44 +55,44 @@ export default class Navigation {
 			}
 		};
 
-		document.addEventListener("click", e => {
-			siteNavigation.classList.contains("main-navigation--box-shadow")
-				? siteNavigation.classList.remove("main-navigation--box-shadow")
-				: "";
+		// document.addEventListener("click", e => {
+		// 	siteNavigation.classList.contains("main-navigation--box-shadow")
+		// 		? siteNavigation.classList.remove("main-navigation--box-shadow")
+		// 		: "";
 
-			const searchToggleSVGPath = document.querySelectorAll(
-				"#search-icon svg path"
-			);
-			const searchToggleIcon = document.querySelector("#search-icon");
-			const searchToggleWrapper = document.querySelector(
-				".search-icon-wrapper"
-			);
-			const searchToggleSubText = document.querySelector(
-				".search-sub-icon-text"
-			);
+		// 	const searchToggleSVGPath = document.querySelectorAll(
+		// 		"#search-icon svg path"
+		// 	);
+		// 	const searchToggleIcon = document.querySelector("#search-icon");
+		// 	const searchToggleWrapper = document.querySelector(
+		// 		".search-icon-wrapper"
+		// 	);
+		// 	const searchToggleSubText = document.querySelector(
+		// 		".search-sub-icon-text"
+		// 	);
 
-			const searchInput = document.querySelector(".dgwt-wcas-search-input");
+		// 	const searchInput = document.querySelector(".dgwt-wcas-search-input");
 
-			if (
-				e.target === searchToggleSVG ||
-				e.target === searchToggleSVGPath[0] ||
-				e.target === searchToggleSVGPath[1] ||
-				e.target === searchToggleIcon ||
-				e.target === searchToggleSubText ||
-				e.target === searchToggleWrapper
-			) {
-				searchPanel.classList.toggle("search-panel--toggled");
+		// 	if (
+		// 		e.target === searchToggleSVG ||
+		// 		e.target === searchToggleSVGPath[0] ||
+		// 		e.target === searchToggleSVGPath[1] ||
+		// 		e.target === searchToggleIcon ||
+		// 		e.target === searchToggleSubText ||
+		// 		e.target === searchToggleWrapper
+		// 	) {
+		// 		searchPanel.classList.toggle("search-panel--toggled");
 
-				if (!isMobileNavOpen) {
-					searchPanel.classList.toggle("search-panel--box-shadow");
-				}
+		// 		if (!isMobileNavOpen) {
+		// 			searchPanel.classList.toggle("search-panel--box-shadow");
+		// 		}
 
-				searchToggleSVG.classList.toggle("search-icon-clicked");
+		// 		searchToggleSVG.classList.toggle("search-icon-clicked");
 
-				if (window.innerWidth >= 992) {
-					searchInput.focus();
-				}
-			}
-		});
+		// 		if (window.innerWidth >= 992) {
+		// 			searchInput.focus();
+		// 		}
+		// 	}
+		// });
 	}
 }
