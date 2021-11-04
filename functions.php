@@ -220,7 +220,7 @@ function is_blog () {
 
 
 function wpb_add_google_fonts() {
-	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;0,700;1,400&display=swap', false );
+	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap', false );
 	// wp_enqueue_style( 'wpb-google-fonts2', 'https://fonts.googleapis.com/css2?family=Kodchasan:wght@300;400;700&display=swap', false ); 
 }
 add_action( 'wp_enqueue_scripts', 'wpb_add_google_fonts' );
@@ -346,6 +346,14 @@ function disable_woo_commerce_sidebar() {
 	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10); 
 }
 add_action('init', 'disable_woo_commerce_sidebar');
+
+//Change loop_product_title from h2 to p tag
+
+remove_action( 'woocommerce_shop_loop_item_title','woocommerce_template_loop_product_title', 10 );
+add_action('woocommerce_shop_loop_item_title', 'change_loop_products_title', 10 );
+function change_loop_products_title() {
+    echo '<p class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</p>';
+}
 
 //hide shipping from cart template
 
@@ -617,11 +625,12 @@ function add_percentage_to_sale_badge( $html, $post, $product ) {
 
       if ( $sale_price != 0 || ! empty($sale_price) ) {
           $percentage    = round(100 - ($sale_price / $regular_price * 100)) . '%';
-      } else {
+
+      }  else {
           return $html;
       }
   }
-  return '<span class="onsale sales-badge">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
+  return '<span class="sales-badge">' . esc_html__( '-', 'woocommerce' ) . ' ' . $percentage . '</span>';
 }
 
 add_filter( 'woocommerce_sale_flash', 'add_percentage_to_sale_badge', 20, 3 );
@@ -641,18 +650,31 @@ function bbloomer_new_badge_shop_page() {
    global $product;
    $newness_days = 14;
    $created = strtotime( $product->get_date_created() );
-   if ( ( time() - ( 60 * 60 * 24 * $newness_days ) ) < $created ) {
+   $is_newly_added = ( time() - ( 60 * 60 * 24 * $newness_days ) ) < $created;
+
+   if ( has_term( 68, 'product_cat' ) ) {
       echo '<span class="itsnew">' . esc_html__( 'Nowość!', 'woocommerce' ) . '</span>';
    }
+
 }
 add_action( 'woocommerce_before_shop_loop_item_title', 'bbloomer_new_badge_shop_page', 3 );
+
+//badge 'promo' for recent products
+
+function bbloomer_promo_badge_shop_page() {
+	global $product;
+
+	if ( has_term( 70, 'product_cat' ) && !$product->is_on_sale() ) {
+	   echo '<span class="sales-badge">' . esc_html__( 'Promocja!', 'woocommerce' ) . '</span>';
+	}
+ 
+ }
+ add_action( 'woocommerce_before_shop_loop_item_title', 'bbloomer_promo_badge_shop_page', 3 );
 
 //badge 'bestseller'
 
 function bbloomer_best_badge_shop_page() {
    global $product;
-//    $newness_days = 2;
-//    $created = strtotime( $product->get_date_created() );
    if ( has_term( 23, 'product_cat' ) ) {
 	  echo '<div class="bestseller-wrapper">';
 	  echo '<span class="bestseller"></span>';
@@ -674,7 +696,38 @@ add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_sale_fla
 
 //Rating
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
-// add_action( 'my_woocommerce_before_single_product', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 7 );
+
+//Availbility
+
+add_action( 'woocommerce_single_product_summary', 'my_woocommerce_availbility', 7 );
+
+function my_woocommerce_availbility() {
+
+	global $product;
+
+	$availbility_status;
+
+	if( $product->is_in_stock() ) {
+		$availbility_status = '<span class="product-available">Na stanie</span>';		
+	}
+	
+	// elseif( $product->is_in_stock() && $product->get_stock_quantity() < 10 ) {
+	// 	$availbility_status = '<span class="product-low-stock">'. $product->get_stock_quantity() .'szt.</span>';		
+	// }
+	
+	// elseif( $product->is_in_stock() && $product->get_stock_quantity() ) {
+	// 	$availbility_status = '<span class="product-available">'. $product->get_stock_quantity() .'szt.</span>';	
+	// }
+	
+	if( !$product->is_in_stock() ) {
+		$availbility_status = '<span class="product-notavailable">Brak</span>';
+	}
+	
+	echo '<div class="product-info"><div class="product-info__label">Dostępność:</div><div class="product-info__value">'.$availbility_status.'</div></div>';
+}
+
+
 
 //Meta information
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
@@ -707,8 +760,8 @@ function show_producent_info() {
 
 
 //Excerpt
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
-add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_excerpt', 5 );
+// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+// add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_excerpt', 5 );
 
 // remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
 // remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
@@ -766,9 +819,9 @@ function my_woocommerce_template_single_price() {
 
 	}
 }
-add_action( 'woocommerce_single_product_summary', 'my_woocommerce_template_single_price', 25 );
+add_action( 'woocommerce_single_product_summary', 'my_woocommerce_template_single_price', 35 );
 
-add_action( 'woocommerce_single_product_summary', 'show_price_without_tax', 25);
+add_action( 'woocommerce_single_product_summary', 'show_price_without_tax', 35);
 
 function show_price_without_tax() {
 	global $product;
@@ -824,22 +877,32 @@ function custom_quantity_input_args( $args, $product ) {
 }
 
 
+
+// function woocommerce_template_product_description() {
+// 	wc_get_template( 'single-product/tabs/description.php' );
+// 	}
+
+// add_action( 'my_single_product_description', 'woocommerce_template_product_description', 20 );
+
+
 /* Disable additional informations table at single product view */
 
-function bbloomer_remove_product_tabs( $tabs ) {
+function customize_product_tabs( $tabs ) {
     unset( $tabs['additional_information'] ); 
+	// unset( $tabs['description'] ); 
+	
     return $tabs;
 }
-add_filter( 'woocommerce_product_tabs', 'bbloomer_remove_product_tabs', 9999 );
+add_filter( 'woocommerce_product_tabs', 'customize_product_tabs', 9999 );
 
 /* Disable short description at single product view */
 
-function remove_short_description() {
+// function remove_short_description() {
  
-	remove_meta_box( 'postexcerpt', 'product', 'normal');
+// 	remove_meta_box( 'postexcerpt', 'product', 'normal');
 	 
-}
-add_action('add_meta_boxes', 'remove_short_description', 999);
+// }
+// add_action('add_meta_boxes', 'remove_short_description', 999);
 
 
 add_action('woocommerce_init', 'shipping_instance_form_fields_filters');
@@ -1006,7 +1069,6 @@ function get_free_shipping_minimum($zone_name = 'Poland') {
   
 	return $result;
 }
-
   
 function bbloomer_free_shipping_cart_notice() {
 
@@ -1027,8 +1089,6 @@ function bbloomer_free_shipping_cart_notice() {
 }
 
 add_action( 'woocommerce_before_cart_contents', 'bbloomer_free_shipping_cart_notice' );
-
-
 
 // function my_hide_shipping_when_free_is_available( $rates ) {
 // 	$free = array();

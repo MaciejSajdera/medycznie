@@ -62,54 +62,42 @@ if ( post_password_required() ) {
 
 			<div class="summary entry-summary">
 
+				<div class="single-product__action-card">
+
 				<?php
 
-				/** Product Info Table */
+						/** Product Info Table */
 
-				// add_filter( 'woocommerce_quantity_input_args', 'custom_quantity_input_args', 20, 2 );
-				// function custom_quantity_input_args( $args, $product ) {
-				// 	if( $product->get_stock_quantity() == 1 && is_product() ){
-				// 		$args['max_value'] = '1';
-						
-				// 	}
-				// 	return $args;
-				// }
+						/**
+						 * Hook: woocommerce_single_product_summary.
+						 *
+						 * @hooked woocommerce_template_single_title - 5
+						 * @hooked woocommerce_template_single_rating - 10
+						 * @hooked woocommerce_template_single_price - 10
+						 * @hooked woocommerce_template_single_excerpt - 20
+						 * @hooked woocommerce_template_single_add_to_cart - 30
+						 * @hooked woocommerce_template_single_meta - 40
+						 * @hooked woocommerce_template_single_sharing - 50
+						 * @hooked WC_Structured_Data::generate_product_data() - 60
+						 */
+						do_action( 'woocommerce_single_product_summary' );
 
-				$availbility_status;
+						?>
 
-				if( $product->is_in_stock() ) {
-					$availbility_status = '<span class="product-available">Na stanie</span>';		
-				}
+				</div>
 
-				// elseif( $product->is_in_stock() && $product->get_stock_quantity() < 10 ) {
-				// 	$availbility_status = '<span class="product-low-stock">'. $product->get_stock_quantity() .'szt.</span>';		
-				// }
-
-				// elseif( $product->is_in_stock() && $product->get_stock_quantity() ) {
-				// 	$availbility_status = '<span class="product-available">'. $product->get_stock_quantity() .'szt.</span>';	
-				// }
-				
-				if( !$product->is_in_stock() ) {
-					$availbility_status = '<span class="product-notavailable">Brak</span>';
-				}
-
-				echo '<div class="product-info"><div class="product-info__label">Dostępność:</div><div class="product-info__value">'.$availbility_status.'</div></div>';
-
-				/**
-				 * Hook: woocommerce_single_product_summary.
-				 *
-				 * @hooked woocommerce_template_single_title - 5
-				 * @hooked woocommerce_template_single_rating - 10
-				 * @hooked woocommerce_template_single_price - 10
-				 * @hooked woocommerce_template_single_excerpt - 20
-				 * @hooked woocommerce_template_single_add_to_cart - 30
-				 * @hooked woocommerce_template_single_meta - 40
-				 * @hooked woocommerce_template_single_sharing - 50
-				 * @hooked WC_Structured_Data::generate_product_data() - 60
-				 */
-				do_action( 'woocommerce_single_product_summary' );
+				<?php
+						get_template_part( 'template-parts/single-product-advantages');
 				?>
+
 			</div>
+
+			<div class="product-description-holder">
+
+				<?php do_action( 'my_single_product_description' ); ?>
+
+			</div>
+
 
 			<?php
 			/**

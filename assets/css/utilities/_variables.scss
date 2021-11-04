@@ -1,6 +1,7 @@
 /* COLORS */
 $color__background-body: #ffffff;
-$color__background-screen: #f5f5f5;
+$color__background--light-grey: #f7f7f7;
+$color__border-element: #f5f5f5;
 $color__background-hr: #ccc;
 $color__background-button: #e6e6e6;
 $color__background-pre: #eee;
@@ -35,11 +36,11 @@ $color__border-input: #ccc;
 $color__border-abbr: #666;
 
 /* TYPOGRAPHY */
-$font__main: "Cabin", sans-serif;
-$font_headers: "Cabin", sans-serif;
-$font_numbers: "Kodchasan", sans-serif;
+$font__main: 'Poppins', sans-serif;
+$font_headers: 'Poppins', sans-serif;
+$font_numbers: 'Poppins', sans-serif;
 
-$font_anchors: "Cabin", sans-serif;
+$font_anchors: 'Poppins', sans-serif;
 $font__code: monaco, consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 $font__pre: "Courier 10 Pitch", courier, monospace;
 $font__line-height-body: 1.5;

@@ -4,7 +4,7 @@ export const isElementInViewport = el => {
 
 	const viewport = {
 		top: scroll,
-		bottom: scroll + window.innerHeight
+		bottom: scroll + window.innerHeight // add multiplier (i.e * 0.75) to delay trigger
 	};
 
 	const bounds = {
@@ -30,61 +30,110 @@ export const addSelfDestructingEventListener = (
 	element.addEventListener(eventType, handler);
 };
 
-export const addClassToAllTargetsAbove = (
-	element,
-	target,
-	classToAdd,
-	attrToChange,
-	attrValue
-) => {
-	if (element && element.closest(target)) {
-		element.closest(target).classList.add(classToAdd);
 
-		if ((attrToChange, attrValue)) {
-			element.closest(target).setAttribute(attrToChange, attrValue);
-		}
+export class isElementInterSecting {
+	constructor(element, action) {
+		this.element = element;
+		this.action = action;
 
-		let currentTarget = element.closest(target);
+		if ("IntersectionObserver" in window) {
+			// IntersectionObserver Supported
+			let config = {
+				root: null,
+				rootMargin: "0px",
+				threshold: 0.5
+			};
 
-		let nextTarget = currentTarget.parentElement.closest(target);
+			let observer = new IntersectionObserver(onChange, config);
 
-		if (nextTarget) {
-			addClassToAllTargetsAbove(
-				nextTarget,
-				target,
-				classToAdd,
-				attrToChange,
-				attrValue
-			);
+			observer.observe(element);
+
+			function onChange(changes, observer) {
+				changes.forEach(change => {
+					if (change.intersectionRatio > 0) {
+						// Stop watching and load the image
+						action(change.target);
+						observer.unobserve(change.target);
+					}
+				});
+			}
+		} else {
+			// IntersectionObserver NOT Supported
+			action(element);
 		}
 	}
+}
 
-	if (element && !element.closest(target)) {
-		element.parentElement.closest(target).classList.add(classToAdd);
+export class isElementLeavingViewport {
+	constructor(element, doAction, undoAction) {
+		this.element = element;
+		this.doAction = doAction;
+		this.undoAction = undoAction;
 
-		if ((attrToChange, attrValue)) {
-			element.parentElement
-				.closest(target)
-				.setAttribute(attrToChange, attrValue);
+		if ("IntersectionObserver" in window) {
+			// IntersectionObserver Supported
+			let config = {
+				root: null,
+				rootMargin: "0px",
+				threshold: 0.5
+			};
+
+			let observer = new IntersectionObserver(onChange, config);
+
+			observer.observe(element);
+
+			function onChange(changes, observer) {
+				changes.forEach(change => {
+					console.log(change);
+
+					if (change.isIntersecting) {
+						doAction(change.target);
+					}
+					if (!change.isIntersecting) {
+						undoAction(change.target);
+					}
+				});
+			}
+		} else {
+			// IntersectionObserver NOT Supported
+			return;
 		}
-
-		let currentElement = element.parentElement.closest(target);
-
-		let nextTarget = currentElement.closest(target);
-
-		if (nextTarget) {
-			addClassToAllTargetsAbove(
-				nextTarget,
-				target,
-				classToAdd,
-				attrToChange,
-				attrValue
-			);
-		}
-	} else {
-		return;
 	}
-};
+}
 
-// export { isElementInViewport, addSelfDestructingEventListener };
+export class RevealChildrenOf {
+	constructor(elementsParent, delayTime) {
+		this.elementsParent = elementsParent;
+		this.delayTime = delayTime;
+
+		if (!elementsParent) {
+			return;
+		}
+
+		this.hide();
+
+		isElementInViewport(this.elementsParent)
+			? this.reveal()
+			: document.addEventListener("scroll", () => {
+					this.reveal();
+			  });
+	}
+
+	hide() {
+		[...this.elementsParent.children].map((element, i) => {
+			element.style.opacity = "0";
+		});
+	}
+
+	reveal() {
+		isElementInViewport(this.elementsParent)
+			? [...this.elementsParent.children].map((element, i) => {
+					element.style.transition = `all 0.${this.delayTime}s ease-in`;
+					element.style.transitionDelay = `${i / this.delayTime}s`;
+					element.style.opacity = "1";
+			  })
+			: "";
+	}
+}
+
 export default isElementInViewport;

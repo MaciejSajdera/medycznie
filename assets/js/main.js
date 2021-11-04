@@ -3,6 +3,7 @@
  */
 import Navigation from "./navigation.js";
 import smoothscroll from "smoothscroll-polyfill";
+import scrollAnimations from "./scrollAnimations.js";
 import {
 	isElementInViewport,
 	addSelfDestructingEventListener
@@ -13,6 +14,7 @@ window.addEventListener("DOMContentLoaded", event => {
 	navigation.setupNavigation();
 
 	smoothscroll.polyfill();
+	scrollAnimations();
 
 	const siteHeader = document.querySelector(".site-header");
 	const myPreloader = document.querySelector(".my-preloader");
@@ -194,7 +196,7 @@ window.addEventListener("DOMContentLoaded", event => {
 		let backButtonAppended = false;
 
 		document.addEventListener("click", function(e) {
-			// console.log(e);
+			// console.log(e.target);
 
 			if (e.target.classList.contains("menu-item-has-children")) {
 				//hide main menu
@@ -353,22 +355,6 @@ window.addEventListener("DOMContentLoaded", event => {
 			}
 		});
 
-		// console.log(currentMenuItem.closest(".sub-menu"));
-
-		// linksWithChildren.forEach(link => {
-		// 	link.nextElementSibling &&
-		// 	link.nextElementSibling.classList.contains("sub-menu")
-		// 		? (link.style.pointerEvents = "none")
-		// 		: "";
-
-		// if (
-		// 	link.nextElementSibling &&
-		// 	link.nextElementSibling.classList.contains("sub-menu")
-		// ) {
-		// 	const submenu = link.querySelector(".sub-menu");
-		// 	submenu.setAttribute("data-collapsed", "true");
-		// }
-		// });
 
 		nav.addEventListener("click", function(e) {
 			// console.log(e.target);
@@ -597,6 +583,8 @@ window.addEventListener("DOMContentLoaded", event => {
 		);
 
 		document.addEventListener("click", e => {
+			console.log(e.target);
+
 			if (e.target.matches("#search-icon")) {
 				searchPanel.classList.toggle("search-panel--toggled");
 				searchIconDesktop.classList.toggle("search-icon--clicked");
@@ -664,23 +652,6 @@ window.addEventListener("DOMContentLoaded", event => {
 		});
 	}
 
-	const showSection = () => {
-		const blogPostsSection = document.querySelector(".blog-posts");
-
-		if (blogPostsSection) {
-			isElementInViewport(blogPostsSection)
-				? blogPostsSection.classList.add("move-up")
-				: "";
-		}
-	};
-
-	const homePage = document.querySelector(".home");
-
-	if (homePage) {
-		document.addEventListener("scroll", showSection);
-		window.addEventListener("resize", showSection);
-		window.addEventListener("orientationchange", showSection);
-	}
 
 	const toggleFilters = document.querySelector("#toggle-filters");
 

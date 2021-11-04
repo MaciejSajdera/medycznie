@@ -33,7 +33,7 @@ $carousel_image_5_link = get_field('carousel_image_5_link', $post->ID);
 
 ?>
 
-<section class="main-carousel">
+<div class="main-carousel">
 <!-- Slider main container -->
 <div class="swiper-container swiper-container-main-carousel">
     <!-- Additional required wrapper -->
@@ -78,4 +78,4 @@ $carousel_image_5_link = get_field('carousel_image_5_link', $post->ID);
     <div class="swiper-button-next"></div>
 
 </div>
-</section>
+</div>

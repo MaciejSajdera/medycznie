@@ -49,6 +49,7 @@ $h1 = get_field('h1');
 				?>
 
 				<div class="welcome-view">
+					
 					<?php
 						get_template_part( 'template-parts/home-carousel', 'page' );
 					?>
@@ -58,20 +59,24 @@ $h1 = get_field('h1');
 					?>
 				</div>
 				
-				<?php
-					get_template_part( 'template-parts/home-categories-display', 'page' );
-				?>
-
 			</div>
 
 		</div>
 
 		<?php
-				get_template_part( 'template-parts/home-brands-showcase', 'page' );
+				get_template_part( 'template-parts/home-categories-display', 'page' );
 		?>
 
 		<?php
-				// get_template_part( 'template-parts/home-content-blog', 'page' );
+				get_template_part( 'template-parts/home-about', 'page' );
+		?>
+
+		<?php
+				get_template_part( 'template-parts/home-content-blog', 'page' );
+		?>
+
+		<?php
+				get_template_part( 'template-parts/home-brands-showcase', 'page' );
 		?>
 
 </div>

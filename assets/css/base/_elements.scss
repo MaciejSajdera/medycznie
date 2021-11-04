@@ -25,13 +25,13 @@ svg {
 .site-content,
 .main-navigation,
 .mobile-menu__top,
-.desktop-menu {
+.desktop-menu, footer#colophon {
 	// height: 100%;
 	// margin-bottom: 20em;
 	// margin-top: 14em;
 	z-index: 1;
 
-	@media screen and (max-width: 991px) {
+	@media screen and (max-width: 1199px) {
 		padding-left: 5%;
 		padding-right: 5%;
 	}
@@ -111,6 +111,7 @@ a {
 	color: $color__link;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent; /* transparent with keyword */
+	overflow-wrap: break-word;
 
 	&:visited {
 		color: $color__link-visited;
@@ -149,7 +150,7 @@ li > ol {
 }
 
 dt {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 dd {
@@ -424,36 +425,23 @@ div.woof_info_popup {
 // 	}
 // }
 
-.woocommerce div.product .woocommerce-tabs ul.tabs li.my_description_tab {
-	border: 1px solid $color_dark_blue;
-	border-bottom-color: #fff;
 
-	&:before,
-	&:after {
-		border-color: $color_dark_blue;
-		box-shadow: -2px 2px 0 transparent;
+.text {
+	&--justify {
+		text-align: justify;
 	}
 
-	a:hover {
-		color: $color_white_text;
-		transform: scale(1.05);
-	}
-}
+	&--outline {
+	color: transparent !important;
+	-webkit-text-stroke: 1px $color_dark_blue;
 
-.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
-	a:hover {
-		color: #000;
-		transform: scale(1);
+	@media screen and (min-width: 992px) {
+		-webkit-text-stroke: 1px $color_dark_blue;
+	}
+
 	}
 }
 
-.woocommerce div.product .woocommerce-tabs ul.tabs li {
-	background: $color_dark_blue;
-}
-
-.woocommerce div.product .woocommerce-tabs ul.tabs li a {
-	color: $color_white_text;
-}
 
 .count {
 	background-color: transparent;
@@ -720,4 +708,120 @@ div.woof_info_popup {
 
 .paczkomaty-shipping label {
 	margin-bottom: 0.5rem;
+}
+
+.reveal-from {
+	&__element {
+		// transition: all 0.5s linear;
+		opacity: 0;
+	}
+
+	&--left {
+		transform: translate(-25%, 0%);
+	}
+
+	&--right {
+		transform: translate(25%, 0%);
+	}
+
+	&--bottom {
+		transform: translate(0%, 25%);
+	}
+
+	&--transparent {
+		opacity: 0;
+	}
+
+	&--transparent-with-delay {
+		opacity: 0;
+	}
+}
+
+.revealed {
+	.reveal-from {
+		&--left {
+			animation: revealFromLeft 1s ease forwards;
+		}
+
+		&--right {
+			animation: revealFromRight 1s ease forwards;
+		}
+
+		&--bottom {
+			animation: revealFromBottom 1s ease forwards;
+		}
+
+		&--transparent {
+			animation: revealFromTransparent 1s ease forwards;
+		}
+
+		&--transparent-with-delay {
+			animation: revealFromTransparent 1s ease 0.75s forwards;
+		}
+	}
+}
+
+@keyframes revealFromLeft {
+	0% {
+		transform: translate(-25%, 0%);
+		opacity: 0;
+	}
+
+	90% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+}
+
+@keyframes revealFromRight {
+	0% {
+		transform: translate(25%, 0%);
+		opacity: 0;
+	}
+
+	90% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+}
+
+@keyframes revealFromBottom {
+	0% {
+		transform: translate(0%, 25%);
+		opacity: 0;
+	}
+
+	90% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translate(0%, 0%);
+		opacity: 1;
+	}
+}
+
+@keyframes revealFromTransparent {
+	0% {
+		opacity: 0;
+	}
+
+	90% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }

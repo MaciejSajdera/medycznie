@@ -1,7 +1,10 @@
-<section class="blog-posts">
-		<div class="blog-posts-header">
+<section class="blog-posts reveal-from__trigger">
+
+	<div class="reveal-from__element reveal-from--bottom">
+
+		<div>
 			<a href=<?php echo get_permalink( get_option( 'page_for_posts' ) ); ?>>
-			<h3>Aktualności / Wydarzenia</h3>
+			<p class="section-header">Blog</p>
 			</a>
 		</div>
 
@@ -15,14 +18,16 @@
 							$your_query->post_title(); $your_query->the_post();
 							$category = get_the_category();
 
-							echo '<a class="blog-post" href="'. get_permalink() .'" style="background-image: url(' .get_the_post_thumbnail_url(). ')">';
+							echo '<a class="blog-post" href="'. get_permalink() .'">';
 
-							echo '<div class="blog-post-caption">';
-							echo '<h3 class="uppercase">' . get_the_title() . '</h3>';
-							echo '</div>';
-							?>
-					
-					<?php echo '</a>';
+								echo '<div class="blog-post__image" style="background-image: url('.esc_url(get_the_post_thumbnail_url()).')"></div>';
+
+								echo '<div class="blog-post__text">';
+									echo '<p>' . get_the_title() . '<span>'.get_the_date().'</span></p>';
+									echo '<p>' .  mb_strimwidth( html_entity_decode(get_the_excerpt()), 0, 240, '...' ) . '</p>';
+								echo '</div>';
+
+							 echo '</a>';
 
 				endwhile;
 				// reset post data (important!)
@@ -34,5 +39,7 @@
 		<div class="txt-centered">
 		<a class="read-more" href=<?php echo get_permalink( get_option( 'page_for_posts' ) ); ?>>Zobacz wszystkie</a>
 		</div>
-	</section>
+
+	</div>
+</section>
 	

@@ -38,30 +38,24 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
-	const shortcode_1_title = document.querySelector("#shortcode_1_title")
-		.innerHTML;
-	const shortcode_2_title = document.querySelector("#shortcode_2_title")
-		.innerHTML;
-	const shortcode_3_title = document.querySelector("#shortcode_3_title")
-		.innerHTML;
-
-	let menu = [shortcode_1_title, shortcode_2_title, shortcode_3_title];
-
 	var myCategoriesSwiper = new Swiper(".swiper-container-categories", {
 		direction: "horizontal",
 		speed: 350,
-		effect: "fade",
-		fadeEffect: {
-			crossFade: true
+		slidesPerView: 1,
+		// simulateTouch: false,
+		spaceBetween: 10,
+
+		breakpoints: {
+
+			992: {
+				slidesPerView: 4,
+				spaceBetween: 40,
+			}
+
 		},
 
-		simulateTouch: false,
-
 		pagination: {
-			el: ".swiper-pagination-categories",
-			clickable: true,
-			renderBullet: (index, className) =>
-				'<span class="' + className + '">' + menu[index] + "</span>"
+			el: ".swiper-pagination-categories"
 		},
 
 		lazy: true,

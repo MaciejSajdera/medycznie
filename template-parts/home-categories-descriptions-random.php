@@ -1,6 +1,6 @@
 
-<section class="categories-showcase blog-posts-header">
-    <h3>Sprawdź naszą ofertę</h3>
+<section class="categories-showcase">
+    <h3 class="section-header">Sprawdź naszą ofertę</h3>
 
     <div class="categories-showcase__wrapper">
 

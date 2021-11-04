@@ -9,41 +9,47 @@
 
 ?>
 
-<section class="brands-carousel blog-posts-header">
-	<h3>Marki</h3>
-  <div class="swiper-container-brands">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-        <!-- Slides -->
-	<?php 
+<section class="brands-carousel blog-posts-header reveal-from__trigger">
 
-			// Get the taxonomy's terms
-			$terms = get_terms(
-				array(
-					'taxonomy'   => 'manufacturer',
-					'hide_empty' => false,
-				)
-			);
+	<div class="reveal-from__element reveal-from--bottom">
 
-			// Check if any term exists
-			if ( ! empty( $terms ) && is_array( $terms ) ) {
-				// Run a loop and print them all
-				foreach ( $terms as $term ) {
-					$imageURL = get_field("producent_logo", $term);
+		<p class="section-header">Nasi dostawcy</p>
 
-				if ($imageURL) {
+		<div class="swiper-container-brands">
+			<!-- Additional required wrapper -->
+			<div class="swiper-wrapper">
+				<!-- Slides -->
+			<?php 
 
-					echo '<div class="swiper-slide">';
+					// Get the taxonomy's terms
+					$terms = get_terms(
+						array(
+							'taxonomy'   => 'manufacturer',
+							'hide_empty' => false,
+						)
+					);
 
-					echo '<a href="'.esc_url( get_term_link( $term ) ).'" >';
-					echo '<img width="150" height="auto" src="'.$imageURL.'" alt="'.$term->name.'" loading="lazy">';
-					echo '</a>';
-					echo '</div>';
-					};
-				}
-			} 
+					// Check if any term exists
+					if ( ! empty( $terms ) && is_array( $terms ) ) {
+						// Run a loop and print them all
+						foreach ( $terms as $term ) {
+							$imageURL = get_field("producent_logo", $term);
 
-		?>
+						if ($imageURL) {
+
+							echo '<div class="swiper-slide">';
+
+							echo '<a href="'.esc_url( get_term_link( $term ) ).'" >';
+							echo '<img width="150" height="auto" src="'.$imageURL.'" alt="'.$term->name.'" loading="lazy">';
+							echo '</a>';
+							echo '</div>';
+							};
+						}
+					} 
+
+				?>
+			</div>
+		</div>
+
 	</div>
-  </div>
 </section>

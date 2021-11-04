@@ -1,6 +1,4 @@
 .main-carousel {
-	margin-bottom: 1rem;
-
 	.swiper-slide {
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -79,69 +77,9 @@
 	.swiper-pagination-bullet {
 		background: rgba(255, 255, 255, 0.699) !important;
 	}
-
-	.parallax-title {
-		display: flex;
-		flex-flow: column;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		color: white;
-		max-width: 65%;
-		margin: auto;
-
-		h2 {
-			text-align: center;
-
-			@media screen and (max-width: 992px) {
-				@include fluid-type($min_width, $max_width, 36px, 45px);
-			}
-
-			@media screen and (min-width: 992px) {
-				margin: 0 auto 0;
-				@include fluid-type($min_width, $max_width, 28px, 36px);
-			}
-		}
-
-		p {
-			position: relative;
-			display: flex;
-			flex-flow: column;
-			font-weight: 400;
-			text-align: center;
-			margin: 0;
-
-			@media screen and (max-width: 992px) {
-				@include fluid-type($min_width, $max_width, 20px, 25px);
-			}
-
-			@media screen and (min-width: 992px) {
-				@include fluid-type($min_width, $max_width, 18px, 24px);
-			}
-		}
-		p:after {
-			content: "";
-			background: white;
-			height: 1px;
-			width: 110%;
-			position: absolute;
-			left: 50%;
-			top: 120%;
-			transform: translate(-50%, -50%);
-
-			@media screen and (max-width: 992px) {
-				height: 2px;
-			}
-		}
-	}
 }
 
 .brands-carousel {
-	padding: 4em 0 0;
-
-	@media screen and (max-width: 992px) {
-		padding: 0;
-	}
 
 	h2 {
 		text-align: center;
@@ -169,70 +107,95 @@
 	}
 }
 
-.categories-carousel {
-	@media screen and (max-width: 992px) {
-		margin-bottom: 7em;
-		text-align: center;
-	}
+body #page .category-carousel {
+	margin-bottom: 4rem;
+	border-bottom: 1px solid $color__border-element;
+
+	overflow: hidden;
 
 	@media screen and (min-width: 992px) {
-		overflow: hidden;
+		padding: 2rem 0 0;
+	 }
+
+	&:last-of-type {
+		border-bottom: 0;
 	}
 
+	.swiper-container-categories {
+		position: relative;
+		padding: 2rem;
+	}
+
+	.title {
+		width: fit-content;
+		margin: auto;
+		margin-bottom: 3rem;
+		position: relative;
+		@include fluid-type($min_width, $max_width, 16px, 20px);
+
+		&:after {
+			content: "";
+			position: absolute;
+			width: 50%;
+			background: $color__background-main-theme;
+			height: 0.15em;
+			bottom: -8px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	.products {
+		margin-bottom: 2rem;
+	}
+
+	li.product {
+		margin-bottom: 0!important;
+	}
+
+	.swiper-button-prev,
+	.swiper-button-next {
+		width: 2rem;
+		height: 3rem;
+		border: 2px solid $color__background-main-theme;
+
+		&:after {
+			display: none;
+		}
+
+		&:before {
+			content: "";
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 100%;
+			width: 100%;
+			background-position: center;
+		}
+	}
+
+	.swiper-button-prev {
+		left: 0;
+		&:before {
+			background-image: url(../dist/svg/arrow_left_blue.svg);
+		}
+	}
+
+	.swiper-button-next {
+		right: 0;
+		&:before {
+			background-image: url(../dist/svg/arrow_right_blue.svg);
+		}
+	}
 	.swiper-pagination-categories {
-		margin: 1.5em 0 1.5em;
 		position: static;
-		padding-top: 0.25em;
 		display: flex;
 		justify-content: center;
-
-		@media screen and (min-width: 992px) {
-			text-align: left;
-		}
-
-		@media screen and (max-width: 992px) {
-			justify-content: space-between;
-			padding: 1em 0;
-		}
 	}
 
 	.swiper-pagination-bullet {
-		// width: auto;
-		background: transparent;
-		margin: 0.5em 2em !important;
-		opacity: 1;
-		@include fluid-type($min_width, $max_width, 14px, 16px);
-		height: 32px;
-		border-radius: 15px;
-		padding: 0.25em 2em;
-		color: $color_dark_blue;
-		position: relative;
-		// width: 200px;
-		width: 45%;
-		text-align: center;
-		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-		transition: all 0.2s ease-in-out;
-		font-weight: 700;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		@media screen and (max-width: 992px) {
-			margin: 0 0.5em !important;
-			padding: 0.25em 1em;
-		}
 	}
 
 	.swiper-pagination-bullet-active {
 		background: $color_dark_blue;
-		color: $color_white_text;
-		// box-shadow: inset 0 0px 0px rgb(0 0 0 / 8%),
-		// 	0px 0px 15px rgb(102 175 233 / 69%);
-	}
-
-	ul.products {
-		@media screen and (max-width: 992px) {
-			padding: 2em 0em 1em 0em;
-		}
 	}
 }

@@ -46,7 +46,7 @@ get_header();
 					echo "<div class='post-upper-wrapper'>";
 							echo '<a class="blog-post" href="'. get_permalink() .'" style="background-image: url(' .get_the_post_thumbnail_url(). ')">';
 
-							echo '<div class="blog-post-caption">';
+							echo '<div class="blog-post__text">';
 							echo '<h3 class="uppercase">' . get_the_title() . '</h3>';
 							echo '</div>';
 							echo '</a>';

@@ -31,26 +31,44 @@ $average      = $product->get_average_rating();
 
 if ( $rating_count === 0 ) : ?>
 
+
+
 	<div class="woocommerce-product-rating">
-	<a class="star-link" href="#"><div class="star-rating empty-star-rating" role="img" aria-label="Brak opinii"></div></span></a>
-		<?php if ( comments_open() ) : ?>
+
+		<div class="product-info">
+
+	<?php if ( comments_open() ) : ?>
 			<?php //phpcs:disable ?>
-			<a class="star-link star-text" href="#" class="woocommerce-review-link">(Dodaj opinię)</a>
+			<a class="star-link star-text product-info__label" href="#" class="woocommerce-review-link">Dodaj opinię</a>
 			<?php // phpcs:enable ?>
 		<?php endif ?>
+
+	<a class="star-link" href="#"><div class="star-rating empty-star-rating" role="img" aria-label="Brak opinii"></div></span></a>
+
+	</div><!-- product-info -->
+
 	</div>
+	
 
 <?php endif;
 
 if ( $rating_count > 0 ) : ?>
 
 	<div class="woocommerce-product-rating">
-		<?php echo wc_get_rating_html( $average, $rating_count ); // WPCS: XSS ok. ?>
+
+		<div class="product-info">
+
 		<?php if ( comments_open() ) : ?>
 			<?php //phpcs:disable ?>
 			<a href="#reviews" class="woocommerce-review-link">(<?php printf( _n( '%s customer review', '%s customer reviews', $review_count, 'woocommerce' ), '<span class="count">' . esc_html( $review_count ) . '</span>' ); ?>)</a>
 			<?php // phpcs:enable ?>
 		<?php endif ?>
+
+		<?php echo wc_get_rating_html( $average, $rating_count ); // WPCS: XSS ok. ?>
+
+		</div><!-- product-info -->
+
 	</div>
 
 <?php endif; ?>
+
