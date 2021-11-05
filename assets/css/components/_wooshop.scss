@@ -50,7 +50,7 @@ body #page .products {
 		list-style: none;
 		text-align: center;
 		box-sizing: border-box;
-		padding: 1rem;
+		padding: 0.5rem;
 		transition: all 0.3s ease-in-out;
 		border-radius: 4px;
 
@@ -60,12 +60,13 @@ body #page .products {
 
 		@media screen and (min-width: 992px) {
 			margin-bottom: 4em;
+			padding: 1rem;
 		}
 
 		a {
 			@media screen and (max-width: 992px) {
 				text-align: center;
-				@include fluid-type($min_width, $max_width, 12px, 14px);
+				@include fluid-type($min_width, $max_width, 11px, 14px);
 			}
 
 			@media screen and (min-width: 992px) {
@@ -236,7 +237,11 @@ body.single-product {
 		height: 5em;
 	}
 
-	@include fluid-type($min_width, $max_width, 14px, 16px);
+	@include fluid-type($min_width, $max_width, 11px, 14px);
+
+	@media screen and (min-width: 992px) {
+		@include fluid-type($min_width, $max_width, 14px, 16px);
+	 }
 
 	// @media screen and (max-width: 1200px) {
 	// 	font-size: 12px !important;
@@ -2857,7 +2862,6 @@ form.woocommerce-checkout {
 			}
 
 			.my-submit-button {
-				width: auto !important;
 				margin: 1em 0;
 			}
 		}
@@ -3017,6 +3021,10 @@ body.woocommerce-order-received {
 			display: none;
 		}
 	}
+
+	input[type=text], input[type=email] {
+		width: 100%;
+	}
 }
 
 .woocommerce #reviews #comments ol.commentlist li .comment-text {
@@ -3030,6 +3038,10 @@ body.woocommerce-order-received {
 
 .woocommerce div.product .woocommerce-tabs .panel {
 	width: 100%;
+}
+
+#reviews {
+
 }
 
 .woocommerce .blockUI.blockOverlay {

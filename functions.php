@@ -173,7 +173,7 @@ add_action( 'wp_head', 'my_custom_js', -1000 );
 
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '11.06');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '11.20');
 
 	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '11.06', true );
 
@@ -819,9 +819,9 @@ function my_woocommerce_template_single_price() {
 
 	}
 }
-add_action( 'woocommerce_single_product_summary', 'my_woocommerce_template_single_price', 35 );
+add_action( 'woocommerce_single_product_summary', 'my_woocommerce_template_single_price', 8 );
 
-add_action( 'woocommerce_single_product_summary', 'show_price_without_tax', 35);
+add_action( 'woocommerce_single_product_summary', 'show_price_without_tax', 8);
 
 function show_price_without_tax() {
 	global $product;
