@@ -173,12 +173,12 @@ add_action( 'wp_head', 'my_custom_js', -1000 );
 
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '10.46');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '11.06');
 
-	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '10.45', true );
+	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '11.06', true );
 
 	if (is_front_page()) {
-		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '10.45', true );
+		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '11.06', true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -186,7 +186,7 @@ function medycznie_scripts() {
 	}
 
 	if ( is_singular() && is_product()) {
-		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '10.45', true );
+		wp_enqueue_script( 'single-product-add-to-cart', get_template_directory_uri() . '/dist/js/single-product-add-to-cart.js', array(), '11.06', true );
 	}
 
 	if ( is_cart() ) {

@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
 	setTimeout(() => {
 		myPreloader.classList.add("my-preloader-off");
-	}, 400);
+	}, 200);
 
 	setTimeout(() => {
 		myPreloader.classList.add("my-preloader-none");
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", event => {
 				element.classList.add("top-promo-items-loaded");
 			});
 		}
-	}, 500);
+	}, 300);
 
 	setTimeout(() => {
 		cookiesNotification();
@@ -106,10 +106,13 @@ window.addEventListener("DOMContentLoaded", event => {
 	window.addEventListener("resize", imagesLazyLoading);
 	window.addEventListener("orientationchange", imagesLazyLoading);
 
+
+	const allCategoriesDropdowns = document.querySelectorAll(
+		".woof_container_mselect"
+	);
+
 	const hideEmptyFilters = () => {
-		const allCategoriesDropdowns = document.querySelectorAll(
-			".woof_container_mselect"
-		);
+
 
 		if (allCategoriesDropdowns && allCategoriesDropdowns.length < 1) {
 			return;
@@ -143,23 +146,20 @@ window.addEventListener("DOMContentLoaded", event => {
 			});
 	};
 
+	allCategoriesDropdowns && setTimeout(() => hideEmptyFilters(), 10);
+
 	//"Woof filter" plugin renders HTML elements on the client side so setTimeout is set to get them.
 
-	setTimeout(() => hideEmptyFilters(), 10);
+	const selectProductsPerPage = document.querySelector("#products-per-page");
 
 	const handleSelectProductsPerPage = () => {
-		const selectProductsPerPage = document.querySelector("#products-per-page");
 
-		if (selectProductsPerPage) {
 			selectProductsPerPage.addEventListener("change", e => {
 				e.target.closest("FORM").submit();
 			});
-		} else {
-			return;
-		}
 	};
 
-	handleSelectProductsPerPage();
+	selectProductsPerPage && handleSelectProductsPerPage();
 
 	jQuery(document).on("woof_ajax_done", woof_ajax_done_handler);
 

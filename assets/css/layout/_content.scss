@@ -120,7 +120,6 @@ body.single-post {
 }
 
 header.common-template {
-	height: 10em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -138,14 +137,11 @@ header.common-template {
 	// background-repeat: no-repeat;
 
 	position: relative;
+	margin: 4rem 0;
 
-	@media screen and (max-width: 992px) {
-		height: 7em;
-	}
 
 	h1.entry-title {
 		// color: $color_white_text;
-		padding: 1em;
 		@include fluid-type($min_width, $max_width, 32px, 36px);
 	}
 }
@@ -160,19 +156,12 @@ header.wholesale-header {
 	}
 }
 
-.page-template-contact-page {
-	h2 {
-		@include fluid-type($min_width, $max_width, 26px, 30px);
-		text-align: center;
-	}
-
-	.entry-content {
-		margin: 3em auto 1em;
-		p {
-			@include fluid-type($min_width, $max_width, 18px, 20px);
-		}
+.contact {
+	h4 {
+		@include fluid-type($min_width, $max_width, 32px, 36px);
 	}
 }
+
 
 .contact-data {
 	text-align: center;

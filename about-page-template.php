@@ -51,34 +51,34 @@ get_header();
 						// 	comments_template();
 						// endif;
 
-						echo '<div class="contact-data">';
+						// echo '<div class="contact-data">';
 
-							echo '<h3>'.$phone_contact_header.'</h3>';
+						// 	echo '<h3>'.$phone_contact_header.'</h3>';
 
-							echo '<div class="phone-numbers-wrapper">';
+						// 	echo '<div class="phone-numbers-wrapper">';
 
-								echo '<a href="tel:'.$phone_number_1.'">'.$phone_number_1.'</a>';
-								echo '<a href="tel:'.$phone_number_2.'">'.$phone_number_2.'</a>';
-								echo '<a href="tel:'.$phone_number_3.'">'.$phone_number_3.'</a>';
-								echo '<a href="tel:'.$phone_number_4.'">'.$phone_number_4.'</a>';
+						// 		echo '<a href="tel:'.$phone_number_1.'">'.$phone_number_1.'</a>';
+						// 		echo '<a href="tel:'.$phone_number_2.'">'.$phone_number_2.'</a>';
+						// 		echo '<a href="tel:'.$phone_number_3.'">'.$phone_number_3.'</a>';
+						// 		echo '<a href="tel:'.$phone_number_4.'">'.$phone_number_4.'</a>';
 
-							echo '</div>';
+						// 	echo '</div>';
 
-							echo '<p>e-mail: <a href="mailto:'.$email_address.'">'.$email_address.'</a></p>';
+						// 	echo '<p>e-mail: <a href="mailto:'.$email_address.'">'.$email_address.'</a></p>';
 
-							echo '<div class="headquarters-wrapper">';
+						// 	echo '<div class="headquarters-wrapper">';
 
-								echo '<h3>'.$hq_header.'</h3>';
-								echo '<p>'.$company_full_name.'</p>';
-								echo '<p>'.$address_1.'</p>';
-								echo '<p>'.$address_2.'</p>';
-								echo '<p>'.$nip.'</p>';
+						// 		echo '<h3>'.$hq_header.'</h3>';
+						// 		echo '<p>'.$company_full_name.'</p>';
+						// 		echo '<p>'.$address_1.'</p>';
+						// 		echo '<p>'.$address_2.'</p>';
+						// 		echo '<p>'.$nip.'</p>';
 
-							echo '</div>';
+						// 	echo '</div>';
 
-							echo '<p>'.$thank_you_text.'</p>';
+						// 	echo '<p>'.$thank_you_text.'</p>';
 
-						echo '</div>';
+						// echo '</div>';
 
 
 					endwhile; // End of the loop.

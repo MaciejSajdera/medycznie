@@ -18,8 +18,19 @@ body {
 	overflow-x: hidden;
 }
 
+::selection {
+	background: $color__background-main-theme--transparent;
+}
+
 svg {
 	pointer-events: none;
+}
+
+#map_wrapper {
+	iframe {
+		width: 100%;
+		height: 25rem;
+	}
 }
 
 .site-content,
@@ -429,6 +440,10 @@ div.woof_info_popup {
 .text {
 	&--justify {
 		text-align: justify;
+	}
+
+	&--center {
+		text-align: center;
 	}
 
 	&--outline {

@@ -9,7 +9,7 @@ export const isElementInViewport = el => {
 
 	const bounds = {
 		top: boundsTop,
-		bottom: boundsTop + el.clientHeight
+		bottom: boundsTop + el.getBoundingClientRect().height
 	};
 
 	return (
@@ -41,7 +41,7 @@ export class isElementInterSecting {
 			let config = {
 				root: null,
 				rootMargin: "0px",
-				threshold: 0.5
+				threshold: 0,
 			};
 
 			let observer = new IntersectionObserver(onChange, config);

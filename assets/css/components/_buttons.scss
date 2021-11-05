@@ -98,12 +98,12 @@
 	border-radius: 100rem !important;
 	text-decoration: none !important;
 	transition: all 0.2s ease-in !important;
-	border: 1px solid $color_dark_blue !important;
+	border: 2px solid $color_dark_blue !important;
 	cursor: pointer;
 
 	&:hover {
 		background-color: transparent !important;
-		border: 1px solid $color_dark_blue !important;
+		border: 2px solid $color_dark_blue !important;
 		color: $color_dark_blue !important;
 	}
 }

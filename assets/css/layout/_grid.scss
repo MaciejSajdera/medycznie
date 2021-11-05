@@ -30,3 +30,27 @@
 	align-items: center;
 	position: relative;
 }
+
+.flex-wrapper-mrow-dcol {
+	display: flex;
+	flex-flow: column;
+
+	@media screen and (min-width: 992px) {
+		flex-flow: row;
+	 }
+}
+
+.space-between {
+	justify-content: space-between;
+}
+
+.col-gap {
+	&--4 {
+		column-gap: 4em;
+	}
+
+	&--8 {
+		column-gap: 8em;
+	}
+
+}

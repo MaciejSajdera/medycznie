@@ -43,6 +43,9 @@
 
 
 body #page .products {
+
+	padding-top: 2rem;
+
 	li.product {
 		list-style: none;
 		text-align: center;
@@ -78,6 +81,7 @@ body #page .products {
 			img {
 				object-fit: contain;
 				height: 250px;
+				margin-bottom: 1rem;
 				margin: auto;
 				// padding: 1em;
 				@media screen and (max-width: 992px) {
@@ -232,7 +236,7 @@ body.single-product {
 		height: 5em;
 	}
 
-	@include fluid-type($min_width, $max_width, 16px, 18px);
+	@include fluid-type($min_width, $max_width, 14px, 16px);
 
 	// @media screen and (max-width: 1200px) {
 	// 	font-size: 12px !important;
@@ -2021,6 +2025,7 @@ form.woocommerce-form {
 .shop-wrapper {
 	align-items: flex-start !important;
 	position: relative;
+	margin-top: 4rem;
 
 	@media screen and (max-width: 1200px) {
 		flex-flow: column !important;

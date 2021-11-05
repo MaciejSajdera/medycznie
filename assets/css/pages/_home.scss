@@ -1,6 +1,15 @@
+
+.home-main__top-wrapper {
+	margin-top: 4rem;
+}
+
 .home {
 	section {
 		margin-bottom: 8rem;
+	}
+
+	.home-main__top-wrapper {
+		margin-top: 0
 	}
 }
 
@@ -56,6 +65,11 @@
 
 		h2 {
 			margin-top: 0;
+			text-align: center;
+
+			@media screen and (min-width: 992px) {
+				text-align: left;
+			 }
 		}
 
 		@media screen and (min-width: 992px) {
@@ -65,4 +79,28 @@
 			margin-bottom: 0;
 		 }
 	 }
+}
+
+.home-clients-reviews {
+
+	.single-review {
+		flex: 1 0 0;
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+
+		p {
+			line-height: 1.75;
+		}
+
+		svg {
+			width: 65px;
+			padding: 0 4px;
+			fill: $color_dark_blue;
+			float: left;
+			margin-top: -10px;
+			margin-right: 10px;
+		}
+	}
+
 }

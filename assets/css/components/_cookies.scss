@@ -79,13 +79,11 @@
 	transition: all 0.3s ease-in 0s;
 	position: fixed;
 	width: 100%;
-	bottom: 0%;
-	left: 50%;
+	bottom: 0;
+	left: 0;
 	transform: translate(-50%, 100%);
-	padding: 1em 5em;
-	border-radius: 0;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+	padding: 1em 1.25em;
+	border-radius: 10px;
 	background: $color__background-body;
 	border: 1px solid rgba(0, 0, 0, 0.15);
 	font-size: 15px;
@@ -93,16 +91,18 @@
 	display: none;
 	justify-content: space-between;
 	align-items: center;
-	flex-flow: row-reverse;
+	flex-flow: column;
 
-	@media screen and (max-width: 992px) {
-		border-radius: 0;
-		max-width: 100%;
+	p {
+		margin-bottom: 2rem;
+	}
+
+	@media screen and (min-width: 992px) {
+		border-radius: 10px;
+		max-width: 500px;
 		width: 100%;
-		right: 0;
-		bottom: 0;
-		flex-flow: column-reverse;
-		padding: 1em;
+		left: 7.5%;
+		bottom: 2.5%;
 	}
 }
 
@@ -114,17 +114,17 @@
 
 	@keyframes cookieInfoUp {
 		0% {
-			transform: translate(-50%, 100%);
+			transform: translate(0, 100%);
 			opacity: 0;
 		}
 
 		90% {
-			transform: translate(-50%, 0%);
+			transform: translate(0, 0%);
 			opacity: 1;
 		}
 
 		100% {
-			transform: translate(-50%, 0%);
+			transform: translate(0, 0%);
 			opacity: 1;
 		}
 	}
@@ -161,7 +161,7 @@
 	white-space: nowrap;
 	color: #fff;
 	background-color: #012241d8;
-	border: none;
+	border: 2px solid #012241d8;
 	// opacity: 0.6;
 	font-size: 12px;
 	font-weight: 600;
@@ -170,10 +170,16 @@
 	margin: auto 2em;
 	transition: all 0.3s ease-in-out;
 	padding: 0 2em !important;
+	box-sizing: initial;
 
 	&:focus,
 	&:active {
 		outline: none;
+	}
+
+	&:hover {
+		color: #012241d8;
+		background-color: transparent;
 	}
 
 	@media screen and (max-width: 992px) {

@@ -534,10 +534,6 @@
 		display: flex;
 		flex-flow: column;
 
-		@media screen and (min-width: 992px) {
-			align-self: flex-end;
-		}
-
 		a {
 			@include fluid-type($min_width, $max_width, 24px, 28px);
 			display: flex;
@@ -548,9 +544,7 @@
 				display: block;
 				background: url(../dist/svg/phone.svg) no-repeat center center;
 				background-size: contain;
-				width: 32px;
-				height: 32px;
-				margin-right: 16px;
+
 			}
 		}
 
@@ -580,6 +574,30 @@
 		}
 	}
 }
+
+.home-top-mobile {
+
+	a {
+		display: flex;
+		align-items: center;
+
+		&:before {
+			width: 32px;
+			height: 32px;
+			margin-right: 16px;
+		}
+	}
+}
+
+.social-media {
+	margin-right: 2rem;
+
+	a:before {
+		width: 27px;
+		height: 27px;
+	}
+}
+
 
 @media screen and (min-width: 992px) {
 	.menu-woomenu-container > ul#menu-woomenu > li {

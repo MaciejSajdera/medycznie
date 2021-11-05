@@ -71,8 +71,6 @@ $address_2 = get_field("address_2", get_page_by_title( 'O nas' ));
 					<div class="col col-3">
 						<p class="footer-menu-header">Menu</p>
 
-
-
 						<ul>
 
 							<li><a class="terms-link" href="<?php echo wc_get_checkout_url() ?>">Zamówienia</a></li>
@@ -136,8 +134,8 @@ $address_2 = get_field("address_2", get_page_by_title( 'O nas' ));
 		</div>
 
 		<div class="cookie-law-notification">
-			<button id="cookie-law-button">Akceptuję</button>
 			<p><?php echo $cookie_info ?></p>
+			<button id="cookie-law-button">Akceptuję</button>
 		</div>
 		
 	</footer><!-- #colophon -->

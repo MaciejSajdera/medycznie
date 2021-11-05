@@ -9,7 +9,7 @@
 
 ?>
 
-<section class="brands-carousel blog-posts-header reveal-from__trigger">
+<section class="brands-carousel reveal-from__trigger">
 
 	<div class="reveal-from__element reveal-from--bottom">
 
