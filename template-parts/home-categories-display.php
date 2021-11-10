@@ -11,7 +11,7 @@ foreach($category_sliders as $category) {
 
             <div class="reveal-from__element reveal-from--bottom">
 
-                <p class="title"><?php echo esc_html($category->name); ?></p>
+                <h2 class="title section-header"><?php echo esc_html($category->name); ?></h2>
 
                 <div class="swiper-container-categories woocommerce">
 
@@ -42,7 +42,7 @@ foreach($category_sliders as $category) {
                                 <!-- Slides -->
                                 <div class="swiper-slide">
 
-                            <?php wc_get_template_part("content", "product"); ?>
+                                    <?php wc_get_template_part("content", "product"); ?>
 
                                 </div>
 

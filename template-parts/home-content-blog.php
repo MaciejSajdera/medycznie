@@ -4,7 +4,7 @@
 
 		<div>
 			<a href=<?php echo get_permalink( get_option( 'page_for_posts' ) ); ?>>
-			<p class="section-header">Blog</p>
+			<h2 class="section-header">Blog</h2>
 			</a>
 		</div>
 

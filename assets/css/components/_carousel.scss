@@ -80,7 +80,6 @@
 }
 
 .brands-carousel {
-
 	h2 {
 		text-align: center;
 	}
@@ -108,40 +107,17 @@
 }
 
 body #page .category-carousel {
-	margin-bottom: 4rem;
-	border-bottom: 1px solid $color__border-element;
+	margin-bottom: 6rem;
+	padding-bottom: 6rem;
+	border-bottom: 1px solid $color__border--dark-grey;
 	overflow: hidden;
-
-	&:last-of-type {
-		border-bottom: 0;
-	}
 
 	.swiper-container-categories {
 		position: relative;
-		padding: 2rem;
 	}
 
 	.title {
-		width: fit-content;
-		margin: auto;
-
-		position: relative;
-		@include fluid-type($min_width, $max_width, 18px, 22px);
-
-		@media screen and (min-width: 992px) {
-			margin-bottom: 3rem;
-		 }
-
-		&:after {
-			content: "";
-			position: absolute;
-			width: 50%;
-			background: $color__background-main-theme;
-			height: 0.15em;
-			bottom: -8px;
-			left: 50%;
-			transform: translateX(-50%);
-		}
+		margin-bottom: 7rem;
 	}
 
 	.products {
@@ -149,7 +125,7 @@ body #page .category-carousel {
 	}
 
 	li.product {
-		margin-bottom: 0!important;
+		margin-bottom: 0 !important;
 	}
 
 	.swiper-button-prev,
@@ -189,9 +165,6 @@ body #page .category-carousel {
 		position: static;
 		display: flex;
 		justify-content: center;
-	}
-
-	.swiper-pagination-bullet {
 	}
 
 	.swiper-pagination-bullet-active {

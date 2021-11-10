@@ -38,34 +38,34 @@ $carousel_image_5_link = get_field('carousel_image_5_link', $post->ID);
 <div class="swiper-container swiper-container-main-carousel">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
-        <!-- Slides -->
+        <!-- Slides --> 
 		<div class="swiper-slide" style="background-image: url();">
 			<a class="swiper-slide__link" href="<?php echo $carousel_image_1_link ?>">
-				<img src="<?php echo $carousel_image_1["url"] ?>" alt="<?php echo $carousel_image_1["title"]; ?>">
+				<img src="<?php echo $carousel_image_1["url"] ?>" alt="<?php echo $carousel_image_1["title"]; ?>" loading="lazy">
 			</a>
 		</div>
 
 		<div class="swiper-slide" style="background-image: url();">
 			<a class="swiper-slide__link" href="<?php echo $carousel_image_2_link ?>">
-				<img src="<?php echo $carousel_image_2["url"] ?>" alt="<?php echo $carousel_image_2["title"]; ?>">
+				<img src="<?php echo $carousel_image_2["url"] ?>" alt="<?php echo $carousel_image_2["title"]; ?>" loading="lazy">
 			</a>
 		</div>
 
 		<div class="swiper-slide" style="background-image: url();">
 			<a class="swiper-slide__link" href="<?php echo $carousel_image_3_link ?>">
-				<img src="<?php echo $carousel_image_3["url"] ?>" alt="<?php echo $carousel_image_3["title"]; ?>">
+				<img src="<?php echo $carousel_image_3["url"] ?>" alt="<?php echo $carousel_image_3["title"]; ?>" loading="lazy">
 			</a>
 		</div>
 
 		<div class="swiper-slide" style="background-image: url();">
 			<a class="swiper-slide__link" href="<?php echo $carousel_image_4_link ?>">
-				<img src="<?php echo $carousel_image_4["url"] ?>" alt="<?php echo $carousel_image_4["title"]; ?>">
+				<img src="<?php echo $carousel_image_4["url"] ?>" alt="<?php echo $carousel_image_4["title"]; ?>" loading="lazy">
 			</a>
 		</div>
 
 		<div class="swiper-slide" style="background-image: url();">
 			<a class="swiper-slide__link" href="<?php echo $carousel_image_5_link ?>">
-				<img src="<?php echo $carousel_image_5["url"] ?>" alt="<?php echo $carousel_image_5["title"]; ?>">
+				<img src="<?php echo $carousel_image_5["url"] ?>" alt="<?php echo $carousel_image_5["title"]; ?>" loading="lazy">
 			</a>
 		</div>
 

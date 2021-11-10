@@ -9,7 +9,8 @@
 global $post;
 
 get_header();
-$h1 = get_field('h1');
+$h1_part_1 = get_field('h1_part_1');
+$h1_part_2 = get_field('h1_part_2');
 ?>
 
 	<div class="home-top-mobile">
@@ -34,7 +35,11 @@ $h1 = get_field('h1');
 
 	<div class="home-main">
 
-		<h1 class="home-main__h1"><?php echo $h1 ?></h1>
+		<h1 class="home-main__h1">
+			<?php echo '<a href="'.get_home_url().'">'.get_bloginfo( 'name' ).'</a> ' . $h1_part_1 ?>
+			<br />
+			<?php echo $h1_part_2 ?>
+		</h1>
 
 		<div class="home-main__top-wrapper">
 

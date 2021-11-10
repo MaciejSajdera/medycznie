@@ -1,6 +1,6 @@
 
 <section class="categories-showcase">
-    <h3 class="section-header">Sprawdź naszą ofertę</h3>
+    <h2 class="section-header">Sprawdź naszą ofertę</h2>
 
     <div class="categories-showcase__wrapper">
 

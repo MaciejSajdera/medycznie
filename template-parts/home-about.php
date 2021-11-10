@@ -6,26 +6,29 @@
  *
  * @package medycznie
  */
-$about = get_field("about");
+$abouts = get_field("abouts");
 
-$about_title = $about['title'];
-$about_image = $about['image'];
+foreach($abouts as $about) {
+	
+	?>
+
+		<section class="home-about reveal-from__trigger">
+
+			<div class="content reveal-from__element reveal-from--bottom">
+
+				<div class="title"><?php echo $about['title']?></div>
+
+				<div class="text"><?php echo $about['description'] ?></div>
+
+			</div>
+
+			<div class="image-holder reveal-from__element reveal-from--bottom">
+				<img class="my-lazy-img" src="<?php echo $about['image']['url'] ?>" data-srcset="<?php echo $about['image']['url'] ?>" alt="<?php echo $about['image']['alt'] ?>" loading="lazy">
+			</div>
+
+		</section>
+
+	<?php
+}
 
 
-?>
-
-<section class="home-about reveal-from__trigger">
-
-	<div class="content reveal-from__element reveal-from--bottom">
-
-		<h2><?php echo $about_title ?></h2>
-
-		<div><?php the_content(); ?></div>
-
-	</div>
-
-	<div class="image-holder reveal-from__element reveal-from--bottom">
-		<img class="my-lazy-img" src="<?php echo $about_image['url'] ?>" data-srcset="<?php echo $about_image['url'] ?>" alt="<?php echo $about_image['alt'] ?>">
-	</div>
-
-</section>

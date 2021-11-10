@@ -1,19 +1,42 @@
-
 .home-main__top-wrapper {
 	margin-top: 4rem;
 }
 
 .home {
 	section {
-		margin-bottom: 8rem;
+		margin-bottom: 6rem;
+		padding-bottom: 6rem;
+		border-bottom: 1px solid $color__border--dark-grey;
 
 		&:last-of-type {
 			margin-bottom: 0rem;
+			border-bottom: 0;
 		}
 	}
 
 	.home-main__top-wrapper {
-		margin-top: 0
+		margin-top: 0;
+	}
+
+	h2 {
+		margin: 0 auto 5rem;
+		@include fluid-type($min_width, $max_width, 20px, 24px);
+	}
+
+	.section-header {
+		position: relative;
+		width: fit-content;
+
+		&:after {
+			content: "";
+			position: absolute;
+			width: 50%;
+			background: $color__background-main-theme;
+			height: 0.15em;
+			bottom: -8px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 	}
 }
 
@@ -23,13 +46,14 @@
 	&__h1 {
 		@include fluid-type($min_width, $max_width, 14px, 22px);
 		text-align: center;
-
+		font-weight: 600;
 		margin: 2rem 0;
 
 		@media screen and (min-width: 992px) {
 			margin: 3rem 0;
-		 }
-
+			width: 75%;
+			margin-left: auto;
+		}
 	}
 
 	&__top-wrapper {
@@ -51,47 +75,82 @@
 
 	@media screen and (min-width: 992px) {
 		flex-flow: row;
-		padding-top: 4rem;
-	 }
+	}
 
-	 .image-holder {
+	.image-holder {
+		@media screen and (min-width: 992px) {
+			width: 40%;
+			order: 1;
+		}
 
-		 @media screen and (min-width: 992px) {
-			 width: 40%;
-			 order: 1;
-		  }
-	 }
+		img {
+			border-radius: 5px;
+			box-shadow: $box-shadow_standard;
+		}
+	}
 
-	 .content {
-
+	.content {
 		margin-bottom: 3rem;
-		
+
 		@media screen and (min-width: 1400px) {
 			padding-right: 10rem;
 		}
 
 		h2 {
 			margin-top: 0;
-			text-align: center;
 			margin-bottom: 3rem;
+			text-align: center;
 
 			@media screen and (min-width: 992px) {
 				text-align: left;
-				margin-bottom: 2rem;
-			 }
+			}
+		}
+
+		ul {
+			margin-left: 0;
+			list-style: none;
+
+			li {
+				margin-bottom: 0.75em;
+				display: flex;
+			}
+
+			li::before {
+				content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+				color: $color_dark_blue; /* Change the color */
+				font-weight: bold; /* If you want it to be bold */
+				display: inline-block; /* Needed to add space between the bullet and the text */
+				width: 1em; /* Also needed for space (tweak if needed) */
+				margin-left: -1em; /* Also needed for space (tweak if needed) */
+			}
+
+			p {
+				margin: 0;
+			}
 		}
 
 		@media screen and (min-width: 992px) {
 			width: 60%;
-			padding: 1rem 3rem;
+			padding: 1rem 0 0 5rem;
 			order: 2;
 			margin-bottom: 0;
-		 }
-	 }
+		}
+	}
+
+	&:nth-of-type(even) {
+		@media screen and (min-width: 992px) {
+			flex-flow: row-reverse;
+		}
+
+		.content {
+			@media screen and (min-width: 992px) {
+				padding: 1rem 5rem 0 0;
+			}
+		}
+	}
 }
 
 .home-clients-reviews {
-
 	.single-review {
 		flex: 1 0 0;
 		display: flex;
@@ -100,7 +159,6 @@
 
 		p {
 			line-height: 1.75;
-
 		}
 
 		svg {
@@ -120,8 +178,6 @@
 				padding-bottom: 0;
 				border-bottom: none;
 			}
-		 }
-
+		}
 	}
-
 }

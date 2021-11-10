@@ -173,12 +173,12 @@ add_action( 'wp_head', 'my_custom_js', -1000 );
 
 function medycznie_scripts() {
 	
-	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '11.20');
+	wp_enqueue_style( 'medycznie-style', get_template_directory_uri() . '/dist/css/style.css', array(), '11.24');
 
-	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '11.06', true );
+	wp_enqueue_script( 'medycznie-app', get_template_directory_uri() . '/dist/js/main.js', array(), '11.24', true );
 
 	if (is_front_page()) {
-		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '11.06', true );
+		wp_enqueue_script( 'medycznie-carousel', get_template_directory_uri() . '/dist/js/carousel.js', array(), '11.24', true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -203,6 +203,23 @@ add_action( 'wp_enqueue_scripts', 'medycznie_scripts' );
 
 add_theme_support( 'menus' );
 
+function my_login_logo_one() { 
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+?> 
+<style type="text/css"> 
+body.login div#login h1 a {
+	background-image: url(<?php echo $image[0]; ?>);
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	padding-bottom: 30px; 
+} 
+</style>
+	<?php 
+}
+add_action( 'login_enqueue_scripts', 'my_login_logo_one' );
+
 
 function is_blog () {
 	global  $post;
@@ -220,20 +237,21 @@ function is_blog () {
 
 
 function wpb_add_google_fonts() {
-	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap', false );
+	wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap', false );
 	// wp_enqueue_style( 'wpb-google-fonts2', 'https://fonts.googleapis.com/css2?family=Kodchasan:wght@300;400;700&display=swap', false ); 
 }
 add_action( 'wp_enqueue_scripts', 'wpb_add_google_fonts' );
 
-// function defer_parsing_of_js( $url ) {
-//     if ( is_user_logged_in() ) return $url; //don't break WP Admin
-//     if ( FALSE === strpos( $url, '.js' ) ) return $url;
-//     if ( strpos( $url, 'jquery' ) ) return $url;
-// 	if ( strpos( $url, 'wp-includes' ) ) return $url;
-// 	if ( strpos( $url, 'woocommerce' ) ) return $url;
-//     return str_replace( ' src', ' defer src', $url );
-// }
-// add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10 );
+function defer_parsing_of_js( $url ) {
+    if ( is_user_logged_in() ) return $url; //don't break WP Admin
+    if ( FALSE === strpos( $url, '.js' ) ) return $url;
+	if (strpos( $url, 'carousel' )) {
+		return str_replace( ' src', ' defer src', $url );
+	} else {
+		return $url;
+	}
+}
+add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10 );
 
 
 /* Mobile Menu */
@@ -1164,7 +1182,7 @@ if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
 			
 			$src = str_replace( ' ', '%20', get_the_post_thumbnail_url( $post->ID, $size ) );
 			
-            $output .= '<img class="lazy my-lazy-img" src="'. content_url().'/uploads/woocommerce-placeholder-300x300.png" data-src="' . $src . '" data-srcset="' . $src . '" alt="'.get_the_title().'">';
+            $output .= '<img class="lazy my-lazy-img" src="'. content_url().'/uploads/woocommerce-placeholder-300x300.png" data-src="' . $src . '" data-srcset="' . $src . '" alt="'.get_the_title().'" loading="lazy">';
 		} elseif ($on_cart_page === true ) {
 			$src = str_replace( ' ', '%20', get_the_post_thumbnail_url( $post->ID, $size ) );
 

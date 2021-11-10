@@ -4,16 +4,16 @@
 .my-blue-bg-button,
 .woocommerce #review_form #respond .form-submit input,
 .order-again a {
-	background: $color_dark_blue !important;
+	background-color: $color_dark_blue !important;
+	box-shadow: $box-shadow_button--theme-color !important;
 	transition: all 0.2s ease-in !important;
-	border: 1px solid $color_dark_blue !important;
+	border: 2px solid $color_dark_blue !important;
 	color: $color_white_text !important;
 	cursor: pointer !important;
 	font-family: $font_headers;
 
 	&:hover {
 		background-color: transparent !important;
-		border: 1px solid $color_dark_blue !important;
 		color: $color_dark_blue !important;
 	}
 }
@@ -68,8 +68,8 @@
 .outofstock .button {
 	color: $color_white_text !important;
 	background-color: $color_dark_blue !important;
-
-	border: 1px solid $color_dark_blue !important;
+	box-shadow: $box-shadow_button--theme-color !important;
+	border: 2px solid $color_dark_blue !important;
 	transition: all 0.2s ease-in;
 	cursor: pointer;
 	display: inline-block !important;
@@ -92,6 +92,7 @@
 .read-more:visited {
 	background-color: $color_dark_blue !important;
 	// width: fit-content !important;
+	box-shadow: $box-shadow_button--theme-color !important;
 	color: $color_white_text !important;
 	padding: 0.5em 2em !important;
 	font-weight: 600 !important;
@@ -110,6 +111,7 @@
 
 .advantages__read-more {
 	background-color: $color_dark_blue;
+	box-shadow: $box-shadow_button--theme-color !important;
 	color: $color_white_text;
 	padding: 1rem 2rem;
 	font-weight: 600;
@@ -225,6 +227,7 @@
 .my-submit-button,
 .wpcf7-submit {
 	background-color: $color__background-main-theme !important;
+	box-shadow: $box-shadow_button--theme-color !important;
 	border: 0 !important;
 	border-radius: 0 !important;
 	color: $color_white_text !important;

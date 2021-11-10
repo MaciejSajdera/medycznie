@@ -13,7 +13,7 @@
 
 	<div class="reveal-from__element reveal-from--bottom">
 
-		<p class="section-header">Nasi dostawcy</p>
+		<h2 class="section-header">Nasi dostawcy</h2>
 
 		<div class="swiper-container-brands">
 			<!-- Additional required wrapper -->

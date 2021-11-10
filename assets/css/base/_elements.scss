@@ -36,7 +36,8 @@ svg {
 .site-content,
 .main-navigation,
 .mobile-menu__top,
-.desktop-menu, footer#colophon {
+.desktop-menu,
+footer#colophon {
 	// height: 100%;
 	// margin-bottom: 20em;
 	// margin-top: 14em;
@@ -436,7 +437,6 @@ div.woof_info_popup {
 // 	}
 // }
 
-
 .text {
 	&--justify {
 		text-align: justify;
@@ -447,16 +447,14 @@ div.woof_info_popup {
 	}
 
 	&--outline {
-	color: transparent !important;
-	-webkit-text-stroke: 1px $color_dark_blue;
-
-	@media screen and (min-width: 992px) {
+		color: transparent !important;
 		-webkit-text-stroke: 1px $color_dark_blue;
-	}
 
+		@media screen and (min-width: 992px) {
+			-webkit-text-stroke: 1px $color_dark_blue;
+		}
 	}
 }
-
 
 .count {
 	background-color: transparent;
@@ -573,6 +571,7 @@ div.woof_info_popup {
 
 	&__svg-wrapper {
 		background-color: $color__background-main-theme;
+		box-shadow: $box-shadow_button--theme-color !important;
 		border: none;
 		border-radius: 50%;
 		color: white;

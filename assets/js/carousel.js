@@ -44,14 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		slidesPerView: 1,
 		// simulateTouch: false,
 		spaceBetween: 10,
-
+		watchSlidesProgress: true,
+		// Disable preloading of all images
+		preloadImages: false,
+		// Enable lazy loading
+		lazy: true,
 		breakpoints: {
-
 			992: {
 				slidesPerView: 4,
-				spaceBetween: 40,
+				spaceBetween: 15
 			}
-
 		},
 
 		pagination: {

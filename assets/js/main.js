@@ -106,14 +106,11 @@ window.addEventListener("DOMContentLoaded", event => {
 	window.addEventListener("resize", imagesLazyLoading);
 	window.addEventListener("orientationchange", imagesLazyLoading);
 
-
 	const allCategoriesDropdowns = document.querySelectorAll(
 		".woof_container_mselect"
 	);
 
 	const hideEmptyFilters = () => {
-
-
 		if (allCategoriesDropdowns && allCategoriesDropdowns.length < 1) {
 			return;
 		}
@@ -153,10 +150,9 @@ window.addEventListener("DOMContentLoaded", event => {
 	const selectProductsPerPage = document.querySelector("#products-per-page");
 
 	const handleSelectProductsPerPage = () => {
-
-			selectProductsPerPage.addEventListener("change", e => {
-				e.target.closest("FORM").submit();
-			});
+		selectProductsPerPage.addEventListener("change", e => {
+			e.target.closest("FORM").submit();
+		});
 	};
 
 	selectProductsPerPage && handleSelectProductsPerPage();
@@ -237,7 +233,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
 				submenu.classList.add("sub-menu--expanded");
 
-				console.log(wooMenu.getBoundingClientRect().height);
+				// console.log(wooMenu.getBoundingClientRect().height);
 				submenu.style.minHeight = `${wooMenu.getBoundingClientRect().height}`;
 
 				//delay
@@ -257,7 +253,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
 				setTimeout(() => {
 					e.target.remove();
-				}, 500);
+				}, 100);
 
 				backButtonAppended = false;
 			}
@@ -354,7 +350,6 @@ window.addEventListener("DOMContentLoaded", event => {
 				submenu.setAttribute("data-collapsed", "true");
 			}
 		});
-
 
 		nav.addEventListener("click", function(e) {
 			// console.log(e.target);
@@ -651,7 +646,6 @@ window.addEventListener("DOMContentLoaded", event => {
 			switchSignIn.classList.add("switch-active");
 		});
 	}
-
 
 	const toggleFilters = document.querySelector("#toggle-filters");
 

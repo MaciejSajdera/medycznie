@@ -3,7 +3,7 @@
 
     <div class="reveal-from__element reveal-from--bottom">
 
-        <p class="section-header">Najnowsze opinie</p>
+        <h2 class="section-header">Najnowsze opinie</h2>
         
 		<div class="flex-wrapper-mrow-dcol space-between col-gap--8">
             
