@@ -82,12 +82,12 @@ $nip = get_field("nip", get_page_by_title( 'O nas' ));
 
 			</section>
 
-			<section class="contact-form-section">
+			<!-- <section class="contact-form-section">
 				<div class="contact-form">
 
 					<div class="common-template__header">
 						<h4 class="text--center">Masz pytanie?</h4>
-					</div><!-- .entry-header -->
+					</div>
 
 					<div class="wrapper-flex-column">
 							<?php
@@ -98,7 +98,7 @@ $nip = get_field("nip", get_page_by_title( 'O nas' ));
 					</div>
 
 				</div> 
-			</section>
+			</section> -->
 
 
 		</main><!-- #main -->

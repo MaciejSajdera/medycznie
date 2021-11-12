@@ -41,7 +41,6 @@
 }
 
 body #page .products {
-
 	li.product {
 		list-style: none;
 		text-align: center;
@@ -1576,13 +1575,13 @@ body.woocommerce-cart {
 				width: 100%;
 			}
 
-			.cart_item {
-				height: 4em;
+			// .cart_item {
+			// 	height: 4em;
 
-				@media screen and (max-width: 768px) {
-					display: table-row;
-				}
-			}
+			// 	@media screen and (max-width: 768px) {
+			// 		display: table-row;
+			// 	}
+			// }
 
 			.product-thumbnail {
 				min-width: 90px;

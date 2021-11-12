@@ -11,11 +11,12 @@
 
 <section class="no-results not-found">
 	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'medycznie' ); ?></h1>
+		<h1 class="page-title text--center" style="padding-top: 4rem;"><?php esc_html_e( 'Brak opublikowanych postów', 'medycznie' ); ?></h1>
 	</header><!-- .page-header -->
 
 	<div class="page-content">
-		<?php
+
+		<!-- <?php
 		if ( is_home() && current_user_can( 'publish_posts' ) ) :
 
 			printf(
@@ -46,6 +47,7 @@
 			get_search_form();
 
 		endif;
-		?>
-	</div><!-- .page-content -->
+		?> -->
+	</div>
+	<!-- .page-content -->
 </section><!-- .no-results -->

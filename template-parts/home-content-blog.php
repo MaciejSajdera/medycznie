@@ -1,3 +1,11 @@
+<?php
+$your_query = new WP_Query( array('pagename=blog', 'posts_per_page' => 3 ) );
+
+$number_of_posts = count($your_query->posts);
+
+if ($number_of_posts > 0) {
+?>
+
 <section class="blog-posts reveal-from__trigger">
 
 	<div class="reveal-from__element reveal-from--bottom">
@@ -12,7 +20,7 @@
 					<?php
 						// query for the BLOG page
 						// displays only 4 most recent posts
-						$your_query = new WP_Query( array('pagename=blog', 'posts_per_page' => 3 ) );
+
 						// "loop" through query (even though it's just one page) 
 						while ( $your_query->have_posts() ) :
 							$your_query->post_title(); $your_query->the_post();
@@ -42,4 +50,13 @@
 
 	</div>
 </section>
+
+<?php
+}
+
+
+
+
+
+
 	

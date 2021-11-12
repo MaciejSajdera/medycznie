@@ -34,7 +34,6 @@ svg {
 }
 
 .site-content,
-.main-navigation,
 .mobile-menu__top,
 .desktop-menu,
 footer#colophon {
@@ -44,6 +43,28 @@ footer#colophon {
 	z-index: 1;
 
 	@media screen and (max-width: 1199px) {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+
+	@media screen and (min-width: 1200px) {
+		padding-left: 7.5%;
+		padding-right: 7.5%;
+	}
+
+	@media screen and (min-width: 1600px) {
+		padding-left: 12.5%;
+		padding-right: 12.5%;
+	}
+}
+
+.main-navigation {
+	z-index: 1;
+
+	padding-left: 0;
+	padding-right: 0;
+
+	@media screen and (min-width: 992px) {
 		padding-left: 5%;
 		padding-right: 5%;
 	}
