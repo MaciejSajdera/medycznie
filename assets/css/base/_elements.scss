@@ -221,6 +221,10 @@ table {
 			height: 15em;
 			width: 15em;
 		}
+
+		img {
+			object-fit: contain;
+		}
 	}
 }
 
